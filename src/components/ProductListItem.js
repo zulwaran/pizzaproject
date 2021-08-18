@@ -1,11 +1,13 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
+import { useSelector } from 'react-redux';
 
 const largeSize = 'calc(18px + 16*(100vw / 1680))'
 const mediumSize = 'calc(16px*(100vw / 1680))'
-const type = 'trip'
 
 const ProductListItem = ({ item }) => {
+    const type = useSelector(state => state.menu.activeType);
+
     if (item.type === type) {
         return (
             <View style={styles.card}>

@@ -13,7 +13,7 @@ const DATA = [
   },
   {
     id: '2',
-    type: 'pizza',
+    type: 'pasta',
     title: 'Чиииз',
     decription: 'Четыре сыра: «Моцарелла», «Пармезан», «Гауда», «Дор-блю» на пицца-соусе, базилик',
     link: 'https://makelovepizza.ru/img/x/s_9ULYlWy0lcxC.png',
@@ -37,7 +37,7 @@ const DATA = [
   },
   {
     id: '5',
-    type: 'trip',
+    type: 'monster',
     title: 'Альмодовар',
     decription: 'Ароматная испанская колбаска чоризо с маринованными оливками, свежими томатами, сыром моццарелла. Неповторимая классика со жгучим испанским характером!',
     link: 'https://makelovepizza.ru/img/x/s_eWOxhSnZJSnY.png',
@@ -45,7 +45,7 @@ const DATA = [
   },
   {
     id: '6',
-    type: 'trip',
+    type: 'monster',
     title: 'Данелия',
     decription: 'Томлёный говяжий фарш, свежий гранат, помидоры и красный лук с сырами моцарелла и чеддер, с кинзой, петрушкой и томатно-аджичным соусом. Когда мы придумали эту пиццу у нас родился отличный тост, правда он не вместился в описание;)',
     link: 'https://makelovepizza.ru/img/x/s_bsPvi0WlhIXO.png',
