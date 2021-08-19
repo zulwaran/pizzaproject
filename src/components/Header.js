@@ -1,5 +1,7 @@
 import React from 'react';
 import { StyleSheet, Image, View } from 'react-native';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 
 const Header = () => {
     return (
@@ -34,16 +36,22 @@ const styles = StyleSheet.create({
     },
     img1: {
         height: '60px',
-        maxWidth: '90px',
         width: '20vw',
+        maxWidth: '90px',
         resizeMode: 'contain',
     },
     img2: {
-        height: '60px',
-        maxWidth: '400px',
+        /* height: '60px', */
         width: '80vw',
+        maxWidth: '400px',
         resizeMode: 'contain',
     },
+    cart: {
+        marginVertical: 5,
+        height: '80%',
+        width: '80%',
+        opacity: 1
+    }
 });
 
 export default Header
