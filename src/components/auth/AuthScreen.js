@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import firebase from 'firebase'
-import { StyleSheet, View, Button, TextInput } from 'react-native'
+import { firebase } from '../../../firebase'
+import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native'
 
 const AuthScreen = ({ navigation }) => {
     const [email, setEmail] = useState('')
@@ -18,13 +18,22 @@ const AuthScreen = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <TextInput
-                placeholder="email"
+                style={styles.input}
+                placeholder="Электронная почта"
                 onChangeText={(email) => setEmail(email)} />
             <TextInput
-                placeholder="password"
+                style={styles.input}
+                placeholder="Пароль"
+                secureTextEntry="true"
                 onChangeText={(password) => setPassword(password)} />
-            <Button title="Register" onPress={() => navigation.navigate("RegisterScreen")} />
-            <Button title="Login" onPress={() => signUp()} />
+            <TouchableOpacity style={styles.button} onPress={() => signUp()}>
+                <Text>Вход</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Регистрация")}>
+                <Text>
+                    Регистрация
+                </Text>
+            </TouchableOpacity>
         </View>
     )
 }
@@ -34,6 +43,17 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
     },
+    input: {
+        padding: 10,
+        backgroundColor: "#fff",
+        marginBottom: 5,
+    },
+    button: {
+        marginTop: 5,
+        alignItems: "center",
+        backgroundColor: "#DDDDDD",
+        padding: 10
+    }
 });
 
 export default AuthScreen

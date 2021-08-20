@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import firebase from 'firebase'
-import { StyleSheet, View, Button, TextInput } from 'react-native'
+import { firebase, db } from '../../../firebase'
+import { StyleSheet, View, Button, TextInput, Text, TouchableOpacity } from 'react-native'
 
 const RegisterScreen = ({ }) => {
 
@@ -11,7 +11,10 @@ const RegisterScreen = ({ }) => {
     const signUp = () => {
         firebase.auth().createUserWithEmailAndPassword(email, password)
             .then((result) => {
-                console.log(result)
+                db.collection("users").doc(result.user.uid).set({
+                    name: name,
+                    email: email
+                })
             })
             .catch((error) => {
                 console.log(error)
@@ -20,22 +23,41 @@ const RegisterScreen = ({ }) => {
     return (
         <View >
             <TextInput
-                placeholder="name"
+                style={styles.input}
+                placeholder="Имя"
                 onChangeText={(name) => setName(name)} />
             <TextInput
-                placeholder="email"
+                style={styles.input}
+                placeholder="Электронная почта"
                 onChangeText={(email) => setEmail(email)} />
             <TextInput
-                placeholder="password"
+                style={styles.input}
+                placeholder="Пароль"
+                secureTextEntry="true"
                 onChangeText={(password) => setPassword(password)} />
-            <Button
-                title="Sign Up"
-                onPress={() => signUp()} />
+            <TouchableOpacity
+                style={styles.button}
+                onPress={() => signUp()} >
+                <Text>
+                    Зарегистрироваться
+                </Text>
+            </TouchableOpacity>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
+    input: {
+        padding: 10,
+        backgroundColor: "#fff",
+        marginBottom: 5,
+    },
+    button: {
+        marginTop: 5,
+        alignItems: "center",
+        backgroundColor: "#DDDDDD",
+        padding: 10
+    }
 });
 
 export default RegisterScreen
