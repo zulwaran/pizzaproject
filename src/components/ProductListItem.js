@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const largeSize = 'calc(18px + 16*(100vw / 1680))'
 const mediumSize = 'calc(16px*(100vw / 1680))'
 
 const ProductListItem = ({ item }) => {
     const type = useSelector(state => state.menu.activeType);
+    const [active, setActive] = useState("")
 
-    if (item.type === type) {
+    const dispatch = useDispatch();
+    const addItemToCart = (item) => {
+        dispatch({ type: "ADD_TO_CART", payload: item })
+    }
+
+    if (item.type === type && active === "") {
         return (
             <View style={styles.card}>
                 <View style={styles.card__halfBlock}>
@@ -32,13 +38,48 @@ const ProductListItem = ({ item }) => {
                         <Text style={styles.card__price}>от <Text style={styles.card__title}>{item.minPrice}
                         </Text> ₽
                         </Text>
-                        <TouchableOpacity style={styles.card__button}>
+                        <TouchableOpacity
+                            style={styles.card__button}
+                            onPress={() => setActive("selected")}>
                             <Text style={styles.card__buttonText}>Выбрать</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
             </View >
         );
+    } else if (item.type === type && active === "selected") {
+        return (
+            <View style={styles.card}>
+                <View style={styles.card__halfBlock}>
+                    <Image
+                        style={styles.card__img}
+                        source={{
+                            uri: item.link,
+                        }}
+                    />
+                </View>
+                <View style={styles.card__halfBlock}>
+                    <Text
+                        style={styles.card__title}>
+                        {item.title}
+                    </Text>
+                    <Text
+                        style={styles.card__decription}>
+                        {item.decription}
+                    </Text>
+                    <View style={styles.card__order}>
+                        <Text style={styles.card__price}>от <Text style={styles.card__title}>{item.minPrice}
+                        </Text> ₽
+                        </Text>
+                        <TouchableOpacity
+                            style={styles.card__button}
+                            onPress={() => { addItemToCart({ item }) }}>
+                            <Text style={styles.card__buttonText}>Заказать</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </View >
+        )
     } else {
         return (null)
     }

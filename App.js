@@ -20,9 +20,7 @@ const store = createStore(rootReducer, applyMiddleware(thunk))
 import AuthScreen from './src/components/auth/AuthScreen';
 import RegisterScreen from './src/components/auth/RegisterScreen';
 import Main from './src/components/Main';
-import ProductList from './src/components/ProductList';
 import Header from './src/components/Header';
-import SliderMenu from './src/components/SliderMenu';
 
 
 const App = () => {
@@ -66,6 +64,7 @@ const App = () => {
   } else {
     return (
       <Provider store={store}>
+        <Header />
         <NavigationContainer>
           <Stack.Navigator initialRouteName="Main">
             <Stack.Screen

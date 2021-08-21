@@ -9,7 +9,6 @@ const SliderMenuItem = ({ item }) => {
 
     const dispatch = useDispatch();
     const activeType = useSelector(state => state.menu.activeType);
-
     const toggleItem = (item) => {
         dispatch({ type: "TOGGLE_MENU", payload: item.item.type })
     }

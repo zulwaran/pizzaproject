@@ -1,18 +1,16 @@
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import { ScrollView, StyleSheet } from 'react-native'
 
-import Header from '../Header'
 import SliderMenu from '../SliderMenu'
 import ProductList from '../ProductList'
 
 
 const MenuScreen = () => {
     return (
-        <View style={styles.container}>
-            <Header />
+        <ScrollView>
             <SliderMenu />
             <ProductList />
-        </View>
+        </ScrollView>
     )
 }
 
