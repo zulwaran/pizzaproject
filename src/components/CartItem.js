@@ -1,33 +1,44 @@
-import React from 'react';
-import { StyleSheet, View, Text, Image } from 'react-native';
+import React, { useEffect } from 'react';
+import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
+import AntDesign from 'react-native-vector-icons/AntDesign'
+import { useDispatch } from 'react-redux';
 
 const largeSize = 'calc(18px + 16*(100vw / 1680))'
 const mediumSize = 'calc(16px*(100vw / 1680))'
 
-const test = ({ item }) => {
+
+
+const CartItem = ({ item }) => {
+    const dispatch = useDispatch();
+    const DeleteItemFromCart = (item) => {
+        dispatch({ type: "DELETE_FROM_CART", payload: item })
+    }
     return (
         <View style={styles.card}>
             <View style={styles.card__halfBlock}>
                 <Image
                     style={styles.card__img}
                     source={{
-                        uri: item.item.link,
+                        uri: item.link,
                     }}
                 />
             </View>
             <View style={styles.card__halfBlock}>
+                <TouchableOpacity onPress={() => { DeleteItemFromCart({ item }) }}>
+                    <AntDesign
+                        name="closecircleo"
+                        size={26} />
+                </TouchableOpacity>
                 <Text
                     style={styles.card__title}>
-                    {item.item.title}
+                    {item.title}
                 </Text>
                 <Text
                     style={styles.card__decription}>
-                    {item.item.decription}
+                    {item.decription}
                 </Text>
-                <View style={styles.card__order}>
-                    <Text style={styles.card__price}>от <Text style={styles.card__title}>{item.item.minPrice}
-                    </Text> ₽
-                    </Text>
+                <View>
+                    <Text>{item.price} ₽</Text>
                 </View>
             </View>
         </View >
@@ -85,4 +96,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default test
+export default CartItem

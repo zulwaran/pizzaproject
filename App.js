@@ -21,6 +21,7 @@ import AuthScreen from './src/components/auth/AuthScreen';
 import RegisterScreen from './src/components/auth/RegisterScreen';
 import Main from './src/components/Main';
 import Header from './src/components/Header';
+import OrderConfirm from './src/components/OrderConfirm';
 
 
 const App = () => {
@@ -64,13 +65,16 @@ const App = () => {
   } else {
     return (
       <Provider store={store}>
-        <Header />
+        {/* <Header /> */}
         <NavigationContainer>
           <Stack.Navigator initialRouteName="Main">
             <Stack.Screen
               name="Main"
               component={Main}
               options={{ headerShown: false }} />
+            <Stack.Screen
+              name="OrderConfirm"
+              component={OrderConfirm} />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>

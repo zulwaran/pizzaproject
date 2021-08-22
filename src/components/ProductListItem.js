@@ -11,7 +11,14 @@ const ProductListItem = ({ item }) => {
 
     const dispatch = useDispatch();
     const addItemToCart = (item) => {
-        dispatch({ type: "ADD_TO_CART", payload: item })
+        const newItem = {
+            id: Math.floor(Math.random() * 10000),
+            title: item.item.title,
+            decription: item.item.decription,
+            link: item.item.link,
+            price: item.item.minPrice
+        }
+        dispatch({ type: "ADD_TO_CART", payload: newItem })
     }
 
     if (item.type === type && active === "") {
@@ -71,6 +78,18 @@ const ProductListItem = ({ item }) => {
                         <Text style={styles.card__price}>от <Text style={styles.card__title}>{item.minPrice}
                         </Text> ₽
                         </Text>
+                        <TouchableOpacity
+                            style={styles.card__button}>
+                            <Text style={styles.card__buttonText}>25см</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.card__button}>
+                            <Text style={styles.card__buttonText}>30см</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.card__button}>
+                            <Text style={styles.card__buttonText}>35см</Text>
+                        </TouchableOpacity>
                         <TouchableOpacity
                             style={styles.card__button}
                             onPress={() => { addItemToCart({ item }) }}>
