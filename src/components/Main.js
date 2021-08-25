@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet } from 'react-native';
-import { useSelector } from 'react-redux';
+import { firebase, db } from '../../firebase';
+import { useDispatch, useSelector } from 'react-redux';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 
@@ -12,6 +13,13 @@ import CartScreen from './main/CartScreen';
 const Tab = createBottomTabNavigator();
 
 const Main = () => {
+    const dispatch = useDispatch();
+    firebase.auth().onAuthStateChanged(async (user) => {
+        const userRef = db.collection('users').doc(user.uid);
+        const doc = await userRef.get();
+        dispatch({ type: "GET_USER_INFO", payload: doc.data() })
+    })
+
     let itemsInCart = useSelector(state => state.cart.itemsInCart);
     if (itemsInCart === 0) {
         itemsInCart = null
