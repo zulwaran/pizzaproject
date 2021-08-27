@@ -6,31 +6,35 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 
 
-import ProfileScreen from './main/ProfileScreen';
-import MenuScreen from './main/MenuScreen'
-import CartScreen from './main/CartScreen';
+import OrderListScreen from './main/ordersList/OrderListScreen';
+import MenuScreen from './main/menu/MenuScreen'
+import CartScreen from './main/cart/CartScreen';
 
 const Tab = createBottomTabNavigator();
 
 const Main = () => {
     const dispatch = useDispatch();
-    firebase.auth().onAuthStateChanged(async (user) => {
-        const userRef = db.collection('users').doc(user.uid);
+
+    const fetchUserInfo = async () => {
+        const currentUser = firebase.auth().currentUser
+        const userRef = db.collection('users').doc(currentUser.uid);
         const doc = await userRef.get();
         dispatch({ type: "GET_USER_INFO", payload: doc.data() })
+    }
+
+    useEffect(() => {
+        fetchUserInfo()
     })
 
+
     let itemsInCart = useSelector(state => state.cart.itemsInCart);
-    if (itemsInCart === 0) {
-        itemsInCart = null
-    }
     return (
         <Tab.Navigator initialRouteName="MenuScreen">
             <Tab.Screen
-                name="ProfileScreen"
-                component={ProfileScreen}
+                name="OrderListScreen"
+                component={OrderListScreen}
                 options={{
-                    tabBarLabel: "Профиль",
+                    tabBarLabel: "Список заказов",
                     headerShown: false,
                     tabBarIcon: ({ color, size }) => (<FontAwesome5 name="user-circle"
                         color={color}

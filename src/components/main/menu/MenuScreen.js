@@ -1,8 +1,8 @@
 import React from 'react'
 import { ScrollView, StyleSheet } from 'react-native'
 
-import SliderMenu from '../SliderMenu'
-import ProductList from '../ProductList'
+import SliderMenu from './SliderMenu'
+import ProductList from './ProductList'
 
 
 const MenuScreen = () => {

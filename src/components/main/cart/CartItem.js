@@ -1,7 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
-import AntDesign from 'react-native-vector-icons/AntDesign'
 import { useDispatch } from 'react-redux';
+
+//Icons
+import AntDesign from 'react-native-vector-icons/AntDesign'
 
 const largeSize = 'calc(18px + 16*(100vw / 1680))'
 const mediumSize = 'calc(16px*(100vw / 1680))'
@@ -26,20 +28,21 @@ const CartItem = ({ item }) => {
             <View style={styles.card__halfBlock}>
                 <TouchableOpacity onPress={() => { DeleteItemFromCart({ item }) }}>
                     <AntDesign
+                        style={[{ position: "absolute", right: 25 }]}
                         name="closecircleo"
+                        color="red"
                         size={26} />
                 </TouchableOpacity>
                 <Text
                     style={styles.card__title}>
-                    {item.title}
+                    {item.title} {item.size}см
                 </Text>
-                <Text
-                    style={styles.card__decription}>
+                <Text>
                     {item.decription}
                 </Text>
-                <View>
-                    <Text>{item.price} ₽</Text>
-                </View>
+                <Text style={styles.card__title}>
+                    {item.price} ₽
+                </Text>
             </View>
         </View >
     );
@@ -47,10 +50,10 @@ const CartItem = ({ item }) => {
 
 const styles = StyleSheet.create({
     card: {
+        backgroundColor: "#fff",
         marginTop: '20px',
         flexDirection: 'row',
         marginBottom: '20px',
-        marginHorizontal: '20px',
         height: 300,
         borderBottomColor: 'rgba(157, 141, 143, 0.15)',
         borderBottomWidth: 2,

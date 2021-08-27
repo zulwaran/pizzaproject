@@ -21,7 +21,7 @@ import AuthScreen from './src/components/auth/AuthScreen';
 import RegisterScreen from './src/components/auth/RegisterScreen';
 import Main from './src/components/Main';
 import Header from './src/components/Header';
-import OrderConfirm from './src/components/OrderConfirm';
+import OrderConfirm from './src/components/main/cart/OrderConfirm';
 
 
 const App = () => {

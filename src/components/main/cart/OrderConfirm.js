@@ -1,11 +1,17 @@
-import React, { useEffect } from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, ScrollView, TextInput, Text, View, TouchableOpacity, FlatList } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
-import { db } from '../../firebase'
+
+//Firebase DB
+import { db, firebase } from '../../../../firebase'
+
+//Icons
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+
+//Components
 import CartItem from './CartItem'
-import RadioButton from './RadioButton'
+import RadioButton from '../../RadioButton'
 
 
 const largeSize = 'calc(18px + 16*(100vw / 1680))'
@@ -14,27 +20,52 @@ const OrderConfirm = () => {
     const totalOrderSum = useSelector(state => state.cart.totalOrderSum);
     const DATA = useSelector(state => state.cart.userCart);
     const currentUser = useSelector(state => state.user.currentUser);
+    const paymentType = useSelector(state => state.order.paymentType)
     const type = {
         cash: "cash",
         card: "card",
-        online: "online"
     }
+    const [street, setStreet] = useState("")
+    const [home, setHome] = useState("")
+    const [apartment, setApartment] = useState("")
+    const [porch, setPorch] = useState("")
+    const [floor, setFloor] = useState("")
+    const [comment, setComment] = useState("")
 
     const createOrder = () => {
         const order = {
-            uid: 1,
+            uid: firebase.auth().currentUser.uid,
+            userName: currentUser.name,
+            userPhone: currentUser.phone,
             items: DATA.map((item) => {
                 return {
                     title: item.title,
-                    price: item.price
+                    size: item.size,
+                    price: item.price,
                 }
             }),
-            addres: "street+home+apartment+porch+floor",
-            comment: "",
-            paymentType: "card",
-            status: "waiting"
+            addres: street + "-" + home + " квартира " + apartment + " подъезд " + porch + " этаж " + floor,
+            comment: comment,
+            paymentType: paymentType,
+            orderAcceptDate: getDate(),
+            deliveryDate: getDate(),
+            status: "Оформляется"
         }
         db.collection("orders").doc().set(order)
+    }
+
+    const getDate = () => {
+        const date = new Date()
+        let day = date.getDate()
+        let month = date.getMonth()
+        let year = date.getFullYear()
+        if (day < 10) {
+            day = "0" + day
+        }
+        if (month <= 10) {
+            month = "0" + month
+        }
+        return (day + "/" + month + "/" + year)
     }
 
     const dispatch = useDispatch();
@@ -59,23 +90,43 @@ const OrderConfirm = () => {
                 <View style={styles.addressView}>
                     <Text style={styles.addressText}>
                         Улица
-                        <TextInput style={styles.addressLargeInput} />
+                        <TextInput
+                            onChange={(e) => {
+                                setStreet(e.target.value)
+                            }}
+                            style={styles.addressLargeInput} />
                     </Text>
                     <Text style={styles.addressText}>
                         Дом
-                        <TextInput style={styles.addressSmallInput} />
+                        <TextInput
+                            onChange={(e) => {
+                                setHome(e.target.value)
+                            }}
+                            style={styles.addressSmallInput} />
                     </Text>
                     <Text style={styles.addressText}>
                         Подъезд
-                        <TextInput style={styles.addressSmallInput} />
+                        <TextInput
+                            onChange={(e) => {
+                                setPorch(e.target.value)
+                            }}
+                            style={styles.addressSmallInput} />
                     </Text>
                     <Text style={styles.addressText}>
                         Этаж
-                        <TextInput style={styles.addressSmallInput} />
+                        <TextInput
+                            onChange={(e) => {
+                                setFloor(e.target.value)
+                            }}
+                            style={styles.addressSmallInput} />
                     </Text>
                     <Text style={styles.addressText}>
                         Квартира
-                        <TextInput style={styles.addressSmallInput} />
+                        <TextInput
+                            onChange={(e) => {
+                                setApartment(e.target.value)
+                            }}
+                            style={styles.addressSmallInput} />
                     </Text>
                 </View>
 
@@ -92,7 +143,7 @@ const OrderConfirm = () => {
                         <TouchableOpacity
                             style={styles.radioButton}
                             onPress={() => { togglePaymentType(type.cash) }}>
-                            <RadioButton type="cash" />
+                            <RadioButton type="now" />
                             <Text style={styles.paymentType}>
                                 Как можно скорее
                             </Text>
@@ -100,7 +151,7 @@ const OrderConfirm = () => {
                         <TouchableOpacity
                             style={styles.radioButton}
                             onPress={() => { togglePaymentType(type.card) }}>
-                            <RadioButton type="cash" />
+                            <RadioButton type="later" />
                             <Text style={styles.paymentType}>
                                 На точное время
                             </Text>
@@ -139,6 +190,9 @@ const OrderConfirm = () => {
                 <View style={styles.commentSection}>
                     <Text style={styles.confirmSubtitle}>Комментарий</Text>
                     <TextInput
+                        onChange={(e) => {
+                            setComment(e.target.value)
+                        }}
                         style={styles.commentTextArea}
                         numberOfLines={4}
                         multiline
@@ -180,17 +234,6 @@ const OrderConfirm = () => {
                             type="card" />
                         <Text style={styles.paymentType}>
                             Картой при получении
-                        </Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                        style={styles.radioButton}
-                        onPress={() => { togglePaymentType(type.online) }}
-                    >
-                        <RadioButton
-                            type="online" />
-                        <Text style={styles.paymentType}>
-                            Картой онлайн прямо сейчас!
                         </Text>
                     </TouchableOpacity>
                 </View>
@@ -314,7 +357,6 @@ const styles = StyleSheet.create({
     paymentType: {
         fontSize: 17,
         marginLeft: 8,
-        /* marginBottom: 15, */
         flex: 1,
     },
 
