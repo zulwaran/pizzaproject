@@ -36,7 +36,7 @@ const Main = () => {
                 options={{
                     tabBarLabel: "Список заказов",
                     headerShown: false,
-                    tabBarIcon: ({ color, size }) => (<FontAwesome5 name="user-circle"
+                    tabBarIcon: ({ color, size }) => (<FontAwesome5 name="list"
                         color={color}
                         size={26}
                     />)

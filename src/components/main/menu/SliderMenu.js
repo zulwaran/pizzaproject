@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, FlatList } from 'react-native';
+import { FlatList } from 'react-native';
 import SliderMenuItem from './SliderMenuItem';
 
 const DATA = [
@@ -31,22 +31,14 @@ const DATA = [
 
 const SliderMenu = () => {
     return (
-        <View>
-            <FlatList
-                style={{
-                    width: '100vw', marginTop: 65
-                }}
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                data={DATA}
-                keyExtractor={(item) => item.id.toString()}
-                renderItem={({ item }) => (<SliderMenuItem item={item} />)}
-            />
-        </View>
+        <FlatList
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            data={DATA}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({ item }) => (<SliderMenuItem item={item} />)}
+        />
     );
 }
-
-const styles = StyleSheet.create({
-});
 
 export default SliderMenu

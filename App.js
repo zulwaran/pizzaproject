@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, ActivityIndicator } from 'react-native';
+/* import { LogBox } from 'react-native';
+
+LogBox.ignoreLogs(['Setting a timer']); */
 
 //Firebase
 import { firebase } from './firebase'
@@ -22,64 +25,68 @@ import RegisterScreen from './src/components/auth/RegisterScreen';
 import Main from './src/components/Main';
 import Header from './src/components/Header';
 import OrderConfirm from './src/components/main/cart/OrderConfirm';
+import OrderListItem from './src/components/main/ordersList/OrderListItem'
+import MenuScreen from './src/components/main/menu/MenuScreen';
 
 
 const App = () => {
-  const [loaded, setLoaded] = useState(false)
-  const [loggedIn, setloggedIn] = useState(false)
-
-  useEffect(() => {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (!user) {
-        setloggedIn(false)
-        setLoaded(true)
-      } else {
-        setloggedIn(true)
-        setLoaded(true)
-      }
+    const [loaded, setLoaded] = useState(false)
+    const [loggedIn, setloggedIn] = useState(false)
+    useEffect(() => {
+      firebase.auth().onAuthStateChanged((user) => {
+        if (!user) {
+          setloggedIn(false)
+          setLoaded(true)
+        } else {
+          setloggedIn(true)
+          setLoaded(true)
+        }
+      })
     })
-  })
-
-  if (!loaded) {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center' }}>
-        <ActivityIndicator size="large" />
-      </View>
-    )
-  }
-
-  if (!loggedIn) {
-    return (
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="AuthScreen">
-          <Stack.Screen
-            name="AuthScreen"
-            component={AuthScreen}
-            options={{ headerShown: false }} />
-          <Stack.Screen
-            name="Регистрация"
-            component={RegisterScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    )
-  } else {
-    return (
-      <Provider store={store}>
-        {/* <Header /> */}
+  
+    if (!loaded) {
+      return (
+        <View style={{ flex: 1, justifyContent: 'center' }}>
+          <ActivityIndicator size="large" />
+        </View>
+      )
+    }
+  
+    if (!loggedIn) {
+      return (
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="Main">
+          <Stack.Navigator initialRouteName="AuthScreen">
             <Stack.Screen
-              name="Main"
-              component={Main}
+              name="AuthScreen"
+              component={AuthScreen}
               options={{ headerShown: false }} />
             <Stack.Screen
-              name="OrderConfirm"
-              component={OrderConfirm} />
+              name="Регистрация"
+              component={RegisterScreen} />
           </Stack.Navigator>
         </NavigationContainer>
-      </Provider>
-    );
-  }
+      )
+    } else {
+      return (
+        <Provider store={store}>
+          {/* <Header /> */}
+          <NavigationContainer>
+            <Stack.Navigator initialRouteName="Main">
+              <Stack.Screen
+                name="Main"
+                component={Main}
+                options={{ headerShown: false }} />
+              <Stack.Screen
+                name="OrderConfirm"
+                component={OrderConfirm} />
+              <Stack.Screen
+                name="OrderListItem"
+                component={OrderListItem} />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </Provider>
+      );
+    }
 }
 
 const styles = StyleSheet.create({

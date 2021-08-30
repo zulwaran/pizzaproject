@@ -5,8 +5,7 @@ import { useDispatch } from 'react-redux';
 //Icons
 import AntDesign from 'react-native-vector-icons/AntDesign'
 
-const largeSize = 'calc(18px + 16*(100vw / 1680))'
-const mediumSize = 'calc(16px*(100vw / 1680))'
+
 
 
 
@@ -51,9 +50,7 @@ const CartItem = ({ item }) => {
 const styles = StyleSheet.create({
     card: {
         backgroundColor: "#fff",
-        marginTop: '20px',
         flexDirection: 'row',
-        marginBottom: '20px',
         height: 300,
         borderBottomColor: 'rgba(157, 141, 143, 0.15)',
         borderBottomWidth: 2,
@@ -68,15 +65,15 @@ const styles = StyleSheet.create({
         resizeMode: 'contain',
     },
     card__title: {
-        fontWeight: 600,
-        fontSize: largeSize,
+        fontWeight: "600",
+        fontSize: 22,
     },
     card__decription: {
-        fontSize: mediumSize,
+        fontSize: 16,
         marginBottom: 10
     },
     card__price: {
-        fontSize: mediumSize,
+        fontSize: 16,
         marginRight: 20,
     },
     card__order: {
@@ -87,15 +84,14 @@ const styles = StyleSheet.create({
     card__button: {
         alignItems: "center",
         backgroundColor: "#fff",
-        border: "5px solid #ffc000",
+        borderWidth: 5,
+        borderColor: "#ffc000",
+        borderStyle: "solid",
         borderRadius: 30,
-        paddingVertical: '1vh',
-        paddingHorizontal: '3vw',
-        placeSelf: 'center',
     },
     card__buttonText: {
-        fontWeight: 600,
-        fontSize: mediumSize,
+        fontWeight: "600",
+        fontSize: 16,
     },
 });
 

@@ -1,25 +1,58 @@
-import React from 'react'
-import { ScrollView, StyleSheet } from 'react-native'
+import React, { useEffect } from 'react'
+import { FlatList, ScrollView } from 'react-native'
+import { db } from '../../../../firebase'
 
-import SliderMenu from './SliderMenu'
-import ProductList from './ProductList'
+//Components
+import SliderMenuItem from './SliderMenuItem'
+import ProductListItem from './ProductListItem'
+import { useDispatch, useSelector } from 'react-redux'
 
 
 const MenuScreen = () => {
+    const SLIDER_ITEM = useSelector(state => state.menu.sliderItems)
+    const PRODUCT = useSelector(state => state.menu.productList);
+    const dispatch = useDispatch();
+
+    const fetchProduct = () => {
+        db.collection('products').get().then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                dispatch({ type: "FETCH_PRODUCT_LIST", payload: doc.data() })
+            })
+        })
+    }
+
+    const fetchSlider = () => {
+        db.collection('slider').get().then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                dispatch({ type: "FETCH_SLIDER_ITEMS", payload: doc.data() })
+            })
+        })
+    }
+
+    useEffect(() => {
+        if (PRODUCT.length === 0 || SLIDER_ITEM === 0) {
+            fetchSlider()
+            fetchProduct()
+        }
+    })
+
     return (
-        <ScrollView>
-            <SliderMenu />
-            <ProductList />
+        <ScrollView style={[{ backgroundColor: "#fff", marginTop: 50, width: '100%', }]}>
+            <FlatList
+                style={[{ marginBottom: 30 }]}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                data={SLIDER_ITEM}
+                keyExtractor={(item, index) => item.id.toString()}
+                renderItem={({ item }) => (<SliderMenuItem item={item} />)}
+            />
+            <FlatList
+                data={PRODUCT}
+                keyExtractor={(item, index) => index.toString()}
+                renderItem={({ item }) => (<ProductListItem item={item} />)}
+            />
         </ScrollView>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-    },
-});
 
 export default MenuScreen

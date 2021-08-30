@@ -5,8 +5,7 @@ import { useSelector } from 'react-redux';
 //Components
 import CartItem from './CartItem';
 
-const largeSize = 'calc(18px + 16*(100vw / 1680))'
-const mediumSize = 'calc(16px*(100vw / 1680))'
+
 
 const CartScreen = ({ navigation }) => {
     const totalOrderSum = useSelector(state => state.cart.totalOrderSum);
@@ -49,16 +48,13 @@ const styles = StyleSheet.create({
         justifyContent: "center"
     },
     card__button: {
-        placeSelf: 'center',
         alignItems: "center",
         backgroundColor: "#FFC000",
         borderRadius: 30,
-        paddingVertical: '1vh',
-        paddingHorizontal: '3vw',
     },
     card__buttonText: {
-        fontWeight: 600,
-        fontSize: largeSize,
+        fontWeight: "600",
+        fontSize: 22,
     },
 });
 

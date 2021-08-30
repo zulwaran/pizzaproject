@@ -1,17 +1,24 @@
 import React from 'react'
-import { View, Text, FlatList } from 'react-native';
-import OrderListItem from './OrderListItem';
+import { Text, TouchableOpacity } from 'react-native';
 
-const OrderList = ({ item }) => {
-    console.log(item.items);
+const OrderList = ({ item, navigation }) => {
+    const goTo = () => {
+        navigation.navigate("OrderListItem", { item })
+    }
     return (
-        <View>
-            <FlatList
-                data={item.items}
-                keyExtractor={(item, index) => index.toString()}
-                renderItem={({ item }) => (<OrderListItem item={item} />)}
-            />
-        </View>
+        <TouchableOpacity
+            onPress={() => goTo()}
+            style={[{ display: "flex", flexDirection: "row", justifyContent: "space-around", alignItems: "center", height: 50, backgroundColor: "green", marginBottom: 10 }]}>
+            <Text style={[{ width: "33%", textAlign: "center" }]}>
+                {item.id}
+            </Text>
+            <Text style={[{ width: "33%", textAlign: "center" }]}>
+                {item.orderAcceptDate}
+            </Text>
+            <Text style={[{ width: "33%", textAlign: "center" }]}>
+                {item.cost}
+            </Text>
+        </TouchableOpacity>
     )
 }
 

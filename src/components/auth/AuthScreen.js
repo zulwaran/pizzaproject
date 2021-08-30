@@ -24,7 +24,7 @@ const AuthScreen = ({ navigation }) => {
             <TextInput
                 style={styles.input}
                 placeholder="Пароль"
-                secureTextEntry="true"
+                secureTextEntry={true} 
                 onChangeText={(password) => setPassword(password)} />
             <TouchableOpacity style={styles.button} onPress={() => signUp()}>
                 <Text>Вход</Text>

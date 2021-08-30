@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, Image } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 
-const largeSize = 'calc(18px + 16*(100vw / 1680))'
+
 
 const SliderMenuItem = ({ item }) => {
 
@@ -16,7 +16,12 @@ const SliderMenuItem = ({ item }) => {
     return (
         <View style={styles.item}>
             <Image
-                style={styles.item__img}
+                style={[{
+                    height: 80,
+                    width: 80,
+                    resizeMode: 'contain',
+                    marginRight: 10,
+                }]}
                 source={{
                     uri: item.link,
                 }}
@@ -43,11 +48,11 @@ const styles = StyleSheet.create({
         marginRight: 10,
     },
     item__text: {
-        fontSize: largeSize,
+        fontSize: 22,
         fontWeight: '600',
     },
     item__textActive: {
-        fontSize: largeSize,
+        fontSize: 22,
         fontWeight: '600',
         color: '#FFC000'
     }

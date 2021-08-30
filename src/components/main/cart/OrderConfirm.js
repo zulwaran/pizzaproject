@@ -11,19 +11,20 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 //Components
 import CartItem from './CartItem'
-import RadioButton from '../../RadioButton'
+import RadioButton from '../../reusable/RadioButton'
 
 
-const largeSize = 'calc(18px + 16*(100vw / 1680))'
-const mediumSize = 'calc(16px*(100vw / 1680))'
+
 const OrderConfirm = () => {
     const totalOrderSum = useSelector(state => state.cart.totalOrderSum);
     const DATA = useSelector(state => state.cart.userCart);
     const currentUser = useSelector(state => state.user.currentUser);
     const paymentType = useSelector(state => state.order.paymentType)
     const type = {
-        cash: "cash",
-        card: "card",
+        cash: "Наличными",
+        card: "Картой",
+        now: "Ближайшее",
+        later: "Позже",
     }
     const [street, setStreet] = useState("")
     const [home, setHome] = useState("")
@@ -34,6 +35,7 @@ const OrderConfirm = () => {
 
     const createOrder = () => {
         const order = {
+            id: Math.floor(Math.random() * 10000 + 1),
             uid: firebase.auth().currentUser.uid,
             userName: currentUser.name,
             userPhone: currentUser.phone,
@@ -42,11 +44,13 @@ const OrderConfirm = () => {
                     title: item.title,
                     size: item.size,
                     price: item.price,
+                    link: item.link,
                 }
             }),
-            addres: street + "-" + home + " квартира " + apartment + " подъезд " + porch + " этаж " + floor,
+            address: street + "-" + home + " квартира " + apartment + " подъезд " + porch + " этаж " + floor,
             comment: comment,
             paymentType: paymentType,
+            cost: totalOrderSum,
             orderAcceptDate: getDate(),
             deliveryDate: getDate(),
             status: "Оформляется"
@@ -69,8 +73,12 @@ const OrderConfirm = () => {
     }
 
     const dispatch = useDispatch();
+
     const togglePaymentType = (item) => {
         dispatch({ type: "TOGGLE_PAYMENT_TYPE", payload: item })
+    }
+    const toggleDeliveryType = (item) => {
+        dispatch({ type: "TOGGLE_DELIVERY_TYPE", payload: item })
     }
 
 
@@ -142,16 +150,16 @@ const OrderConfirm = () => {
                     <View style={styles.timeOfDeliveryView}>
                         <TouchableOpacity
                             style={styles.radioButton}
-                            onPress={() => { togglePaymentType(type.cash) }}>
-                            <RadioButton type="now" />
+                            onPress={() => { toggleDeliveryType(type.now) }}>
+                            <RadioButton type="now" radioType="delivery" />
                             <Text style={styles.paymentType}>
                                 Как можно скорее
                             </Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={styles.radioButton}
-                            onPress={() => { togglePaymentType(type.card) }}>
-                            <RadioButton type="later" />
+                            onPress={() => { toggleDeliveryType(type.later) }}>
+                            <RadioButton type="later" radioType="delivery" />
                             <Text style={styles.paymentType}>
                                 На точное время
                             </Text>
@@ -221,7 +229,7 @@ const OrderConfirm = () => {
                     <TouchableOpacity
                         style={styles.radioButton}
                         onPress={() => { togglePaymentType(type.cash) }}>
-                        <RadioButton type="cash" />
+                        <RadioButton type="cash" radioType="payment" />
                         <Text style={styles.paymentType}>
                             Наличными
                         </Text>
@@ -231,7 +239,7 @@ const OrderConfirm = () => {
                         style={styles.radioButton}
                         onPress={() => { togglePaymentType(type.card) }}>
                         <RadioButton
-                            type="card" />
+                            type="card" radioType="payment" />
                         <Text style={styles.paymentType}>
                             Картой при получении
                         </Text>
@@ -259,12 +267,11 @@ const styles = StyleSheet.create({
         marginVertical: 20,
         alignSelf: "center",
         fontSize: 28,
-        fontWeight: 400,
+        fontWeight: "400",
     },
     confirmSubtitle: {
         marginBottom: 20,
-        fontFamily: "'PT Sans',sans-serif",
-        fontSize: "28px",
+        fontSize: 28,
         textAlign: "center",
         alignSelf: "center",
     },
@@ -281,15 +288,16 @@ const styles = StyleSheet.create({
     },
     addressText: {
         paddingLeft: 20,
-        fontFamily: "'PT Sans',sans-serif",
-        fontSize: "16px",
+        fontSize: 16,
     },
     addressLargeInput: {
         padding: 10,
         backgroundColor: "#fff",
         marginBottom: 20,
         marginLeft: 5,
-        border: "1px solid #ddd",
+        borderWidth: 1,
+        borderColor: "#ddd",
+        borderStyle: "solid",
         borderRadius: 5,
     },
     addressSmallInput: {
@@ -298,7 +306,9 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff",
         marginBottom: 20,
         marginLeft: 5,
-        border: "1px solid #ddd",
+        borderWidth: 1,
+        borderColor: "#ddd",
+        borderStyle: "solid",
         borderRadius: 5,
     },
 
@@ -331,7 +341,9 @@ const styles = StyleSheet.create({
         justifyContent: "flex-end",
     },
     userInfoInput: {
-        border: "1px solid #ddd",
+        borderWidth: 1,
+        borderColor: "#ddd",
+        borderStyle: "solid",
         borderRadius: 5,
         padding: 10,
         backgroundColor: "#fff",
@@ -344,13 +356,14 @@ const styles = StyleSheet.create({
     commentTextArea: {
         padding: 10,
         backgroundColor: "#fff",
-        border: "1px solid #ddd",
+        borderWidth: 1,
+        borderColor: "#ddd",
+        borderStyle: "solid",
         borderRadius: 5,
     },
 
     price: {
-        fontFamily: "'PT Sans',sans-serif",
-        fontSize: "32px",
+        fontSize: 32,
         textAlign: "left",
     },
 
@@ -370,7 +383,7 @@ const styles = StyleSheet.create({
         paddingVertical: 25,
     },
     card__buttonText: {
-        fontWeight: 400,
+        fontWeight: "400",
         fontSize: 28,
         textAlign: "center",
     },

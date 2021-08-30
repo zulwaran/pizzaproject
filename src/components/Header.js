@@ -23,11 +23,9 @@ const Header = () => {
 const styles = StyleSheet.create({
     header: {
         backgroundColor: '#ffc000',
-        width: '100vw',
         height: '65px',
         flexDirection: 'row',
         justifyContent: 'flex-start',
-        position: 'fixed',
         left: 0,
         top: 0,
         zIndex: 1,
