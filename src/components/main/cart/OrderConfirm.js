@@ -42,7 +42,6 @@ const OrderConfirm = () => {
             items: DATA.map((item) => {
                 return {
                     title: item.title,
-                    size: item.size,
                     price: item.price,
                     link: item.link,
                 }
@@ -56,6 +55,7 @@ const OrderConfirm = () => {
             status: "Оформляется"
         }
         db.collection("orders").doc().set(order)
+        clearCart()
     }
 
     const getDate = () => {
@@ -79,6 +79,9 @@ const OrderConfirm = () => {
     }
     const toggleDeliveryType = (item) => {
         dispatch({ type: "TOGGLE_DELIVERY_TYPE", payload: item })
+    }
+    const clearCart = () => {
+        dispatch({ type: "CLEAR_CART" })
     }
 
 
@@ -151,7 +154,7 @@ const OrderConfirm = () => {
                         <TouchableOpacity
                             style={styles.radioButton}
                             onPress={() => { toggleDeliveryType(type.now) }}>
-                            <RadioButton type="now" radioType="delivery" />
+                            <RadioButton type="Ближайшее" radioType="delivery" />
                             <Text style={styles.paymentType}>
                                 Как можно скорее
                             </Text>
@@ -159,7 +162,7 @@ const OrderConfirm = () => {
                         <TouchableOpacity
                             style={styles.radioButton}
                             onPress={() => { toggleDeliveryType(type.later) }}>
-                            <RadioButton type="later" radioType="delivery" />
+                            <RadioButton type="Позже" radioType="delivery" />
                             <Text style={styles.paymentType}>
                                 На точное время
                             </Text>
@@ -229,7 +232,7 @@ const OrderConfirm = () => {
                     <TouchableOpacity
                         style={styles.radioButton}
                         onPress={() => { togglePaymentType(type.cash) }}>
-                        <RadioButton type="cash" radioType="payment" />
+                        <RadioButton type="Наличными" radioType="payment" />
                         <Text style={styles.paymentType}>
                             Наличными
                         </Text>
@@ -239,7 +242,7 @@ const OrderConfirm = () => {
                         style={styles.radioButton}
                         onPress={() => { togglePaymentType(type.card) }}>
                         <RadioButton
-                            type="card" radioType="payment" />
+                            type="Картой" radioType="payment" />
                         <Text style={styles.paymentType}>
                             Картой при получении
                         </Text>

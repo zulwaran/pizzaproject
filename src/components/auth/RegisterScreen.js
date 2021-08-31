@@ -7,13 +7,19 @@ const RegisterScreen = ({ }) => {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [phone, setPhone] = useState('')
 
     const signUp = () => {
-        firebase.auth().createUserWithEmailAndPassword(email, password)
+        firebase.auth().createUserWithEmailAndPassword(email, password, phone)
             .then((result) => {
                 db.collection("users").doc(result.user.uid).set({
                     name: name,
-                    email: email
+                    email: email,
+                    phone: phone,
+                })
+                db.collection("cart").doc().set({
+                    uid: result.user.uid,
+                    items: []
                 })
             })
             .catch((error) => {
@@ -30,6 +36,11 @@ const RegisterScreen = ({ }) => {
                 style={styles.input}
                 placeholder="Электронная почта"
                 onChangeText={(email) => setEmail(email)} />
+            <TextInput
+                style={styles.input}
+                placeholder="Телефон"
+                secureTextEntry={true}
+                onChangeText={(phone) => setPhone(phone)} />
             <TextInput
                 style={styles.input}
                 placeholder="Пароль"
