@@ -9,9 +9,10 @@ import AntDesign from 'react-native-vector-icons/AntDesign'
 
 
 
-const CartItem = ({ item }) => {
+const CartItem = ({ item, index }) => {
     const dispatch = useDispatch();
     const DeleteItemFromCart = (item) => {
+        console.log(item);
         dispatch({ type: "DELETE_FROM_CART", payload: item })
     }
     return (
@@ -34,7 +35,7 @@ const CartItem = ({ item }) => {
                 </TouchableOpacity>
                 <Text
                     style={styles.card__title}>
-                    {item.title} {item.size}см
+                    {item.title}
                 </Text>
                 <Text>
                     {item.decription}

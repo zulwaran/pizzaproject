@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { FlatList, ScrollView } from 'react-native'
-import { db } from '../../../../firebase'
+import { db, firebase } from '../../../../firebase'
 
 //Components
 import SliderMenuItem from './SliderMenuItem'
@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 
 const MenuScreen = () => {
+    const user = firebase.auth().currentUser;
     const SLIDER_ITEM = useSelector(state => state.menu.sliderItems)
     const PRODUCT = useSelector(state => state.menu.productList);
     const dispatch = useDispatch();
@@ -29,10 +30,19 @@ const MenuScreen = () => {
         })
     }
 
+    const fetchCart = () => {
+        db.collection('cart').where("uid", "==", user.uid).get().then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                dispatch({ type: "FETCH_CART", payload: doc.data() })
+            })
+        })
+    }
+
     useEffect(() => {
         if (PRODUCT.length === 0 || SLIDER_ITEM === 0) {
-            fetchSlider()
             fetchProduct()
+            fetchSlider()
+            fetchCart()
         }
     })
 
@@ -43,12 +53,12 @@ const MenuScreen = () => {
                 horizontal
                 showsHorizontalScrollIndicator={false}
                 data={SLIDER_ITEM}
-                keyExtractor={(item, index) => item.id.toString()}
+                keyExtractor={(item) => item.id.toString()}
                 renderItem={({ item }) => (<SliderMenuItem item={item} />)}
             />
             <FlatList
                 data={PRODUCT}
-                keyExtractor={(item, index) => index.toString()}
+                keyExtractor={(item) => item.id.toString()}
                 renderItem={({ item }) => (<ProductListItem item={item} />)}
             />
         </ScrollView>

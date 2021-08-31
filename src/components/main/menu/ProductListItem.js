@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, Image, TouchableOpacity, Dimensions, useWindowD
 import { useDispatch, useSelector } from 'react-redux';
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import CustomButton from '../../reusable/CustomButton';
+import { db } from '../../../../firebase'
 
 let deviceWidth = Dimensions.get('window').width
 
@@ -11,24 +12,24 @@ const ProductListItem = ({ item }) => {
     const type = useSelector(state => state.menu.activeType);
     const [active, setActive] = useState("")
     const dispatch = useDispatch();
-    const addItemToCart = (item, size) => {
+    const addItemToCart = async (item, size) => {
         let price = ""
         switch (size) {
-            case '25':
+            case '25 см':
                 price = item.item.smallPrice
                 break;
-            case '30':
+            case '30 см':
                 price = item.item.mediumPrice
                 break;
-            case '35':
+            case '35 см':
                 price = item.item.largePrice
                 break;
         }
         const newItem = {
-            title: item.item.title,
+            id: Math.floor(Math.random() * 10000) + 1,
+            title: item.item.title + " " + size,
             decription: item.item.decription,
             link: item.item.link,
-            size: size,
             price: price,
         }
         dispatch({ type: "ADD_TO_CART", payload: newItem })
@@ -105,8 +106,8 @@ const ProductListItem = ({ item }) => {
                 <View style={[styles.priceContainer, { alignItems: 'center' }]}>
                     <View style={styles.buttonCircleContainer}>
                         <TouchableOpacity
-                            style={[{ width: 50, height: 50 }, styles.buttonCircleLarge]}
-                            onPress={() => { addItemToCart({ item }, "25") }}>
+                            style={[{ width: 50, height: 50 }, styles.buttonCircle]}
+                            onPress={() => { addItemToCart({ item }, "25 см") }}>
                             <Text>25см</Text>
                         </TouchableOpacity>
                         <Text style={styles.price}>
@@ -115,8 +116,8 @@ const ProductListItem = ({ item }) => {
                     </View>
                     <View style={styles.buttonCircleContainer}>
                         <TouchableOpacity
-                            style={[{ width: 60, height: 60 }, styles.buttonCircleLarge]}
-                            onPress={() => { addItemToCart({ item }, "30") }}>
+                            style={[{ width: 60, height: 60 }, styles.buttonCircle]}
+                            onPress={() => { addItemToCart({ item }, "30 см") }}>
                             <Text>30см</Text>
                         </TouchableOpacity>
                         <Text style={styles.price}>
@@ -125,8 +126,8 @@ const ProductListItem = ({ item }) => {
                     </View>
                     <View style={styles.buttonCircleContainer}>
                         <TouchableOpacity
-                            style={[{ width: 70, height: 70 }, styles.buttonCircleLarge]}
-                            onPress={() => { addItemToCart({ item }, "35") }}>
+                            style={[{ width: 70, height: 70 }, styles.buttonCircle]}
+                            onPress={() => { addItemToCart({ item }, "35 см") }}>
                             <Text>35см</Text>
                         </TouchableOpacity>
                         <Text style={styles.price}>
@@ -196,7 +197,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'center'
     },
-    buttonCircleLarge: {
+    buttonCircle: {
         backgroundColor: "#fff",
         borderRadius: 50,
         borderWidth: 5,

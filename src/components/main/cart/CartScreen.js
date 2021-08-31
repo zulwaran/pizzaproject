@@ -25,7 +25,7 @@ const CartScreen = ({ navigation }) => {
                 <FlatList
                     data={DATA}
                     keyExtractor={(item, index) => index.toString()}
-                    renderItem={({ item }) => (<CartItem item={item} />)}
+                    renderItem={({ item, index }) => (<CartItem item={item} index={index} />)}
                 />
                 <TouchableOpacity
                     style={styles.card__button}
