@@ -16,12 +16,7 @@ const SliderMenuItem = ({ item }) => {
     return (
         <View style={styles.item}>
             <Image
-                style={[{
-                    height: 80,
-                    width: 80,
-                    resizeMode: 'contain',
-                    marginRight: 10,
-                }]}
+                style={styles.item__img}
                 source={{
                     uri: item.link,
                 }}
@@ -42,12 +37,13 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     item__img: {
-        height: '100px',
-        width: '100px',
+        height: 80,
+        width: 80,
         resizeMode: 'contain',
         marginRight: 10,
     },
     item__text: {
+        color: '#000',
         fontSize: 22,
         fontWeight: '600',
     },

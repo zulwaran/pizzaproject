@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableOpacity, Dimensions } from 'react-native';
 import { useDispatch } from 'react-redux';
 
 //Icons
@@ -7,7 +7,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign'
 
 
 
-
+let deviceWidth = Dimensions.get('window').width
 
 const CartItem = ({ item, index }) => {
     const dispatch = useDispatch();
@@ -16,83 +16,80 @@ const CartItem = ({ item, index }) => {
         dispatch({ type: "DELETE_FROM_CART", payload: item })
     }
     return (
-        <View style={styles.card}>
-            <View style={styles.card__halfBlock}>
+        <View
+            style={styles.container}>
+            <View
+                style={styles.productInfo}>
                 <Image
-                    style={styles.card__img}
+                    style={styles.productInfoImage}
                     source={{
                         uri: item.link,
                     }}
                 />
-            </View>
-            <View style={styles.card__halfBlock}>
-                <TouchableOpacity onPress={() => { DeleteItemFromCart({ item }) }}>
-                    <AntDesign
-                        style={[{ position: "absolute", right: 25 }]}
-                        name="closecircleo"
-                        color="red"
-                        size={26} />
-                </TouchableOpacity>
-                <Text
-                    style={styles.card__title}>
-                    {item.title}
-                </Text>
-                <Text>
-                    {item.decription}
-                </Text>
-                <Text style={styles.card__title}>
-                    {item.price} ₽
-                </Text>
+                <View style={styles.productInfoRightHalf}>
+                    <View style={[{
+                        flexDirection: 'row',
+                        justifyContent: 'space-between'
+                    }]}>
+                        {<Text style={styles.title}>
+                            {item.title}
+                        </Text>}
+                        <TouchableOpacity
+                            style={[{ paddingRight: 20 }]}
+                            onPress={() => { DeleteItemFromCart({ item }) }}>
+                            <AntDesign
+                                name="closecircleo"
+                                color="red"
+                                size={26} />
+                        </TouchableOpacity>
+                    </View>
+                    <Text style={styles.decription}>
+                        {item.decription}
+                    </Text>
+                    <Text
+                        style={styles.priceTextLarge} >{item.price} ₽
+                    </Text>
+                </View>
             </View>
         </View >
     );
 }
 
 const styles = StyleSheet.create({
-    card: {
-        backgroundColor: "#fff",
-        flexDirection: 'row',
-        height: 300,
+    container: {
+        marginTop: 10,
+        marginBottom: 30,
+        marginRight: 10,
         borderBottomColor: 'rgba(157, 141, 143, 0.15)',
         borderBottomWidth: 2,
+        backgroundColor: "#fff",
     },
-    card__halfBlock: {
-        width: '50%',
-        height: '100%',
-        justifyContent: 'center',
+    productInfo: {
+        flexDirection: 'row',
     },
-    card__img: {
-        height: '100%',
-        resizeMode: 'contain',
+    productInfoImage: {
+        width: deviceWidth / 2,
+        height: deviceWidth / 2,
+        alignSelf: 'center',
+        maxWidth: 300,
+        maxHeight: 300
     },
-    card__title: {
-        fontWeight: "600",
+    productInfoRightHalf: {
+        width: deviceWidth / 2
+    },
+    title: {
+        maxWidth: '70%',
+        fontWeight: '600',
         fontSize: 22,
     },
-    card__decription: {
+    decription: {
+        fontWeight: '400',
         fontSize: 16,
-        marginBottom: 10
+        marginBottom: 5
     },
-    card__price: {
-        fontSize: 16,
-        marginRight: 20,
-    },
-    card__order: {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'flex-end'
-    },
-    card__button: {
-        alignItems: "center",
-        backgroundColor: "#fff",
-        borderWidth: 5,
-        borderColor: "#ffc000",
-        borderStyle: "solid",
-        borderRadius: 30,
-    },
-    card__buttonText: {
-        fontWeight: "600",
-        fontSize: 16,
+    priceTextLarge: {
+        fontWeight: '600',
+        fontSize: 22,
     },
 });
 

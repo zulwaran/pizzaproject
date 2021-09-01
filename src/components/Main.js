@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 
-
+import Header from './Header'
 import OrderListScreen from './main/ordersList/OrderListScreen';
 import MenuScreen from './main/menu/MenuScreen'
 import CartScreen from './main/cart/CartScreen';

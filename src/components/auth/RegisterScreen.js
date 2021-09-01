@@ -10,7 +10,7 @@ const RegisterScreen = ({ }) => {
     const [phone, setPhone] = useState('')
 
     const signUp = () => {
-        firebase.auth().createUserWithEmailAndPassword(email, password, phone)
+        firebase.auth().createUserWithEmailAndPassword(email, password)
             .then((result) => {
                 db.collection("users").doc(result.user.uid).set({
                     name: name,
@@ -39,7 +39,6 @@ const RegisterScreen = ({ }) => {
             <TextInput
                 style={styles.input}
                 placeholder="Телефон"
-                secureTextEntry={true}
                 onChangeText={(phone) => setPhone(phone)} />
             <TextInput
                 style={styles.input}

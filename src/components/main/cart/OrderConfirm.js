@@ -86,275 +86,209 @@ const OrderConfirm = () => {
 
 
     return (
-        <ScrollView>
-            <View style={styles.container}>
-                <Text style={styles.confirmTitle}>Оформление заказа</Text>
+        <ScrollView style={styles.container}>
+            <View style={styles.subtitleContainer}>
+                <Ionicons
+                    style={styles.icon}
+                    name="location-sharp"
+                    color="red"
+                    size={26} />
                 <Text style={styles.confirmSubtitle}>
-                    <Ionicons
-                        style={styles.icon}
-                        name="location-sharp"
-                        color="red"
-                        size={26} />
                     Куда
                 </Text>
-
-                <View style={styles.addressView}>
-                    <Text style={styles.addressText}>
-                        Улица
-                        <TextInput
-                            onChange={(e) => {
-                                setStreet(e.target.value)
-                            }}
-                            style={styles.addressLargeInput} />
-                    </Text>
-                    <Text style={styles.addressText}>
-                        Дом
-                        <TextInput
-                            onChange={(e) => {
-                                setHome(e.target.value)
-                            }}
-                            style={styles.addressSmallInput} />
-                    </Text>
-                    <Text style={styles.addressText}>
-                        Подъезд
-                        <TextInput
-                            onChange={(e) => {
-                                setPorch(e.target.value)
-                            }}
-                            style={styles.addressSmallInput} />
-                    </Text>
-                    <Text style={styles.addressText}>
-                        Этаж
-                        <TextInput
-                            onChange={(e) => {
-                                setFloor(e.target.value)
-                            }}
-                            style={styles.addressSmallInput} />
-                    </Text>
-                    <Text style={styles.addressText}>
-                        Квартира
-                        <TextInput
-                            onChange={(e) => {
-                                setApartment(e.target.value)
-                            }}
-                            style={styles.addressSmallInput} />
-                    </Text>
-                </View>
-
-                <View>
-                    <Text style={styles.confirmSubtitle}>
-                        <MaterialCommunityIcons
-                            style={styles.icon}
-                            name="clock-time-four"
-                            color="#11bd0d"
-                            size={26} />
-                        Когда
-                    </Text>
-                    <View style={styles.timeOfDeliveryView}>
-                        <TouchableOpacity
-                            style={styles.radioButton}
-                            onPress={() => { toggleDeliveryType(type.now) }}>
-                            <RadioButton type="Ближайшее" radioType="delivery" />
-                            <Text style={styles.paymentType}>
-                                Как можно скорее
-                            </Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={styles.radioButton}
-                            onPress={() => { toggleDeliveryType(type.later) }}>
-                            <RadioButton type="Позже" radioType="delivery" />
-                            <Text style={styles.paymentType}>
-                                На точное время
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-
-                <View style={styles.userInfoSection}>
-                    <Text style={styles.confirmSubtitle}>
-                        <MaterialCommunityIcons
-                            style={styles.icon}
-                            name="glasses"
-                            size={30} />
-                        Ваши данные
-                    </Text>
-                    <View>
-                        <View style={styles.userInfoView}>
-                            <Text style={styles.userInfoText}>
-                                Имя
-                            </Text>
-                            <TextInput
-                                value={currentUser.name}
-                                style={styles.userInfoInput} />
-                        </View>
-                        <View style={styles.userInfoView}>
-                            <Text style={styles.userInfoText}>
-                                Телефон
-                            </Text>
-                            <TextInput
-                                value={currentUser.phone}
-                                style={styles.userInfoInput} />
-                        </View>
-                    </View>
-                </View>
-
-                <View style={styles.commentSection}>
-                    <Text style={styles.confirmSubtitle}>Комментарий</Text>
-                    <TextInput
-                        onChange={(e) => {
-                            setComment(e.target.value)
-                        }}
-                        style={styles.commentTextArea}
-                        numberOfLines={4}
-                        multiline
-                    />
-                </View>
-
-                <View>
-                    <Text style={styles.confirmSubtitle}>Убедитесь в правильности выбранных товаров</Text>
-                    <FlatList
-                        data={DATA}
-                        keyExtractor={(item, index) => index.toString()}
-                        renderItem={({ item }) => (<CartItem item={item} />)}
-                    />
-                </View>
-
-                <View>
-                    <Text style={styles.price}>
-                        = К оплате: {totalOrderSum} Р
-                    </Text>
-                </View>
-
-                <View>
-                    <Text style={styles.confirmSubtitle}>
-                        Выберите вариант оплаты
-                    </Text>
-                    <TouchableOpacity
-                        style={styles.radioButton}
-                        onPress={() => { togglePaymentType(type.cash) }}>
-                        <RadioButton type="Наличными" radioType="payment" />
-                        <Text style={styles.paymentType}>
-                            Наличными
-                        </Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                        style={styles.radioButton}
-                        onPress={() => { togglePaymentType(type.card) }}>
-                        <RadioButton
-                            type="Картой" radioType="payment" />
-                        <Text style={styles.paymentType}>
-                            Картой при получении
-                        </Text>
-                    </TouchableOpacity>
-                </View>
-
-                <View>
-                    <TouchableOpacity
-                        style={styles.card__button}
-                        onPress={() => { createOrder({ DATA }) }}
-                    >
-                        <Text style={styles.card__buttonText}>Оформить заказ →</Text>
-                    </TouchableOpacity>
-                </View>
             </View>
+            <Text style={styles.inputLabel}>
+                Улица
+            </Text>
+            <TextInput
+                style={styles.input}
+                onChange={(e) => {
+                    setStreet(e.target.value)
+                }} />
+            <Text
+                style={styles.inputLabel}>
+                Дом
+            </Text>
+            <TextInput
+                style={styles.input}
+                onChange={(e) => {
+                    setHome(e.target.value)
+                }} />
+
+            <Text
+                style={styles.inputLabel}>
+                Подъезд
+            </Text>
+            <TextInput
+                style={styles.input}
+                onChange={(e) => {
+                    setPorch(e.target.value)
+                }} />
+
+            <Text
+                style={styles.inputLabel}>
+                Этаж
+            </Text>
+            <TextInput
+                style={styles.input}
+                onChange={(e) => {
+                    setFloor(e.target.value)
+                }} />
+
+            <Text
+                style={styles.inputLabel}>
+                Квартира
+            </Text>
+            <TextInput
+                style={styles.input}
+                onChange={(e) => {
+                    setApartment(e.target.value)
+                }} />
+            <View style={styles.subtitleContainer}>
+                <MaterialCommunityIcons
+                    style={styles.icon}
+                    name="clock-time-four"
+                    color="#11bd0d"
+                    size={26} />
+                <Text style={styles.confirmSubtitle}>
+                    Когда
+                </Text>
+            </View>
+            <TouchableOpacity
+                style={styles.radioButton}
+                onPress={() => { toggleDeliveryType(type.now) }}>
+                <RadioButton type="Ближайшее" radioType="delivery" />
+                <Text style={styles.paymentType}>
+                    Как можно скорее
+                </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+                style={styles.radioButton}
+                onPress={() => { toggleDeliveryType(type.later) }}>
+                <RadioButton type="Позже" radioType="delivery" />
+                <Text style={styles.paymentType}>
+                    На точное время
+                </Text>
+            </TouchableOpacity>
+            <View style={styles.subtitleContainer}>
+                <MaterialCommunityIcons
+                    style={styles.icon}
+                    name="glasses"
+                    size={30} />
+                <Text style={styles.confirmSubtitle}>
+                    Ваши данные
+                </Text>
+            </View>
+            <Text style={styles.inputLabel}>
+                Имя
+            </Text>
+            <TextInput
+                value={currentUser.name}
+                style={styles.input} />
+            <Text style={styles.inputLabel}>
+                Телефон
+            </Text>
+            <TextInput
+                value={currentUser.phone}
+                style={styles.input} />
+            <View style={styles.subtitleContainer}>
+                <MaterialCommunityIcons
+                    style={styles.icon}
+                    name="microphone"
+                    color="#ff9711"
+                    size={30} />
+                <Text style={styles.confirmSubtitle}>Комментарий</Text>
+            </View>
+            <TextInput
+                onChange={(e) => {
+                    setComment(e.target.value)
+                }}
+                style={styles.commentTextArea}
+                numberOfLines={4}
+                multiline
+            />
+            <View style={styles.subtitleContainer}>
+                <Text style={styles.confirmSubtitle}>Убедитесь в правильности выбранных товаров
+                </Text>
+            </View>
+            <FlatList
+                data={DATA}
+                keyExtractor={(item, index) => item.id.toString()}
+                renderItem={({ item }) => (<CartItem item={item} />)}
+            />
+            <Text style={[styles.confirmSubtitle, { alignSelf: 'flex-start' }]}>
+                = К оплате: {totalOrderSum} Р
+            </Text>
+            <View style={styles.subtitleContainer}>
+                <Text style={styles.confirmSubtitle}>
+                    Выберите вариант оплаты
+                </Text>
+            </View>
+            <TouchableOpacity
+                style={styles.radioButton}
+                onPress={() => { togglePaymentType(type.cash) }}>
+                <RadioButton type="Наличными" radioType="payment" />
+                <Text style={styles.paymentType}>
+                    Наличными
+                </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+                style={styles.radioButton}
+                onPress={() => { togglePaymentType(type.card) }}>
+                <RadioButton
+                    type="Картой" radioType="payment" />
+                <Text style={styles.paymentType}>
+                    Картой при получении
+                </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+                style={styles.card__button}
+                onPress={() => { createOrder({ DATA }) }}
+            >
+                <Text style={styles.card__buttonText}>Оформить заказ →</Text>
+            </TouchableOpacity>
         </ScrollView>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-        marginHorizontal: 10
+        marginHorizontal: 5,
+        flexDirection: 'column',
     },
-    confirmTitle: {
+    subtitleContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
         marginVertical: 20,
-        alignSelf: "center",
-        fontSize: 28,
-        fontWeight: "400",
     },
     confirmSubtitle: {
-        marginBottom: 20,
         fontSize: 28,
         textAlign: "center",
         alignSelf: "center",
     },
+    input: {
+        fontSize: 18,
+        paddingHorizontal: 10,
+        backgroundColor: "#fff",
+        marginBottom: 20,
+        borderWidth: 1,
+        borderColor: "#ddd",
+        borderStyle: "solid",
+        borderRadius: 5,
+    },
+    inputLabel: {
+        fontSize: 18,
+    },
     icon: {
+        paddingTop: 5,
         marginRight: 5,
-    },
-
-    addressView: {
-        flex: 1,
-        flexWrap: "wrap",
-        flexDirection: "row",
-        justifyContent: "center",
-        marginBottom: 10,
-    },
-    addressText: {
-        paddingLeft: 20,
-        fontSize: 16,
-    },
-    addressLargeInput: {
-        padding: 10,
-        backgroundColor: "#fff",
-        marginBottom: 20,
-        marginLeft: 5,
-        borderWidth: 1,
-        borderColor: "#ddd",
-        borderStyle: "solid",
-        borderRadius: 5,
-    },
-    addressSmallInput: {
-        width: 50,
-        padding: 10,
-        backgroundColor: "#fff",
-        marginBottom: 20,
-        marginLeft: 5,
-        borderWidth: 1,
-        borderColor: "#ddd",
-        borderStyle: "solid",
-        borderRadius: 5,
-    },
-
-    timeOfDeliveryView: {
-        flex: 1,
-        flexDirection: "column",
     },
     radioButton: {
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
         marginBottom: 15,
-    },
-
-    userInfoSection: {
-        flex: 1,
-        alignItems: "flex-start",
-        marginBottom: 10,
-    },
-    userInfoView: {
-        flex: 1,
-        flexDirection: "row",
-        justifyContent: "flex-end",
-        marginBottom: 10,
-    },
-    userInfoText: {
-        width: 60,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "flex-end",
-    },
-    userInfoInput: {
-        borderWidth: 1,
-        borderColor: "#ddd",
-        borderStyle: "solid",
-        borderRadius: 5,
-        padding: 10,
-        backgroundColor: "#fff",
-        marginLeft: 5,
-    },
-
-    commentSection: {
-        marginBottom: 10,
     },
     commentTextArea: {
         padding: 10,
@@ -364,26 +298,15 @@ const styles = StyleSheet.create({
         borderStyle: "solid",
         borderRadius: 5,
     },
-
-    price: {
-        fontSize: 32,
-        textAlign: "left",
-    },
-
     paymentType: {
         fontSize: 17,
         marginLeft: 8,
-        flex: 1,
     },
-
-
     card__button: {
-        flex: 1,
-        alignItems: "center",
         backgroundColor: "#FFC000",
-        height: 70,
+        paddingVertical: 20,
         borderRadius: 10,
-        paddingVertical: 25,
+        marginVertical: 30,
     },
     card__buttonText: {
         fontWeight: "400",

@@ -51,6 +51,9 @@ const styles = StyleSheet.create({
         alignItems: "center",
         backgroundColor: "#FFC000",
         borderRadius: 30,
+        padding: 10,
+        marginHorizontal: 20,
+        marginBottom: 50,
     },
     card__buttonText: {
         fontWeight: "600",

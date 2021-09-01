@@ -3,47 +3,31 @@ import { StyleSheet, Image, View } from 'react-native';
 
 const Header = () => {
     return (
-        <View style={styles.header}>
+        <View style={[{ flexDirection: 'row', height: '80%' }]}>
             <Image
                 source={{
-                    uri: 'https://makelovepizza.ru/img/v2/logo-pizza.svg',
+                    uri: 'https://i.ibb.co/DM3xDtK/logo-pizza.png',
                 }}
-                style={styles.img1}
+                style={[{
+                    width: '20%',
+                    marginRight: 30,
+                    resizeMode: 'contain'
+                }]}
             />
             <Image
                 source={{
-                    uri: 'https://makelovepizza.ru/img/v2/logo-makelovepizza.svg',
+                    uri: 'https://i.ibb.co/mbB1rJg/logo-makelovepizza.png',
                 }}
-                style={styles.img2}
+                style={[{
+                    width: '70%',
+                    resizeMode: 'contain'
+                }]}
             />
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    header: {
-        backgroundColor: '#ffc000',
-        height: '65px',
-        flexDirection: 'row',
-        justifyContent: 'flex-start',
-        left: 0,
-        top: 0,
-        zIndex: 1,
-    },
-    img1: {
-        width: '20%',
-        resizeMode: 'contain',
-    },
-    img2: {
-        width: '80%',
-        resizeMode: 'contain',
-    },
-    cart: {
-        marginVertical: 5,
-        height: '80%',
-        width: '80%',
-        opacity: 1
-    }
 });
 
 export default Header

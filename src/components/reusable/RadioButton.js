@@ -6,7 +6,6 @@ import { useSelector } from 'react-redux';
 export const RadioButton = ({ type, radioType }) => {
     const paymentType = useSelector(state => state.order.paymentType);
     const deliveryType = useSelector(state => state.order.deliveryType)
-    console.log(type, radioType);
     switch (radioType) {
         case "payment":
             return (

@@ -164,6 +164,7 @@ const styles = StyleSheet.create({
         width: deviceWidth / 2
     },
     title: {
+        maxWidth: '80%',
         fontWeight: '600',
         fontSize: 22,
     },

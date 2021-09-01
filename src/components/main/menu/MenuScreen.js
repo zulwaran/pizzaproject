@@ -47,7 +47,7 @@ const MenuScreen = () => {
     })
 
     return (
-        <ScrollView style={[{ backgroundColor: "#fff", marginTop: 50, width: '100%', }]}>
+        <ScrollView style={[{ backgroundColor: "#fff", width: '100%', }]}>
             <FlatList
                 style={[{ marginBottom: 30 }]}
                 horizontal
