@@ -9,7 +9,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign'
 
 let deviceWidth = Dimensions.get('window').width
 
-const CartItem = ({ item, index }) => {
+const CartItem = ({ item }) => {
     const dispatch = useDispatch();
     const DeleteItemFromCart = (item) => {
         console.log(item);

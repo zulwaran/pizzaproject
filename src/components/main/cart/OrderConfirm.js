@@ -12,6 +12,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 //Components
 import CartItem from './CartItem'
 import RadioButton from '../../reusable/RadioButton'
+import OrderConfirmSelectTime from './OrderConfirmSections'
 
 
 
@@ -154,7 +155,7 @@ const OrderConfirm = () => {
                     Когда
                 </Text>
             </View>
-            <TouchableOpacity
+            {/*             <TouchableOpacity
                 style={styles.radioButton}
                 onPress={() => { toggleDeliveryType(type.now) }}>
                 <RadioButton type="Ближайшее" radioType="delivery" />
@@ -169,7 +170,8 @@ const OrderConfirm = () => {
                 <Text style={styles.paymentType}>
                     На точное время
                 </Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
+            <OrderConfirmSelectTime />
             <View style={styles.subtitleContainer}>
                 <MaterialCommunityIcons
                     style={styles.icon}
@@ -275,7 +277,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "#ddd",
         borderStyle: "solid",
-        borderRadius: 5,
+        borderRadius: 10,
     },
     inputLabel: {
         fontSize: 18,
