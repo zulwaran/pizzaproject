@@ -7,7 +7,7 @@ import OrderList from './OrderList';
 
 
 const OrderListScreen = ({ navigation }) => {
-    const [toggleOrderStatus, setToggleOrderStatus] = useState('history')
+    const [toggleOrderStatus, setToggleOrderStatus] = useState('actual')
     const user = firebase.auth().currentUser;
     const DATA = useSelector(state => state.order.orderList);
     const F = [];
@@ -20,7 +20,7 @@ const OrderListScreen = ({ navigation }) => {
         })
     }
     useEffect(() => {
-        if (DATA === null) {
+        if (DATA.length === 0) {
             fetchOrders()
         }
     })
@@ -47,12 +47,12 @@ const OrderListScreen = ({ navigation }) => {
             <Text style={[{ textAlign: "center", fontSize: 32, fontWeight: "600", marginVertical: 20 }]}>История заказов</Text>
             {
                 toggleOrderStatus === 'actual' ? <FlatList
-                    data={DATA.filter(elem => { return (elem.status == 'Оформляется' || elem.status == 'Готовим') })}
+                    data={DATA.filter(elem => { return (elem.status == 'Оформляется' || elem.status == 'Готовим' || elem.status == 'Доставляем') })}
                     keyExtractor={(item, index) => index.toString()}
                     renderItem={({ item }) => (< OrderList item={item} />)}
                     ListEmptyComponent={<EmptyFlatList />}
                 /> : toggleOrderStatus === 'history' ? <FlatList
-                    data={DATA}
+                    data={DATA.filter(elem => { return elem.status == 'Доставлен' })}
                     keyExtractor={(item, index) => index.toString()}
                     renderItem={({ item }) => (< OrderList item={item} />)}
                     ListEmptyComponent={<EmptyFlatList />}

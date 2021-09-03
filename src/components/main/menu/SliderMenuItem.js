@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
         color: '#000',
         fontSize: 22,
         fontWeight: '600',
+        alignSelf: 'center'
     },
     item__textActive: {
         fontSize: 22,

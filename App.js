@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, ActivityIndicator } from 'react-native';
 import { LogBox } from 'react-native';
 
-LogBox.ignoreLogs(['Setting a timer']);
+LogBox.ignoreLogs(['Setting a timer', 'VirtualizedLists should never be nested']);
 
 //Firebase
 import { firebase } from './firebase'
@@ -26,6 +26,7 @@ import Main from './src/components/Main';
 import Header from './src/components/Header';
 import OrderConfirm from './src/components/main/cart/OrderConfirm';
 import OrderListItem from './src/components/main/ordersList/OrderListItem'
+import OrderConfirmAccepted from './src/components/main/cart/OrderConfirmAccepted'
 import MenuScreen from './src/components/main/menu/MenuScreen';
 
 
@@ -94,6 +95,13 @@ const App = () => {
               name="OrderListItem"
               options={{ title: "Информация о заказе" }}
               component={OrderListItem} />
+            <Stack.Screen
+              name="OrderConfirmAccepted"
+              options={{
+                headerLeft: null,
+                headerTitle: () => <Header />
+              }}
+              component={OrderConfirmAccepted} />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>

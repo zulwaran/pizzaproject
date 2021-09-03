@@ -1,8 +1,7 @@
 const initialState = {
     paymentType: 'Наличными',
     deliveryType: 'Ближайшее',
-    orderList: null,
-    activeOrderList: [],
+    orderList: [],
 }
 
 const order = (state = initialState, action) => {
@@ -24,9 +23,6 @@ const order = (state = initialState, action) => {
             return {
                 ...state,
                 orderList: [...state.orderList, action.payload],
-                activeOrderList: state.orderList.filter(item => {
-                    return (item.status === 'Оформляется')
-                })
             }
         default:
             return state

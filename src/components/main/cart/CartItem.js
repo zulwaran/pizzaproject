@@ -57,9 +57,7 @@ const CartItem = ({ item }) => {
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 10,
-        marginBottom: 30,
-        marginRight: 10,
+        paddingVertical: 10,
         borderBottomColor: 'rgba(157, 141, 143, 0.15)',
         borderBottomWidth: 2,
         backgroundColor: "#fff",
@@ -68,24 +66,25 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     productInfoImage: {
-        width: deviceWidth / 2,
+        width: '50%',
         height: deviceWidth / 2,
         alignSelf: 'center',
         maxWidth: 300,
         maxHeight: 300
     },
     productInfoRightHalf: {
-        width: deviceWidth / 2
+        width: '50%',
     },
     title: {
         maxWidth: '70%',
         fontWeight: '600',
         fontSize: 22,
+        marginBottom: 5,
     },
     decription: {
         fontWeight: '400',
         fontSize: 16,
-        marginBottom: 5
+        marginBottom: 5,
     },
     priceTextLarge: {
         fontWeight: '600',

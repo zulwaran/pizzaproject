@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { FlatList, ScrollView } from 'react-native'
+import { FlatList, ScrollView, View } from 'react-native'
 import { db, firebase } from '../../../../firebase'
 
 //Components
@@ -47,7 +47,7 @@ const MenuScreen = () => {
     })
 
     return (
-        <ScrollView style={[{ backgroundColor: "#fff", width: '100%', }]}>
+        <ScrollView style={[{ backgroundColor: "#fff", width: '100%' }]}>
             <FlatList
                 style={[{ marginBottom: 30 }]}
                 horizontal

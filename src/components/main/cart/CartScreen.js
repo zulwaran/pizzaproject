@@ -21,7 +21,7 @@ const CartScreen = ({ navigation }) => {
     }
     else if (DATA.length > 0) {
         return (
-            <ScrollView style={styles.container}>
+            <View style={styles.container}>
                 <FlatList
                     data={DATA}
                     keyExtractor={(item, index) => index.toString()}
@@ -32,7 +32,7 @@ const CartScreen = ({ navigation }) => {
                     onPress={() => navigation.navigate("OrderConfirm")}>
                     <Text style={styles.card__buttonText}>{totalOrderSum} ₽ Оформить заказ</Text>
                 </TouchableOpacity>
-            </ScrollView>
+            </View>
         )
     }
 }
@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
+        marginHorizontal: 5
     },
     text: {
         flex: 1,
@@ -53,7 +54,7 @@ const styles = StyleSheet.create({
         borderRadius: 30,
         padding: 10,
         marginHorizontal: 20,
-        marginBottom: 50,
+        marginBottom: 30,
     },
     card__buttonText: {
         fontWeight: "600",

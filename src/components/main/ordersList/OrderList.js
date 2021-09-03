@@ -48,7 +48,7 @@ const OrderList = ({ item }) => {
 
                 </View>
                 <View style={styles.rightSide}>
-                    <Text style={styles.status}>{item.status}</Text>
+                    <Text style={item.status === ('Готовим' || 'Доставляем') ? styles.statusActive : styles.status}>{item.status}</Text>
                     <Text>№ {item.id}</Text>
                 </View>
             </View>
@@ -88,7 +88,7 @@ const OrderList = ({ item }) => {
                         color="#000"
                         size={24} />
             }
-        </TouchableOpacity>
+        </TouchableOpacity >
     )
 }
 
@@ -121,7 +121,15 @@ const styles = StyleSheet.create({
         borderRadius: 25,
         borderWidth: 1,
         fontSize: 16,
-        padding: 3,
+        padding: 5,
+    },
+    statusActive: {
+        color: '#357138',
+        borderColor: '#357138',
+        borderRadius: 25,
+        borderWidth: 1,
+        fontSize: 16,
+        padding: 5,
     },
     icon: {
         marginTop: 5,

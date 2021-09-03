@@ -16,7 +16,7 @@ import OrderConfirmSelectTime from './OrderConfirmSections'
 
 
 
-const OrderConfirm = () => {
+const OrderConfirm = ({ navigation }) => {
     const totalOrderSum = useSelector(state => state.cart.totalOrderSum);
     const DATA = useSelector(state => state.cart.userCart);
     const currentUser = useSelector(state => state.user.currentUser);
@@ -57,12 +57,13 @@ const OrderConfirm = () => {
         }
         db.collection("orders").doc().set(order)
         clearCart()
+        navigation.navigate("OrderConfirmAccepted", { orderId: order.id, deliveryDate: order.deliveryDate })
     }
 
     const getDate = () => {
         const date = new Date()
         let day = date.getDate()
-        let month = date.getMonth()
+        let month = date.getMonth() + 1
         let year = date.getFullYear()
         if (day < 10) {
             day = "0" + day
