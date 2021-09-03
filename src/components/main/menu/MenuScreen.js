@@ -1,50 +1,16 @@
-import React, { useEffect } from 'react'
-import { FlatList, ScrollView, View } from 'react-native'
-import { db, firebase } from '../../../../firebase'
+import React from 'react'
+import { FlatList, ScrollView } from 'react-native'
 
 //Components
 import SliderMenuItem from './SliderMenuItem'
 import ProductListItem from './ProductListItem'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 
 const MenuScreen = () => {
-    const user = firebase.auth().currentUser;
     const SLIDER_ITEM = useSelector(state => state.menu.sliderItems)
     const PRODUCT = useSelector(state => state.menu.productList);
-    const dispatch = useDispatch();
 
-    const fetchProduct = () => {
-        db.collection('products').get().then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-                dispatch({ type: "FETCH_PRODUCT_LIST", payload: doc.data() })
-            })
-        })
-    }
-
-    const fetchSlider = () => {
-        db.collection('slider').get().then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-                dispatch({ type: "FETCH_SLIDER_ITEMS", payload: doc.data() })
-            })
-        })
-    }
-
-    const fetchCart = () => {
-        db.collection('cart').where("uid", "==", user.uid).get().then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-                dispatch({ type: "FETCH_CART", payload: doc.data() })
-            })
-        })
-    }
-
-    useEffect(() => {
-        if (PRODUCT.length === 0 || SLIDER_ITEM === 0) {
-            fetchProduct()
-            fetchSlider()
-            fetchCart()
-        }
-    })
 
     return (
         <ScrollView style={[{ backgroundColor: "#fff", width: '100%' }]}>

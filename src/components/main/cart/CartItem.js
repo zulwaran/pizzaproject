@@ -9,7 +9,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign'
 
 let deviceWidth = Dimensions.get('window').width
 
-const CartItem = ({ item }) => {
+const CartItem = ({ item, type }) => {
     const dispatch = useDispatch();
     const DeleteItemFromCart = (item) => {
         console.log(item);
@@ -31,17 +31,20 @@ const CartItem = ({ item }) => {
                         flexDirection: 'row',
                         justifyContent: 'space-between'
                     }]}>
-                        {<Text style={styles.title}>
+                        <Text style={styles.title}>
                             {item.title}
-                        </Text>}
-                        <TouchableOpacity
-                            style={[{ paddingRight: 20 }]}
-                            onPress={() => { DeleteItemFromCart({ item }) }}>
-                            <AntDesign
-                                name="closecircleo"
-                                color="red"
-                                size={26} />
-                        </TouchableOpacity>
+                        </Text>
+                        {
+                            type === 'OrderList' ? null :
+                                <TouchableOpacity
+                                    style={[{ paddingRight: 20 }]}
+                                    onPress={() => { DeleteItemFromCart({ item }) }}>
+                                    <AntDesign
+                                        name="closecircleo"
+                                        color="red"
+                                        size={26} />
+                                </TouchableOpacity>
+                        }
                     </View>
                     <Text style={styles.decription}>
                         {item.decription}
@@ -67,6 +70,7 @@ const styles = StyleSheet.create({
     },
     productInfoImage: {
         width: '50%',
+        marginRight: 10,
         height: deviceWidth / 2,
         alignSelf: 'center',
         maxWidth: 300,

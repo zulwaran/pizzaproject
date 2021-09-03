@@ -56,12 +56,14 @@ const OrderList = ({ item }) => {
             <FlatList
                 style={[{ marginBottom: 10 }]}
                 data={item.items}
+                listKey={(item, index) => index.toString()}
                 keyExtractor={(item, index) => index.toString()}
                 renderItem={({ item }) => (<Text>{item.title}</Text>)}
             />
             <Text
                 style={[{
-                    fontSize: 22
+                    fontSize: 22,
+                    marginBottom: 10
                 }]}>
                 Стоимость заказа: {item.cost} ₽
             </Text>
@@ -70,8 +72,9 @@ const OrderList = ({ item }) => {
                     <FlatList
                         style={[{ marginBottom: 10 }]}
                         data={item.items}
+                        listKey={(item, index) => index.toString()}
                         keyExtractor={(item, index) => index.toString()}
-                        renderItem={({ item }) => (<CartItem item={item} />)}
+                        renderItem={({ item }) => (<CartItem item={item} type={'OrderList'} />)}
                     /> : null
             }
             {

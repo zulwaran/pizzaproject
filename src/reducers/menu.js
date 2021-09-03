@@ -14,12 +14,12 @@ const menu = (state = initialState, action) => {
         case 'FETCH_PRODUCT_LIST':
             return {
                 ...state,
-                productList: [...state.productList, action.payload]
+                productList: action.payload
             }
         case 'FETCH_SLIDER_ITEMS':
             return {
                 ...state,
-                sliderItems: [...state.sliderItems, action.payload]
+                sliderItems: action.payload
             }
         default:
             return state

@@ -22,7 +22,12 @@ const order = (state = initialState, action) => {
             }
             return {
                 ...state,
-                orderList: [...state.orderList, action.payload],
+                orderList: action.payload,
+            }
+        case 'ADD_NEW_ORDER':
+            return {
+                ...state,
+                orderList: [...state.orderList, action.payload]
             }
         default:
             return state

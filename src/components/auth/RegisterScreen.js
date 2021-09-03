@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { firebase, db } from '../../../firebase'
-import { StyleSheet, View, Button, TextInput, Text, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, TextInput, Text, TouchableOpacity } from 'react-native'
 
 const RegisterScreen = ({ }) => {
 
@@ -9,7 +9,17 @@ const RegisterScreen = ({ }) => {
     const [password, setPassword] = useState('')
     const [phone, setPhone] = useState('')
 
+    const [validationError, setValidationError] = useState('')
+
     const signUp = () => {
+        if (!name) {
+            setValidationError("Имя не может быть пустым")
+            return
+        }
+        if (!phone) {
+            setValidationError("Телефон не может быть пустым")
+            return
+        }
         firebase.auth().createUserWithEmailAndPassword(email, password)
             .then((result) => {
                 db.collection("users").doc(result.user.uid).set({
@@ -23,11 +33,23 @@ const RegisterScreen = ({ }) => {
                 })
             })
             .catch((error) => {
-                console.log(error)
+                validation(error.code)
             })
     }
+
+    const validation = (value) => {
+        console.log(value === "auth/weak-password");
+        switch (value) {
+            case "auth/invalid-email":
+                setValidationError("Неверный формат электронной почты")
+                break;
+            case "auth/weak-password":
+                setValidationError("Пароль должен быть не менее 6 символов")
+        }
+    }
+
     return (
-        <View >
+        <View style={styles.container}>
             <TextInput
                 style={styles.input}
                 placeholder="Имя"
@@ -48,25 +70,42 @@ const RegisterScreen = ({ }) => {
             <TouchableOpacity
                 style={styles.button}
                 onPress={() => signUp()} >
-                <Text>
+                <Text style={styles.buttonText}>
                     Зарегистрироваться
                 </Text>
             </TouchableOpacity>
+            <Text style={[{ color: 'red', marginLeft: 10 }]}>{validationError}</Text>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+    },
     input: {
+        fontSize: 18,
         padding: 10,
+        marginBottom: 10,
         backgroundColor: "#fff",
-        marginBottom: 5,
+        borderWidth: 1,
+        borderColor: "#ddd",
+        borderStyle: "solid",
+        borderRadius: 10,
     },
     button: {
-        marginTop: 5,
-        alignItems: "center",
-        backgroundColor: "#DDDDDD",
-        padding: 10
+        backgroundColor: "#ffc000",
+        borderWidth: 5,
+        borderColor: "#ffc000",
+        borderStyle: "solid",
+        borderRadius: 30,
+        padding: 10,
+        marginTop: 10,
+        alignItems: 'center',
+    },
+    buttonText: {
+        fontSize: 18
     }
 });
 

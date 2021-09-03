@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, ActivityIndicator } from 'react-native';
-import { LogBox } from 'react-native';
 
+//LogBox
+import { LogBox } from 'react-native';
 LogBox.ignoreLogs(['Setting a timer', 'VirtualizedLists should never be nested']);
 
 //Firebase
@@ -27,7 +28,6 @@ import Header from './src/components/Header';
 import OrderConfirm from './src/components/main/cart/OrderConfirm';
 import OrderListItem from './src/components/main/ordersList/OrderListItem'
 import OrderConfirmAccepted from './src/components/main/cart/OrderConfirmAccepted'
-import MenuScreen from './src/components/main/menu/MenuScreen';
 
 
 const App = () => {
@@ -56,11 +56,19 @@ const App = () => {
   if (!loggedIn) {
     return (
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="AuthScreen">
+        <Stack.Navigator initialRouteName="AuthScreen"
+          screenOptions={{
+            headerStyle: {
+              backgroundColor: '#ffc000',
+            },
+            headerTintColor: '#000',
+          }}>
           <Stack.Screen
             name="AuthScreen"
             component={AuthScreen}
-            options={{ headerShown: false }} />
+            options={{
+              headerTitle: () => <Header />
+            }} />
           <Stack.Screen
             name="Регистрация"
             component={RegisterScreen} />

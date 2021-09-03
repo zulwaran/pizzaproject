@@ -28,20 +28,45 @@ const OrderConfirm = ({ navigation }) => {
         later: "Позже",
     }
     const [street, setStreet] = useState("")
+    const [validationStreet, setValidationStreet] = useState("")
     const [home, setHome] = useState("")
+    const [validationHome, setValidationHome] = useState("")
     const [apartment, setApartment] = useState("")
     const [porch, setPorch] = useState("")
     const [floor, setFloor] = useState("")
     const [comment, setComment] = useState("")
+    const [name, setName] = useState(currentUser.name)
+    const [validationName, setValidationName] = useState("")
+    const [phone, setPhone] = useState(currentUser.phone)
+    const [validationPhone, setValidationPhone] = useState("")
 
+    const validation = () => {
+        if (!street) {
+            setValidationStreet('Поле не может быть пустым')
+        }
+        if (!home) {
+            setValidationHome('Поле не может быть пустым')
+        }
+        if (!name) {
+            setValidationName('Поле не может быть пустым')
+        }
+        if (!phone) {
+            setValidationPhone('Поле не может быть пустым')
+        }
+    }
     const createOrder = () => {
+        if (!street || !home || !name || !phone) {
+            validation([street, home, name, phone])
+            return
+        }
         const order = {
             id: Math.floor(Math.random() * 10000 + 1),
             uid: firebase.auth().currentUser.uid,
-            userName: currentUser.name,
-            userPhone: currentUser.phone,
+            userName: name,
+            userPhone: phone,
             items: DATA.map((item) => {
                 return {
+                    decription: item.decription,
                     title: item.title,
                     price: item.price,
                     link: item.link,
@@ -56,6 +81,7 @@ const OrderConfirm = ({ navigation }) => {
             status: "Оформляется"
         }
         db.collection("orders").doc().set(order)
+        addNewOrder(order)
         clearCart()
         navigation.navigate("OrderConfirmAccepted", { orderId: order.id, deliveryDate: order.deliveryDate })
     }
@@ -82,6 +108,9 @@ const OrderConfirm = ({ navigation }) => {
     const toggleDeliveryType = (item) => {
         dispatch({ type: "TOGGLE_DELIVERY_TYPE", payload: item })
     }
+    const addNewOrder = (item) => {
+        dispatch({ type: "ADD_NEW_ORDER", payload: item })
+    }
     const clearCart = () => {
         dispatch({ type: "CLEAR_CART" })
     }
@@ -104,28 +133,33 @@ const OrderConfirm = ({ navigation }) => {
             </Text>
             <TextInput
                 style={styles.input}
-                onChange={(e) => {
-                    setStreet(e.target.value)
-                }} />
+                onChangeText={setStreet} />
+            {
+                validationStreet ?
+                    <Text style={[{ color: 'red' }]}>{validationStreet}</Text>
+                    : null
+            }
             <Text
                 style={styles.inputLabel}>
                 Дом
             </Text>
             <TextInput
                 style={styles.input}
-                onChange={(e) => {
-                    setHome(e.target.value)
-                }} />
-
+                keyboardType='numeric'
+                onChangeText={setHome} />
+            {
+                validationHome ?
+                    <Text style={[{ color: 'red' }]}>{validationHome}</Text>
+                    : null
+            }
             <Text
                 style={styles.inputLabel}>
                 Подъезд
             </Text>
             <TextInput
                 style={styles.input}
-                onChange={(e) => {
-                    setPorch(e.target.value)
-                }} />
+                keyboardType='numeric'
+                onChangeText={setPorch} />
 
             <Text
                 style={styles.inputLabel}>
@@ -133,9 +167,8 @@ const OrderConfirm = ({ navigation }) => {
             </Text>
             <TextInput
                 style={styles.input}
-                onChange={(e) => {
-                    setFloor(e.target.value)
-                }} />
+                keyboardType='numeric'
+                onChangeText={setFloor} />
 
             <Text
                 style={styles.inputLabel}>
@@ -143,9 +176,8 @@ const OrderConfirm = ({ navigation }) => {
             </Text>
             <TextInput
                 style={styles.input}
-                onChange={(e) => {
-                    setApartment(e.target.value)
-                }} />
+                keyboardType='numeric'
+                onChangeText={setApartment} />
             <View style={styles.subtitleContainer}>
                 <MaterialCommunityIcons
                     style={styles.icon}
@@ -186,14 +218,27 @@ const OrderConfirm = ({ navigation }) => {
                 Имя
             </Text>
             <TextInput
-                value={currentUser.name}
-                style={styles.input} />
+                value={name}
+                style={styles.input}
+                onChangeText={setName} />
+            {
+                validationName ?
+                    <Text style={[{ color: 'red' }]}>{validationName}</Text>
+                    : null
+            }
             <Text style={styles.inputLabel}>
                 Телефон
             </Text>
             <TextInput
-                value={currentUser.phone}
-                style={styles.input} />
+                value={phone}
+                style={styles.input}
+                onChangeText={setPhone}
+            />
+            {
+                validationPhone ?
+                    <Text style={[{ color: 'red' }]}>{validationPhone}</Text>
+                    : null
+            }
             <View style={styles.subtitleContainer}>
                 <MaterialCommunityIcons
                     style={styles.icon}
@@ -203,9 +248,7 @@ const OrderConfirm = ({ navigation }) => {
                 <Text style={styles.confirmSubtitle}>Комментарий</Text>
             </View>
             <TextInput
-                onChange={(e) => {
-                    setComment(e.target.value)
-                }}
+                onChangeText={setComment}
                 style={styles.commentTextArea}
                 numberOfLines={4}
                 multiline
@@ -246,10 +289,16 @@ const OrderConfirm = ({ navigation }) => {
                 </Text>
             </TouchableOpacity>
             <TouchableOpacity
-                style={styles.card__button}
+                disabled={totalOrderSum < 350 ? true : false}
+                style={totalOrderSum < 350 ? [styles.card__button, { backgroundColor: '#767976' }] : styles.card__button}
                 onPress={() => { createOrder({ DATA }) }}
             >
-                <Text style={styles.card__buttonText}>Оформить заказ →</Text>
+                {
+                    totalOrderSum < 350 ?
+                        <Text style={styles.card__buttonText, [{ fontSize: 18, textAlign: 'center' }]}>Сумма заказа должна быть не менее 350 Р</Text>
+                        :
+                        <Text style={styles.card__buttonText}>Оформить заказ →</Text>
+                }
             </TouchableOpacity>
         </ScrollView>
     )
@@ -274,13 +323,13 @@ const styles = StyleSheet.create({
         fontSize: 18,
         paddingHorizontal: 10,
         backgroundColor: "#fff",
-        marginBottom: 20,
         borderWidth: 1,
         borderColor: "#ddd",
         borderStyle: "solid",
         borderRadius: 10,
     },
     inputLabel: {
+        marginTop: 10,
         fontSize: 18,
     },
     icon: {
@@ -294,7 +343,7 @@ const styles = StyleSheet.create({
         marginBottom: 15,
     },
     commentTextArea: {
-        padding: 10,
+        paddingHorizontal: 20,
         backgroundColor: "#fff",
         borderWidth: 1,
         borderColor: "#ddd",
@@ -307,7 +356,7 @@ const styles = StyleSheet.create({
     },
     card__button: {
         backgroundColor: "#FFC000",
-        paddingVertical: 20,
+        padding: 20,
         borderRadius: 10,
         marginVertical: 30,
     },

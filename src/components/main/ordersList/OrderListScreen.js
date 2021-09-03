@@ -1,33 +1,29 @@
-import React, { useEffect, useState } from 'react'
-import { ScrollView, FlatList, View, Text, TouchableOpacity } from 'react-native'
+import React, { useState } from 'react'
+import { ScrollView, FlatList, View, Text, TouchableOpacity, TouchableWithoutFeedback } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux';
-import { firebase, db } from '../../../../firebase';
 import EmptyFlatList from '../../reusable/EmptyFlatList';
 import OrderList from './OrderList';
+
+import firebase from 'firebase';
+
 
 
 const OrderListScreen = ({ navigation }) => {
     const [toggleOrderStatus, setToggleOrderStatus] = useState('actual')
-    const user = firebase.auth().currentUser;
     const DATA = useSelector(state => state.order.orderList);
-    const F = [];
-    const dispatch = useDispatch();
-    const fetchOrders = () => {
-        db.collection('orders').where("uid", "==", user.uid).get().then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-                dispatch({ type: "GET_ORDER_LIST", payload: doc.data() })
-            })
-        })
+    
+    const exit = () => {
+        firebase.auth().signOut().then(() => {
+            // Sign-out successful.
+        }).catch((error) => {
+            // An error happened.
+        });
     }
-    useEffect(() => {
-        if (DATA.length === 0) {
-            fetchOrders()
-        }
-    })
+
 
     return (
         <ScrollView>
-            <View style={[{ flexDirection: 'row', justifyContent: 'space-around' }]}>
+            <View style={[{ flexDirection: 'row', justifyContent: 'space-around', marginBottom: 20, }]}>
                 <TouchableOpacity
                     onPress={() => setToggleOrderStatus('actual')}>
                     <Text
@@ -44,20 +40,23 @@ const OrderListScreen = ({ navigation }) => {
                     </Text>
                 </TouchableOpacity>
             </View>
-            <Text style={[{ textAlign: "center", fontSize: 32, fontWeight: "600", marginVertical: 20 }]}>История заказов</Text>
             {
                 toggleOrderStatus === 'actual' ? <FlatList
                     data={DATA.filter(elem => { return (elem.status == 'Оформляется' || elem.status == 'Готовим' || elem.status == 'Доставляем') })}
                     keyExtractor={(item, index) => index.toString()}
                     renderItem={({ item }) => (< OrderList item={item} />)}
                     ListEmptyComponent={<EmptyFlatList />}
-                /> : toggleOrderStatus === 'history' ? <FlatList
-                    data={DATA.filter(elem => { return elem.status == 'Доставлен' })}
-                    keyExtractor={(item, index) => index.toString()}
-                    renderItem={({ item }) => (< OrderList item={item} />)}
-                    ListEmptyComponent={<EmptyFlatList />}
-                /> : null
+                />
+                    : <FlatList
+                        data={DATA.filter(elem => { return elem.status == 'Доставлен' })}
+                        keyExtractor={(item, index) => index.toString()}
+                        renderItem={({ item }) => (< OrderList item={item} />)}
+                        ListEmptyComponent={<EmptyFlatList />}
+                    />
             }
+            <TouchableOpacity onPress={() => exit()}>
+                <Text>EXIT</Text>
+            </TouchableOpacity>
         </ScrollView>
     )
 }

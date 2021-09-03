@@ -5,6 +5,7 @@ import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-nativ
 const AuthScreen = ({ navigation }) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [error, setError] = useState('')
 
     const signUp = () => {
         firebase.auth().signInWithEmailAndPassword(email, password)
@@ -13,6 +14,7 @@ const AuthScreen = ({ navigation }) => {
             })
             .catch((error) => {
                 console.log(error)
+                setError('Неверный логин или пароль')
             })
     }
     return (
@@ -24,13 +26,16 @@ const AuthScreen = ({ navigation }) => {
             <TextInput
                 style={styles.input}
                 placeholder="Пароль"
-                secureTextEntry={true} 
+                secureTextEntry={true}
                 onChangeText={(password) => setPassword(password)} />
+            {
+                error ? <Text style={[{ color: "red", marginLeft: 10 }]}>{error}</Text> : null
+            }
             <TouchableOpacity style={styles.button} onPress={() => signUp()}>
-                <Text>Вход</Text>
+                <Text style={styles.buttonText}>Вход</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Регистрация")}>
-                <Text>
+                <Text style={styles.buttonText}>
                     Регистрация
                 </Text>
             </TouchableOpacity>
@@ -44,15 +49,26 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     input: {
+        fontSize: 18,
         padding: 10,
         backgroundColor: "#fff",
-        marginBottom: 5,
+        borderWidth: 1,
+        borderColor: "#ddd",
+        borderStyle: "solid",
+        borderRadius: 10,
     },
     button: {
-        marginTop: 5,
-        alignItems: "center",
-        backgroundColor: "#DDDDDD",
-        padding: 10
+        backgroundColor: "#ffc000",
+        borderWidth: 5,
+        borderColor: "#ffc000",
+        borderStyle: "solid",
+        borderRadius: 30,
+        padding: 10,
+        marginTop: 10,
+        alignItems: 'center',
+    },
+    buttonText: {
+        fontSize: 18
     }
 });
 
