@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux';
 import RadioButton from '../../reusable/RadioButton';
-import ModalPopUp from './ModalPopUp';
+import ModalPopUp from '../../reusable/modalWindow/ModalPopUp';
 
 const OrderConfirmSelectTime = () => {
     const toggleModal = (type) => {

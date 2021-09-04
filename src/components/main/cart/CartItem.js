@@ -27,10 +27,11 @@ const CartItem = ({ item, type }) => {
                     }}
                 />
                 <View style={styles.productInfoRightHalf}>
-                    <View style={[{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between'
-                    }]}>
+                    <View
+                        style={[{
+                            flexDirection: 'row',
+                            justifyContent: 'space-between'
+                        }]}>
                         <Text style={styles.title}>
                             {item.title}
                         </Text>

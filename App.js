@@ -25,9 +25,8 @@ import AuthScreen from './src/components/auth/AuthScreen';
 import RegisterScreen from './src/components/auth/RegisterScreen';
 import Main from './src/components/Main';
 import Header from './src/components/Header';
-import OrderConfirm from './src/components/main/cart/OrderConfirm';
-import OrderListItem from './src/components/main/ordersList/OrderListItem'
-import OrderConfirmAccepted from './src/components/main/cart/OrderConfirmAccepted'
+import OrderConfirm from './src/components/main/orderConfirm/OrderConfirm';
+import OrderConfirmAccepted from './src/components/main/orderConfirm/OrderConfirmAccepted'
 
 
 const App = () => {
@@ -99,10 +98,6 @@ const App = () => {
                 title: "Оформление заказа",
               }}
               component={OrderConfirm} />
-            <Stack.Screen
-              name="OrderListItem"
-              options={{ title: "Информация о заказе" }}
-              component={OrderListItem} />
             <Stack.Screen
               name="OrderConfirmAccepted"
               options={{

@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity, Dimensions, useWindowDimensions } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import AntDesign from 'react-native-vector-icons/AntDesign'
-import CustomButton from '../../reusable/CustomButton';
-import { db } from '../../../../firebase'
 
 let deviceWidth = Dimensions.get('window').width
 
@@ -12,6 +10,7 @@ const ProductListItem = ({ item }) => {
     const type = useSelector(state => state.menu.activeType);
     const [active, setActive] = useState("")
     const dispatch = useDispatch();
+
     const addItemToCart = async (item, size) => {
         let price = ""
         switch (size) {
@@ -35,10 +34,9 @@ const ProductListItem = ({ item }) => {
         dispatch({ type: "ADD_TO_CART", payload: newItem })
     }
 
-    if (item.type === type && active === "") {
+    if (item.type === type) {
         return (
-            <View style={styles.container}
-            >
+            <View style={styles.container}>
                 <View style={styles.productInfo}>
                     <Image
                         style={styles.productInfoImage}
@@ -47,98 +45,82 @@ const ProductListItem = ({ item }) => {
                         }}
                     />
                     <View style={styles.productInfoRightHalf}>
-                        <Text style={styles.title}>
-                            {item.title}
-                        </Text>
-                        <Text style={styles.decription}>
-                            {item.decription}
-                        </Text>
-                    </View>
-                </View>
-                <View style={styles.priceContainer}>
-                    <Text style={styles.priceTextMedium}>от <Text
-                        style={styles.priceTextLarge} >{item.smallPrice}
-                    </Text> ₽
-                    </Text>
-                    <TouchableOpacity
-                        style={styles.select__button}
-                        onPress={() => setActive("selected")}>
-                        <Text>Выбрать</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
-        );
-    } else if (item.type === type && active === "selected") {
-        return (
-            <View
-                style={styles.container}>
-                <View
-                    style={styles.productInfo}>
-                    <Image
-                        style={styles.productInfoImage}
-                        source={{
-                            uri: item.link,
-                        }}
-                    />
-                    <View style={styles.productInfoRightHalf}>
-                        <View style={[{
-                            flexDirection: 'row',
-                            justifyContent: 'space-between'
-                        }]}>
+                        <View
+                            style={[{
+                                flexDirection: 'row',
+                                justifyContent: 'space-between'
+                            }]}>
                             <Text style={styles.title}>
                                 {item.title}
                             </Text>
-                            <TouchableOpacity
-                                style={[{ paddingRight: 20 }]}
-                                onPress={() => setActive("")}>
-                                <AntDesign
-                                    name="closecircleo"
-                                    color="red"
-                                    size={26} />
-                            </TouchableOpacity>
+                            {
+                                active === 'selected' ?
+                                    <TouchableOpacity
+                                        style={[{ paddingRight: 20 }]}
+                                        onPress={() => setActive("")}>
+                                        <AntDesign
+                                            name="closecircleo"
+                                            color="red"
+                                            size={26} />
+                                    </TouchableOpacity>
+                                    : null
+                            }
                         </View>
                         <Text style={styles.decription}>
                             {item.decription}
                         </Text>
                     </View>
                 </View>
-
-                <View style={[styles.priceContainer, { alignItems: 'center' }]}>
-                    <View style={styles.buttonCircleContainer}>
-                        <TouchableOpacity
-                            style={[{ width: 50, height: 50 }, styles.buttonCircle]}
-                            onPress={() => { addItemToCart({ item }, "25 см") }}>
-                            <Text>25см</Text>
-                        </TouchableOpacity>
-                        <Text style={styles.price}>
-                            {item.smallPrice} ₽
-                        </Text>
-                    </View>
-                    <View style={styles.buttonCircleContainer}>
-                        <TouchableOpacity
-                            style={[{ width: 60, height: 60 }, styles.buttonCircle]}
-                            onPress={() => { addItemToCart({ item }, "30 см") }}>
-                            <Text>30см</Text>
-                        </TouchableOpacity>
-                        <Text style={styles.price}>
-                            {item.mediumPrice} ₽
-                        </Text>
-                    </View>
-                    <View style={styles.buttonCircleContainer}>
-                        <TouchableOpacity
-                            style={[{ width: 70, height: 70 }, styles.buttonCircle]}
-                            onPress={() => { addItemToCart({ item }, "35 см") }}>
-                            <Text>35см</Text>
-                        </TouchableOpacity>
-                        <Text style={styles.price}>
-                            {item.largePrice} ₽
-                        </Text>
-                    </View>
-                </View>
-            </View >
-        )
+                {
+                    active === 'selected' ?
+                        <View style={[styles.priceContainer, { alignItems: 'center' }]}>
+                            <View style={styles.buttonCircleContainer}>
+                                <TouchableOpacity
+                                    style={[{ width: 50, height: 50 }, styles.buttonCircle]}
+                                    onPress={() => { addItemToCart({ item }, "25 см") }}>
+                                    <Text>25см</Text>
+                                </TouchableOpacity>
+                                <Text style={styles.price}>
+                                    {item.smallPrice} ₽
+                                </Text>
+                            </View>
+                            <View style={styles.buttonCircleContainer}>
+                                <TouchableOpacity
+                                    style={[{ width: 60, height: 60 }, styles.buttonCircle]}
+                                    onPress={() => { addItemToCart({ item }, "30 см") }}>
+                                    <Text>30см</Text>
+                                </TouchableOpacity>
+                                <Text style={styles.price}>
+                                    {item.mediumPrice} ₽
+                                </Text>
+                            </View>
+                            <View style={styles.buttonCircleContainer}>
+                                <TouchableOpacity
+                                    style={[{ width: 70, height: 70 }, styles.buttonCircle]}
+                                    onPress={() => { addItemToCart({ item }, "35 см") }}>
+                                    <Text>35см</Text>
+                                </TouchableOpacity>
+                                <Text style={styles.price}>
+                                    {item.largePrice} ₽
+                                </Text>
+                            </View>
+                        </View>
+                        : <View style={styles.priceContainer}>
+                            <Text style={styles.priceTextMedium}>от <Text
+                                style={styles.priceTextLarge} >{item.smallPrice}
+                            </Text> ₽
+                            </Text>
+                            <TouchableOpacity
+                                style={styles.select__button}
+                                onPress={() => setActive("selected")}>
+                                <Text>Выбрать</Text>
+                            </TouchableOpacity>
+                        </View>
+                }
+            </View>
+        );
     } else {
-        return (null)
+        return null
     }
 }
 

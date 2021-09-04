@@ -10,13 +10,15 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
 //Components
-import CartItem from './CartItem'
+import CartItem from '../cart/CartItem'
 import RadioButton from '../../reusable/RadioButton'
 import OrderConfirmSelectTime from './OrderConfirmSelectTime'
 
 
 
 const OrderConfirm = ({ navigation }) => {
+    const dispatch = useDispatch();
+
     const currentUser = useSelector(state => state.user.currentUser);
     const totalOrderSum = useSelector(state => state.cart.totalOrderSum);
     const DATA = useSelector(state => state.cart.userCart);
@@ -83,13 +85,10 @@ const OrderConfirm = ({ navigation }) => {
         }
     }
 
-    const dispatch = useDispatch();
+
 
     const togglePaymentType = (item) => {
         dispatch({ type: "TOGGLE_PAYMENT_TYPE", payload: item })
-    }
-    const toggleDeliveryType = (item) => {
-        dispatch({ type: "TOGGLE_DELIVERY_TYPE", payload: item })
     }
     const addNewOrder = (item) => {
         dispatch({ type: "ADD_NEW_ORDER", payload: item })
@@ -201,7 +200,8 @@ const OrderConfirm = ({ navigation }) => {
                 multiline
             />
             <View style={styles.subtitleContainer}>
-                <Text style={styles.confirmSubtitle}>Убедитесь в правильности выбранных товаров
+                <Text style={styles.confirmSubtitle}>
+                    Убедитесь в правильности выбранных товаров
                 </Text>
             </View>
             <FlatList
@@ -237,8 +237,7 @@ const OrderConfirm = ({ navigation }) => {
             <TouchableOpacity
                 disabled={totalOrderSum < 350 ? true : false}
                 style={totalOrderSum < 350 ? [styles.card__button, { backgroundColor: '#767976' }] : styles.card__button}
-                onPress={() => { createOrder({ DATA }) }}
-            >
+                onPress={() => { createOrder({ DATA }) }}>
                 {
                     totalOrderSum < 350 ?
                         <Text style={styles.card__buttonText, [{ fontSize: 18, textAlign: 'center' }]}>Сумма заказа должна быть не менее 350 Р</Text>

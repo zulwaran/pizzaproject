@@ -22,11 +22,9 @@ const OrderList = ({ item }) => {
                             name="clock-time-four"
                             color="#11bd0d"
                             size={24} />
-                        <Text
-                            style={[{
-                                fontSize: 16,
-                            }]}
-                        >{item.deliveryDate}</Text>
+                        <Text style={[{ fontSize: 16 }]}>
+                            {item.deliveryDate}
+                        </Text>
                     </View>
                     <View style={styles.infoBlock}>
                         <Ionicons
@@ -34,25 +32,23 @@ const OrderList = ({ item }) => {
                             name="location-sharp"
                             color="red"
                             size={24} />
-                        <Text
-                            style={[{
-                                fontSize: 16,
-                            }]}>
+                        <Text style={[{ fontSize: 16 }]}>
                             {item.address}
                         </Text>
                     </View>
-                    <Text style={[{
-                        fontSize: 16,
-                        marginLeft: 26
-                    }]}>{item.paymentType}</Text>
-
+                    <Text style={[{ fontSize: 16, marginLeft: 26 }]}>
+                        {item.paymentType}
+                    </Text>
                 </View>
                 <View style={styles.rightSide}>
-                    <Text style={item.status === ('Готовим' || 'Доставляем') ? styles.statusActive : styles.status}>{item.status}</Text>
-                    <Text>№ {item.id}</Text>
+                    <Text style={item.status === ('Готовим' || 'Доставляем') ? styles.statusActive : styles.status}>
+                        {item.status}
+                    </Text>
+                    <Text>
+                        № {item.id}
+                    </Text>
                 </View>
             </View>
-
             <FlatList
                 style={[{ marginBottom: 10 }]}
                 data={item.items}
@@ -61,10 +57,7 @@ const OrderList = ({ item }) => {
                 renderItem={({ item }) => (<Text>{item.title}</Text>)}
             />
             <Text
-                style={[{
-                    fontSize: 22,
-                    marginBottom: 10
-                }]}>
+                style={[{ fontSize: 22, marginBottom: 10 }]}>
                 Стоимость заказа: {item.cost} ₽
             </Text>
             {
@@ -74,8 +67,8 @@ const OrderList = ({ item }) => {
                         data={item.items}
                         listKey={(item, index) => index.toString()}
                         keyExtractor={(item, index) => index.toString()}
-                        renderItem={({ item }) => (<CartItem item={item} type={'OrderList'} />)}
-                    /> : null
+                        renderItem={({ item }) => (<CartItem item={item} type={'OrderList'} />)} />
+                    : null
             }
             {
                 active === true ?

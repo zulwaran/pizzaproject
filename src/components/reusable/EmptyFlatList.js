@@ -12,7 +12,9 @@ const styles = StyleSheet.create({
     text: {
         flex: 1,
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
+        textAlign: 'center',
+        fontSize: 22,
     },
 });
 export default EmptyFlatList
