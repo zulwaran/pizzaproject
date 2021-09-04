@@ -2,6 +2,8 @@ const initialState = {
     paymentType: 'Наличными',
     deliveryType: 'Ближайшее',
     orderList: [],
+    deliveryDay: 'Сегодня',
+    deliveryTime: '',
 }
 
 const order = (state = initialState, action) => {
@@ -28,6 +30,16 @@ const order = (state = initialState, action) => {
             return {
                 ...state,
                 orderList: [...state.orderList, action.payload]
+            }
+        case 'SELECT_DELIVERY_DAY':
+            return {
+                ...state,
+                deliveryDay: action.payload,
+            }
+        case 'SELECT_DELIVERY_TIME':
+            return {
+                ...state,
+                deliveryTime: action.payload,
             }
         default:
             return state

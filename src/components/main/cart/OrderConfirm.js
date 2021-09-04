@@ -12,51 +12,40 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 //Components
 import CartItem from './CartItem'
 import RadioButton from '../../reusable/RadioButton'
-import OrderConfirmSelectTime from './OrderConfirmSections'
+import OrderConfirmSelectTime from './OrderConfirmSelectTime'
 
 
 
 const OrderConfirm = ({ navigation }) => {
+    const currentUser = useSelector(state => state.user.currentUser);
     const totalOrderSum = useSelector(state => state.cart.totalOrderSum);
     const DATA = useSelector(state => state.cart.userCart);
-    const currentUser = useSelector(state => state.user.currentUser);
     const paymentType = useSelector(state => state.order.paymentType)
+    const deliveryType = useSelector(state => state.order.deliveryType)
+    const deliveryDay = useSelector(state => state.order.deliveryDay)
+    const deliveryTime = useSelector(state => state.order.deliveryTime)
+
+
+    const [street, setStreet] = useState("")
+    const [home, setHome] = useState("")
+    const [apartment, setApartment] = useState("")
+    const [porch, setPorch] = useState("")
+    const [floor, setFloor] = useState("")
+    const [comment, setComment] = useState("")
+    const [name, setName] = useState(currentUser.name)
+    const [phone, setPhone] = useState(currentUser.phone)
+    const [validation, setValidation] = useState("")
+
     const type = {
         cash: "Наличными",
         card: "Картой",
         now: "Ближайшее",
         later: "Позже",
     }
-    const [street, setStreet] = useState("")
-    const [validationStreet, setValidationStreet] = useState("")
-    const [home, setHome] = useState("")
-    const [validationHome, setValidationHome] = useState("")
-    const [apartment, setApartment] = useState("")
-    const [porch, setPorch] = useState("")
-    const [floor, setFloor] = useState("")
-    const [comment, setComment] = useState("")
-    const [name, setName] = useState(currentUser.name)
-    const [validationName, setValidationName] = useState("")
-    const [phone, setPhone] = useState(currentUser.phone)
-    const [validationPhone, setValidationPhone] = useState("")
 
-    const validation = () => {
-        if (!street) {
-            setValidationStreet('Поле не может быть пустым')
-        }
-        if (!home) {
-            setValidationHome('Поле не может быть пустым')
-        }
-        if (!name) {
-            setValidationName('Поле не может быть пустым')
-        }
-        if (!phone) {
-            setValidationPhone('Поле не может быть пустым')
-        }
-    }
     const createOrder = () => {
-        if (!street || !home || !name || !phone) {
-            validation([street, home, name, phone])
+        if (!street || !home || !name || !phone || (deliveryType !== 'Ближайшее' && !deliveryTime)) {
+            setValidation('Не все обязательные поля были заполнены')
             return
         }
         const order = {
@@ -76,7 +65,7 @@ const OrderConfirm = ({ navigation }) => {
             comment: comment,
             paymentType: paymentType,
             cost: totalOrderSum,
-            orderAcceptDate: getDate(),
+            orderAcceptDate: new Date().toLocaleDateString(),
             deliveryDate: getDate(),
             status: "Оформляется"
         }
@@ -87,17 +76,11 @@ const OrderConfirm = ({ navigation }) => {
     }
 
     const getDate = () => {
-        const date = new Date()
-        let day = date.getDate()
-        let month = date.getMonth() + 1
-        let year = date.getFullYear()
-        if (day < 10) {
-            day = "0" + day
+        if (deliveryDay === 'Сегодня') {
+            return new Date().toISOString().slice(0, 10) + ' ' + deliveryTime
+        } else {
+            return deliveryDay + ' ' + deliveryTime
         }
-        if (month <= 10) {
-            month = "0" + month
-        }
-        return (day + "/" + month + "/" + year)
     }
 
     const dispatch = useDispatch();
@@ -129,29 +112,19 @@ const OrderConfirm = ({ navigation }) => {
                 </Text>
             </View>
             <Text style={styles.inputLabel}>
-                Улица
+                Улица*
             </Text>
             <TextInput
                 style={styles.input}
                 onChangeText={setStreet} />
-            {
-                validationStreet ?
-                    <Text style={[{ color: 'red' }]}>{validationStreet}</Text>
-                    : null
-            }
             <Text
                 style={styles.inputLabel}>
-                Дом
+                Дом*
             </Text>
             <TextInput
                 style={styles.input}
                 keyboardType='numeric'
                 onChangeText={setHome} />
-            {
-                validationHome ?
-                    <Text style={[{ color: 'red' }]}>{validationHome}</Text>
-                    : null
-            }
             <Text
                 style={styles.inputLabel}>
                 Подъезд
@@ -188,22 +161,6 @@ const OrderConfirm = ({ navigation }) => {
                     Когда
                 </Text>
             </View>
-            {/*             <TouchableOpacity
-                style={styles.radioButton}
-                onPress={() => { toggleDeliveryType(type.now) }}>
-                <RadioButton type="Ближайшее" radioType="delivery" />
-                <Text style={styles.paymentType}>
-                    Как можно скорее
-                </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-                style={styles.radioButton}
-                onPress={() => { toggleDeliveryType(type.later) }}>
-                <RadioButton type="Позже" radioType="delivery" />
-                <Text style={styles.paymentType}>
-                    На точное время
-                </Text>
-            </TouchableOpacity> */}
             <OrderConfirmSelectTime />
             <View style={styles.subtitleContainer}>
                 <MaterialCommunityIcons
@@ -215,30 +172,20 @@ const OrderConfirm = ({ navigation }) => {
                 </Text>
             </View>
             <Text style={styles.inputLabel}>
-                Имя
+                Имя*
             </Text>
             <TextInput
                 value={name}
                 style={styles.input}
                 onChangeText={setName} />
-            {
-                validationName ?
-                    <Text style={[{ color: 'red' }]}>{validationName}</Text>
-                    : null
-            }
             <Text style={styles.inputLabel}>
-                Телефон
+                Телефон*
             </Text>
             <TextInput
                 value={phone}
                 style={styles.input}
                 onChangeText={setPhone}
             />
-            {
-                validationPhone ?
-                    <Text style={[{ color: 'red' }]}>{validationPhone}</Text>
-                    : null
-            }
             <View style={styles.subtitleContainer}>
                 <MaterialCommunityIcons
                     style={styles.icon}
@@ -278,7 +225,6 @@ const OrderConfirm = ({ navigation }) => {
                     Наличными
                 </Text>
             </TouchableOpacity>
-
             <TouchableOpacity
                 style={styles.radioButton}
                 onPress={() => { togglePaymentType(type.card) }}>
@@ -300,6 +246,11 @@ const OrderConfirm = ({ navigation }) => {
                         <Text style={styles.card__buttonText}>Оформить заказ →</Text>
                 }
             </TouchableOpacity>
+            {
+                validation ?
+                    <Text style={[{ color: 'red', fontSize: 16, marginBottom: 30 }]}>{validation}</Text>
+                    : null
+            }
         </ScrollView>
     )
 }
@@ -358,7 +309,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#FFC000",
         padding: 20,
         borderRadius: 10,
-        marginVertical: 30,
+        marginVertical: 10,
     },
     card__buttonText: {
         fontWeight: "400",

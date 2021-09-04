@@ -1,9 +1,13 @@
 import React from 'react'
 import { View, Image, Text, TouchableOpacity } from 'react-native'
+import { useSelector } from 'react-redux';
 
 const OrderConfirmAccepted = ({ route, navigation }) => {
     const { orderId } = route.params;
-    const { deliveryDate } = route.params;
+    const deliveryType = useSelector(state => state.order.deliveryType)
+    const deliveryDay = useSelector(state => state.order.deliveryDay)
+    const deliveryTime = useSelector(state => state.order.deliveryTime)
+
     return (
         <View style={[{ alignItems: 'center', flex: 1, justifyContent: 'space-around' }]}>
             <Image
@@ -14,7 +18,13 @@ const OrderConfirmAccepted = ({ route, navigation }) => {
             />
             <View style={[{ alignItems: 'center', }]}>
                 <Text style={[{ color: 'green', fontSize: 32, marginBottom: 10 }]}>Ваш заказ принят!</Text>
-                <Text style={[{ fontSize: 16, marginBottom: 10 }]}>Мы доставим ваш заказ как можно скорее</Text>
+                {
+                    deliveryType === 'Ближайшее' ?
+                        <Text style={[{ fontSize: 16, marginBottom: 10 }]}>Мы доставим ваш заказ как можно скорее</Text>
+                        :
+                        <Text style={[{ fontSize: 16, marginBottom: 10 }]}>Мы доставим ваш заказ {deliveryDay} к {deliveryTime}</Text>
+                }
+
                 <Text style={[{ fontSize: 16, marginBottom: 10 }]}>Заказ № {orderId}</Text>
             </View>
 
