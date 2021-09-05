@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, Image, TouchableOpacity, Dimensions, useWindowDimensions } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableOpacity, Dimensions } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import AntDesign from 'react-native-vector-icons/AntDesign'
-
+import CustomButton from '../../reusable/customButton'
 let deviceWidth = Dimensions.get('window').width
 
 
@@ -11,24 +11,34 @@ const ProductListItem = ({ item }) => {
     const [active, setActive] = useState("")
     const dispatch = useDispatch();
 
+    const toggleActive = () => {
+        setActive("selected")
+    }
+
     const addItemToCart = async (item, size) => {
         let price = ""
+        let productSize = size
         switch (size) {
             case '25 см':
-                price = item.item.smallPrice
+                price = item.smallPrice
                 break;
             case '30 см':
-                price = item.item.mediumPrice
+                price = item.mediumPrice
                 break;
             case '35 см':
-                price = item.item.largePrice
+                price = item.largePrice
+                break;
+            default:
+                price = item.price
+                productSize = ""
                 break;
         }
+
         const newItem = {
             id: Math.floor(Math.random() * 10000) + 1,
-            title: item.item.title + " " + size,
-            decription: item.item.decription,
-            link: item.item.link,
+            title: item.title + " " + productSize,
+            decription: item.decription,
+            link: item.link,
             price: price,
         }
         dispatch({ type: "ADD_TO_CART", payload: newItem })
@@ -71,7 +81,8 @@ const ProductListItem = ({ item }) => {
                         </Text>
                     </View>
                 </View>
-                {
+                <CustomButton item={item} toggleActive={toggleActive} active={active} addItemToCart={addItemToCart} />
+                {/*                 {
                     active === 'selected' ?
                         <View style={[styles.priceContainer, { alignItems: 'center' }]}>
                             <View style={styles.buttonCircleContainer}>
@@ -116,7 +127,7 @@ const ProductListItem = ({ item }) => {
                                 <Text>Выбрать</Text>
                             </TouchableOpacity>
                         </View>
-                }
+                } */}
             </View>
         );
     } else {
@@ -140,7 +151,8 @@ const styles = StyleSheet.create({
         height: deviceWidth / 2,
         alignSelf: 'center',
         maxWidth: 300,
-        maxHeight: 300
+        maxHeight: 300,
+        resizeMode: 'contain'
     },
     productInfoRightHalf: {
         width: deviceWidth / 2

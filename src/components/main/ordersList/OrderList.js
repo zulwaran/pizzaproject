@@ -41,7 +41,7 @@ const OrderList = ({ item }) => {
                     </Text>
                 </View>
                 <View style={styles.rightSide}>
-                    <Text style={item.status === ('Готовим' || 'Доставляем') ? styles.statusActive : styles.status}>
+                    <Text style={item.status === 'Готовим' || item.status === 'Везем' ? styles.statusActive : styles.status}>
                         {item.status}
                     </Text>
                     <Text>

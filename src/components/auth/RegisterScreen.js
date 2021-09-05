@@ -38,7 +38,6 @@ const RegisterScreen = ({ }) => {
     }
 
     const validation = (value) => {
-        console.log(value === "auth/weak-password");
         switch (value) {
             case "auth/invalid-email":
                 setValidationError("Неверный формат электронной почты")

@@ -12,7 +12,6 @@ let deviceWidth = Dimensions.get('window').width
 const CartItem = ({ item, type }) => {
     const dispatch = useDispatch();
     const DeleteItemFromCart = (item) => {
-        console.log(item);
         dispatch({ type: "DELETE_FROM_CART", payload: item })
     }
     return (
@@ -75,7 +74,8 @@ const styles = StyleSheet.create({
         height: deviceWidth / 2,
         alignSelf: 'center',
         maxWidth: 300,
-        maxHeight: 300
+        maxHeight: 300,
+        resizeMode: 'contain'
     },
     productInfoRightHalf: {
         width: '50%',
