@@ -6,7 +6,7 @@ npm start
 ``
 или
 ``
-npm expo start
+expo start
 ``
 
 ## Используемый стек:
