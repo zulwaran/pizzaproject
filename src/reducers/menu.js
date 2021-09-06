@@ -4,6 +4,10 @@ const initialState = {
     sliderItems: [],
 }
 
+export const TOGGLE_MENU = 'TOGGLE_MENU'
+export const FETCH_PRODUCT_LIST = 'FETCH_PRODUCT_LIST'
+export const FETCH_SLIDER_ITEMS = 'FETCH_SLIDER_ITEMS'
+
 const menu = (state = initialState, action) => {
     switch (action.type) {
         case 'TOGGLE_MENU':

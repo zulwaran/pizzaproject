@@ -1,6 +1,7 @@
 import React from 'react'
 import { StyleSheet, TouchableOpacity, Text } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
+import { SELECT_DELIVERY_DAY, SELECT_DELIVERY_TIME } from '../../../reducers/order'
 
 const ModalItems = (props) => {
     const deliveryDay = useSelector(state => state.order.deliveryDay)
@@ -10,10 +11,10 @@ const ModalItems = (props) => {
     const getTime = (value) => {
         switch (modalType) {
             case 'date':
-                dispatch({ type: "SELECT_DELIVERY_DAY", payload: value })
+                dispatch({ type: SELECT_DELIVERY_DAY, payload: value })
                 break;
             case 'time':
-                dispatch({ type: "SELECT_DELIVERY_TIME", payload: value })
+                dispatch({ type: SELECT_DELIVERY_TIME, payload: value })
                 break;
         }
     }

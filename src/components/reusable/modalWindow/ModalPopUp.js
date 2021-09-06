@@ -2,13 +2,15 @@ import React from 'react'
 import { StyleSheet, Text, View, Modal, Pressable, FlatList } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import ModalItems from './ModalItems'
-import { fetchDate, fetchTime } from '../../globalFunctions'
+import { fetchDate, fetchTime } from '../../../functions/DateFunctions'
+import { CLOSE_MODAL } from '../../../reducers/modal'
+
 const ModalPopUp = () => {
     const modalType = useSelector(state => state.modal.modalType)
     const visibleModal = useSelector(state => state.modal.visibleModal)
     const deliveryDay = useSelector(state => state.order.deliveryDay)
     const closeModal = () => {
-        dispatch({ type: "CLOSE_MODAL" })
+        dispatch({ type: CLOSE_MODAL })
     }
     const dispatch = useDispatch();
 

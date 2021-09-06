@@ -22,7 +22,7 @@ const OrderList = ({ item }) => {
                             name="clock-time-four"
                             color="#11bd0d"
                             size={24} />
-                        <Text style={[{ fontSize: 16 }]}>
+                        <Text style={styles.mediumText}>
                             {item.deliveryDate}
                         </Text>
                     </View>
@@ -32,11 +32,11 @@ const OrderList = ({ item }) => {
                             name="location-sharp"
                             color="red"
                             size={24} />
-                        <Text style={[{ fontSize: 16 }]}>
+                        <Text style={styles.mediumText}>
                             {item.address}
                         </Text>
                     </View>
-                    <Text style={[{ fontSize: 16, marginLeft: 26 }]}>
+                    <Text style={[styles.mediumText, { marginLeft: 26 }]}>
                         {item.paymentType}
                     </Text>
                 </View>
@@ -49,15 +49,15 @@ const OrderList = ({ item }) => {
                     </Text>
                 </View>
             </View>
-            <FlatList
-                style={[{ marginBottom: 10 }]}
-                data={item.items}
-                listKey={(item, index) => index.toString()}
-                keyExtractor={(item, index) => index.toString()}
-                renderItem={({ item }) => (<Text>{item.title}</Text>)}
-            />
+            {
+                item.comment ?
+                    <Text style={[{ marginBottom: 10 }, styles.mediumText]}>
+                        Комментарий: {item.comment}
+                    </Text>
+                    : null
+            }
             <Text
-                style={[{ fontSize: 22, marginBottom: 10 }]}>
+                style={[styles.largeText, { marginBottom: 10 }]}>
                 Стоимость заказа: {item.cost} ₽
             </Text>
             {
@@ -109,6 +109,12 @@ const styles = StyleSheet.create({
     rightSide: {
         width: '40%',
         alignItems: 'flex-end'
+    },
+    mediumText: {
+        fontSize: 16
+    },
+    largeText: {
+        fontSize: 22
     },
     status: {
         color: 'brown',

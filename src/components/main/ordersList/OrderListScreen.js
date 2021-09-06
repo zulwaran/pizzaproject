@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import { StyleSheet, ScrollView, FlatList, View, Text, TouchableOpacity } from 'react-native'
 import { useSelector } from 'react-redux';
-import EmptyFlatList from '../../reusable/EmptyFlatList';
-import OrderList from './OrderList';
 
+//Firebase
 import firebase from 'firebase';
 
+//Components
+import EmptyFlatList from '../../reusable/EmptyFlatList';
+import OrderList from './OrderList';
 
 
 const OrderListScreen = ({ navigation }) => {

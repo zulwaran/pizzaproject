@@ -29,7 +29,7 @@ const AuthScreen = ({ navigation }) => {
                 secureTextEntry={true}
                 onChangeText={(password) => setPassword(password)} />
             {
-                error ? <Text style={[{ color: "red", marginLeft: 10 }]}>{error}</Text> : null
+                error ? <Text style={styles.errorMessage}>{error}</Text> : null
             }
             <TouchableOpacity style={styles.button} onPress={() => signUp()}>
                 <Text style={styles.buttonText}>Вход</Text>
@@ -56,6 +56,10 @@ const styles = StyleSheet.create({
         borderColor: "#ddd",
         borderStyle: "solid",
         borderRadius: 10,
+    },
+    errorMessage: {
+        color: "red",
+        marginLeft: 10
     },
     button: {
         backgroundColor: "#ffc000",

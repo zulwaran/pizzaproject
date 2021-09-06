@@ -4,15 +4,14 @@ import { useDispatch } from 'react-redux';
 
 //Icons
 import AntDesign from 'react-native-vector-icons/AntDesign'
-
-
+import { DELETE_FROM_CART } from '../../../reducers/cart'
 
 let deviceWidth = Dimensions.get('window').width
 
 const CartItem = ({ item, type }) => {
     const dispatch = useDispatch();
     const DeleteItemFromCart = (item) => {
-        dispatch({ type: "DELETE_FROM_CART", payload: item })
+        dispatch({ type: DELETE_FROM_CART, payload: item })
     }
     return (
         <View
@@ -81,7 +80,7 @@ const styles = StyleSheet.create({
         width: '50%',
     },
     title: {
-        maxWidth: '70%',
+        maxWidth: '75%',
         fontWeight: '600',
         fontSize: 22,
         marginBottom: 5,

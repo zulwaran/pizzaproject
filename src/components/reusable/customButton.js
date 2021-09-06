@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity, Dimensions } from 'react-native'
-let deviceWidth = Dimensions.get('window').width
+
 const CustomButton = (props) => {
     switch (props.item.type) {
         case "pizza":
@@ -81,29 +81,6 @@ const styles = StyleSheet.create({
         borderBottomColor: 'rgba(157, 141, 143, 0.15)',
         borderBottomWidth: 2,
         backgroundColor: "#fff",
-    },
-    productInfo: {
-        flexDirection: 'row',
-    },
-    productInfoImage: {
-        width: deviceWidth / 2,
-        height: deviceWidth / 2,
-        alignSelf: 'center',
-        maxWidth: 300,
-        maxHeight: 300
-    },
-    productInfoRightHalf: {
-        width: deviceWidth / 2
-    },
-    title: {
-        maxWidth: '80%',
-        fontWeight: '600',
-        fontSize: 22,
-    },
-    decription: {
-        fontWeight: '400',
-        fontSize: 16,
-        marginBottom: 5
     },
     priceContainer: {
         flexDirection: 'row',

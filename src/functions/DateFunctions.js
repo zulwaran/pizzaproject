@@ -18,8 +18,8 @@ export const fetchDate = () => {
         month = "0" + month
     }
     let today = 'Сегодня'
-    let tommorow = year + "-" + month + "-" + dayTommorow
-    let afterTommorow = year + "-" + month + "-" + dayAfterTommorow
+    let tommorow = dayTommorow + "-" + month + "-" + year
+    let afterTommorow = dayAfterTommorow + "-" + month + "-" + year
 
     return [today, tommorow, afterTommorow]
 }
@@ -78,4 +78,12 @@ export const fetchTime = (deliveryDay) => {
         date.setMinutes(date.getMinutes() + 15)
     }
     return timeArray
+}
+
+export const deliveryDate = (deliveryDay, deliveryTime) => {
+    if (deliveryDay === 'Сегодня') {
+        return new Date().toISOString().slice(0, 10).split('-').reverse().join('-') + ' ' + deliveryTime
+    } else {
+        return deliveryDay + ' ' + deliveryTime
+    }
 }

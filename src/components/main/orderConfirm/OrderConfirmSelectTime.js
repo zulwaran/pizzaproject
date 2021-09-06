@@ -1,13 +1,17 @@
 import React from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux';
+import { TOGGLE_DELIVERY_TYPE } from '../../../reducers/order';
+import { OPEN_MODAL } from '../../../reducers/modal';
+
+//Components
 import RadioButton from '../../reusable/RadioButton';
 import ModalPopUp from '../../reusable/modalWindow/ModalPopUp';
 
+
 const OrderConfirmSelectTime = () => {
-    const toggleModal = (type) => {
-        dispatch({ type: "OPEN_MODAL", payload: type })
-    }
+    const dispatch = useDispatch();
+
     const type = {
         now: "Ближайшее",
         later: "Позже",
@@ -15,9 +19,13 @@ const OrderConfirmSelectTime = () => {
     const deliveryType = useSelector(state => state.order.deliveryType)
     const deliveryDay = useSelector(state => state.order.deliveryDay)
     const deliveryTime = useSelector(state => state.order.deliveryTime)
-    const dispatch = useDispatch();
+
+
     const toggleDeliveryType = (item) => {
-        dispatch({ type: "TOGGLE_DELIVERY_TYPE", payload: item })
+        dispatch({ type: TOGGLE_DELIVERY_TYPE, payload: item })
+    }
+    const toggleModal = (type) => {
+        dispatch({ type: OPEN_MODAL, payload: type })
     }
     return (
         <View>

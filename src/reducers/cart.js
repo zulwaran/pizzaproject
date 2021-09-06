@@ -1,12 +1,15 @@
 import firebaseApp from 'firebase/app'
-import "firebase/auth";
-import "firebase/firestore";
 import { db, firebase } from "../../firebase"
 const initialState = {
     userCart: [],
     itemsInCart: null,
     totalOrderSum: 0,
 }
+export const ADD_TO_CART = 'ADD_TO_CART'
+export const DELETE_FROM_CART = 'DELETE_FROM_CART'
+export const FETCH_CART = 'FETCH_CART'
+export const CLEAR_CART = 'CLEAR_CART'
+
 const cart = (state = initialState, action) => {
     const user = firebase.auth().currentUser;
     switch (action.type) {
@@ -14,7 +17,7 @@ const cart = (state = initialState, action) => {
             db.collection("cart").where("uid", "==", user.uid).get().then((querySnapshot) => {
                 querySnapshot.forEach((doc) => {
                     db.collection("cart").doc(doc.id).update({
-                        items: firebaseApp.firestore.FieldValue.arrayUnion(action.payload)
+                        items: firebaseApp.firestore.FieldValue.arrayUnion(Object.assign({}, action.payload))
                     });
                 })
             })
@@ -28,7 +31,7 @@ const cart = (state = initialState, action) => {
             db.collection("cart").where("uid", "==", user.uid).get().then((querySnapshot) => {
                 querySnapshot.forEach((doc) => {
                     db.collection("cart").doc(doc.id).update({
-                        items: firebaseApp.firestore.FieldValue.arrayRemove(action.payload.item)
+                        items: firebaseApp.firestore.FieldValue.arrayRemove(Object.assign({}, action.payload.item))
                     });
                 })
             })

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity, Dimensions } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+import { ADD_TO_CART } from '../../../reducers/cart';
+import { AddItemToCart } from '../../../functions/Constructors';
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import CustomButton from '../../reusable/customButton'
 let deviceWidth = Dimensions.get('window').width
@@ -33,15 +35,8 @@ const ProductListItem = ({ item }) => {
                 productSize = ""
                 break;
         }
-
-        const newItem = {
-            id: Math.floor(Math.random() * 10000) + 1,
-            title: item.title + " " + productSize,
-            decription: item.decription,
-            link: item.link,
-            price: price,
-        }
-        dispatch({ type: "ADD_TO_CART", payload: newItem })
+        let newItem = new AddItemToCart(item.title, productSize, item.decription, item.link, price)
+        dispatch({ type: ADD_TO_CART, payload: newItem })
     }
 
     if (item.type === type) {
@@ -82,52 +77,6 @@ const ProductListItem = ({ item }) => {
                     </View>
                 </View>
                 <CustomButton item={item} toggleActive={toggleActive} active={active} addItemToCart={addItemToCart} />
-                {/*                 {
-                    active === 'selected' ?
-                        <View style={[styles.priceContainer, { alignItems: 'center' }]}>
-                            <View style={styles.buttonCircleContainer}>
-                                <TouchableOpacity
-                                    style={[{ width: 50, height: 50 }, styles.buttonCircle]}
-                                    onPress={() => { addItemToCart({ item }, "25 см") }}>
-                                    <Text>25см</Text>
-                                </TouchableOpacity>
-                                <Text style={styles.price}>
-                                    {item.smallPrice} ₽
-                                </Text>
-                            </View>
-                            <View style={styles.buttonCircleContainer}>
-                                <TouchableOpacity
-                                    style={[{ width: 60, height: 60 }, styles.buttonCircle]}
-                                    onPress={() => { addItemToCart({ item }, "30 см") }}>
-                                    <Text>30см</Text>
-                                </TouchableOpacity>
-                                <Text style={styles.price}>
-                                    {item.mediumPrice} ₽
-                                </Text>
-                            </View>
-                            <View style={styles.buttonCircleContainer}>
-                                <TouchableOpacity
-                                    style={[{ width: 70, height: 70 }, styles.buttonCircle]}
-                                    onPress={() => { addItemToCart({ item }, "35 см") }}>
-                                    <Text>35см</Text>
-                                </TouchableOpacity>
-                                <Text style={styles.price}>
-                                    {item.largePrice} ₽
-                                </Text>
-                            </View>
-                        </View>
-                        : <View style={styles.priceContainer}>
-                            <Text style={styles.priceTextMedium}>от <Text
-                                style={styles.priceTextLarge} >{item.smallPrice}
-                            </Text> ₽
-                            </Text>
-                            <TouchableOpacity
-                                style={styles.select__button}
-                                onPress={() => setActive("selected")}>
-                                <Text>Выбрать</Text>
-                            </TouchableOpacity>
-                        </View>
-                } */}
             </View>
         );
     } else {

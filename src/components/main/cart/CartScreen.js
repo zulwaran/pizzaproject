@@ -28,9 +28,22 @@ const CartScreen = ({ navigation }) => {
                     renderItem={({ item, index }) => (<CartItem item={item} index={index} />)}
                 />
                 <TouchableOpacity
-                    style={styles.card__button}
+                    onPress={() => { createOrder({ DATA }) }}>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    disabled={totalOrderSum < 350 ? true : false}
+                    style={totalOrderSum < 350 ? [styles.card__button, { backgroundColor: '#767976' }] : styles.card__button}
                     onPress={() => navigation.navigate("OrderConfirm")}>
-                    <Text style={styles.card__buttonText}>{totalOrderSum} ₽ Оформить заказ</Text>
+                    {
+                        totalOrderSum < 350 ?
+                            <Text style={styles.card__buttonText, [{ fontSize: 18, textAlign: 'center' }]}>
+                                Сумма заказа должна быть не менее 350 ₽
+                            </Text>
+                            :
+                            <Text style={styles.card__buttonText}>
+                                {totalOrderSum} ₽ Оформить заказ
+                            </Text>
+                    }
                 </TouchableOpacity>
             </View>
         )
