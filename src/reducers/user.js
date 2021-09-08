@@ -11,11 +11,16 @@ export const SET_PHONE = 'SET_PHONE'
 const user = (state = initialState, action) => {
     switch (action.type) {
         case 'GET_USER_INFO':
+            const user = action.payload
+            for (let prop in user) {
+                state.name = user[prop].name
+                state.phone = user[prop].phone
+            }
             return {
                 ...state,
                 currentUser: action.payload,
-                name: action.payload.name,
-                phone: action.payload.phone,
+                name: state.name,
+                phone: state.phone,
             }
         case 'SET_NAME':
             return {

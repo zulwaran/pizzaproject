@@ -3,9 +3,14 @@ import { axiosFirebase } from '../../axiosConfig';
 import { db } from '../../firebase';
 
 export const fetchUserInfo = async (dispatch, currentUser) => {
-    const userRef = db.collection('users').doc(currentUser.uid);
-    const doc = await userRef.get();
-    dispatch({ type: "GET_USER_INFO", payload: doc.data() })
+    axiosFirebase.get(`/users.json?print=pretty`).then(response => {
+        const usersRef = response.data
+        for (let user in usersRef) {
+            if (currentUser.uid === user) {
+                dispatch({ type: "GET_USER_INFO", payload: usersRef[user] })
+            }
+        }
+    })
 }
 
 export const fetchOrders = (dispatch, currentUser) => {
