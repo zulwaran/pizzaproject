@@ -38,7 +38,7 @@ const AuthScreen = ({ navigation }) => {
                 error ? <Text style={text.errorMessage}>{error}</Text> : null
             }
             <TouchableOpacity style={buttons.authButton} onPress={() => signUp()}>
-                <Text style={text.textSmall}>Вход</Text>
+                <Text style={[{ fontSize: 18 }]}>Вход</Text>
             </TouchableOpacity>
             <TouchableOpacity style={buttons.authButton} onPress={() => navigation.navigate("RegisterScreen")}>
                 <Text style={[{ fontSize: 18 }]}>

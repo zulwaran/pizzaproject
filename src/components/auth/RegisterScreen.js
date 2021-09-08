@@ -1,14 +1,16 @@
 import React, { useState } from 'react'
 import { View, TextInput, Text, TouchableOpacity } from 'react-native'
+import { axiosFirebase } from '../../../axiosConfig'
 
 //Firebase
-import { firebase, db } from '../../../firebase'
+import { firebase } from '../../../firebase'
 
 //Styles
 import { buttons } from '../../../assets/styles/buttons'
 import { inputs } from '../../../assets/styles/inputs'
 import { container } from '../../../assets/styles/container'
 import { text } from '../../../assets/styles/text'
+import axios from 'axios'
 
 const RegisterScreen = ({ }) => {
 
@@ -30,15 +32,17 @@ const RegisterScreen = ({ }) => {
         }
         firebase.auth().createUserWithEmailAndPassword(email, password)
             .then((result) => {
-                db.collection("users").doc(result.user.uid).set({
-                    name: name,
-                    email: email,
-                    phone: phone,
-                })
-                db.collection("cart").doc().set({
-                    uid: result.user.uid,
-                    items: []
-                })
+                axiosFirebase.post(`/users/${result.user.uid}.json`,
+                    {
+                        name: name,
+                        email: email,
+                        phone: phone
+                    })
+                    axiosFirebase.post(`/cart/.json`,
+                    {
+                        uid: result.user.uid,
+                        items: []
+                    })
             })
             .catch((error) => {
                 validation(error.code)

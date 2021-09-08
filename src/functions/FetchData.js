@@ -1,3 +1,5 @@
+import axios from 'axios';
+import { axiosFirebase } from '../../axiosConfig';
 import { db } from '../../firebase';
 
 export const fetchUserInfo = async (dispatch, currentUser) => {
@@ -35,13 +37,18 @@ export const fetchProduct = (dispatch) => {
 }
 
 export const fetchCart = (dispatch, currentUser) => {
-    db.collection('cart').where("uid", "==", currentUser.uid).get().then((querySnapshot) => {
-        let cartList = []
-        querySnapshot.forEach((doc) => {
-            cartList = doc.data()
-        })
-        if (cartList.items) {
-            dispatch({ type: "FETCH_CART", payload: cartList })
+    axiosFirebase.get(`/cart.json?print=pretty`).then(response => {
+        const cartRef = response.data
+        let cartID = []
+        for (let elem in cartRef) {
+            if (cartRef[elem].uid === currentUser.uid) {
+                cartID = elem
+                axiosFirebase.get(`/cart/${cartID}/.json`).then(response => {
+                    const cartItems = response.data.items
+                    dispatch({ type: "FETCH_CART", payload: cartItems })
+                })
+            }
         }
+        dispatch({ type: "FETCH_CART_ID", payload: cartID })
     })
 }

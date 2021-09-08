@@ -1,9 +1,12 @@
 import firebaseApp from 'firebase/app'
 import { db, firebase } from "../../firebase"
+import axios from 'axios'
+import { axiosFirebase } from '../../axiosConfig'
 const initialState = {
     userCart: [],
     itemsInCart: null,
     totalOrderSum: 0,
+    cartId: '',
 }
 export const ADD_TO_CART = 'ADD_TO_CART'
 export const DELETE_FROM_CART = 'DELETE_FROM_CART'
@@ -14,13 +17,7 @@ const cart = (state = initialState, action) => {
     const user = firebase.auth().currentUser;
     switch (action.type) {
         case 'ADD_TO_CART':
-            db.collection("cart").where("uid", "==", user.uid).get().then((querySnapshot) => {
-                querySnapshot.forEach((doc) => {
-                    db.collection("cart").doc(doc.id).update({
-                        items: firebaseApp.firestore.FieldValue.arrayUnion(Object.assign({}, action.payload))
-                    });
-                })
-            })
+            axiosFirebase.post(`/cart/${state.cartId}/items/.json`, action.payload)
             return {
                 ...state,
                 userCart: [...state.userCart, action.payload],
@@ -28,14 +25,14 @@ const cart = (state = initialState, action) => {
                 totalOrderSum: state.totalOrderSum + Number(action.payload.price)
             }
         case 'DELETE_FROM_CART':
-            db.collection("cart").where("uid", "==", user.uid).get().then((querySnapshot) => {
-                querySnapshot.forEach((doc) => {
-                    db.collection("cart").doc(doc.id).update({
-                        items: firebaseApp.firestore.FieldValue.arrayRemove(Object.assign({}, action.payload.item))
-                    });
-                })
+            axiosFirebase.get(`/cart/${state.cartId}/items/.json`).then(response => {
+                const itemsRef = response.data
+                for (let elem in itemsRef) {
+                    if (action.payload.item.id === itemsRef[elem].id) {
+                        axiosFirebase.delete(`/cart/${state.cartId}/items/${elem}/.json`)
+                    }
+                }
             })
-
             const id = action.payload.item.id
             state.userCart = state.userCart.filter((item) => {
                 return (item.id !== id)
@@ -54,19 +51,26 @@ const cart = (state = initialState, action) => {
                 itemsInCart: state.itemsInCart,
                 totalOrderSum: state.totalOrderSum
             }
-        case 'FETCH_CART':
-            action.payload.items.forEach(elem => {
-                state.totalOrderSum += Number(elem.price)
-            })
-
-            state.itemsInCart = action.payload.items.length
-            if (state.itemsInCart === 0) {
-                state.itemsInCart = null
-            }
-
+        case 'FETCH_CART_ID':
             return {
                 ...state,
-                userCart: action.payload.items,
+                cartId: action.payload,
+            }
+        case 'FETCH_CART':
+            const cartItems = action.payload
+            if (cartItems) {
+                for (let item in cartItems) {
+                    state.userCart.push(cartItems[item])
+                    state.totalOrderSum += Number(cartItems[item].price)
+                    state.itemsInCart += 1
+                }
+                if (state.itemsInCart === 0) {
+                    state.itemsInCart = null
+                }
+            }
+            return {
+                ...state,
+                userCart: state.userCart,
                 itemsInCart: state.itemsInCart,
                 totalOrderSum: state.totalOrderSum,
             }
