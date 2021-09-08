@@ -69,8 +69,11 @@ const App = () => {
               headerTitle: () => <Header />
             }} />
           <Stack.Screen
-            name="Регистрация"
-            component={RegisterScreen} />
+            name="RegisterScreen"
+            component={RegisterScreen}
+            options={{
+              title: "Регистрация",
+            }} />
         </Stack.Navigator>
       </NavigationContainer>
     )
@@ -111,13 +114,5 @@ const App = () => {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-  },
-});
 
 export default App

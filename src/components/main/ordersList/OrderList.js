@@ -1,47 +1,59 @@
 import React, { useState } from 'react'
-import { StyleSheet, Text, TouchableOpacity, View, FlatList } from 'react-native';
+import { Text, TouchableOpacity, View, FlatList } from 'react-native';
+import PropTypes from 'prop-types';
+
+//Components
 import CartItem from '../cart/CartItem'
-import Ionicons from 'react-native-vector-icons/Ionicons'
+
+//Icons
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import Ionicons from 'react-native-vector-icons/Ionicons'
+
+//Styles
+import { text } from '../../../../assets/styles/text';
+import { div } from '../../../../assets/styles/div';
+import { container } from '../../../../assets/styles/container';
+import { images } from '../../../../assets/styles/images';
+import { buttons } from '../../../../assets/styles/buttons';
 
 const OrderList = ({ item }) => {
     const [active, setActive] = useState(false)
     return (
         <TouchableOpacity
             onPress={() => setActive(!active)}
-            style={styles.container}>
+            style={container.OrderListItemContainer}>
             <View style={[{
                 flexDirection: 'row',
                 marginBottom: 20
             }]}>
-                <View style={styles.leftSide}>
-                    <View style={styles.infoBlock}>
+                <View style={div.OrderListLeftSide}>
+                    <View style={div.OrderListInfoBlock}>
                         <MaterialCommunityIcons
-                            style={styles.icon}
+                            style={images.icon}
                             name="clock-time-four"
                             color="#11bd0d"
                             size={24} />
-                        <Text style={styles.mediumText}>
+                        <Text style={text.textSmall}>
                             {item.deliveryDate}
                         </Text>
                     </View>
-                    <View style={styles.infoBlock}>
+                    <View style={div.OrderListInfoBlock}>
                         <Ionicons
-                            style={styles.icon}
+                            style={images.icon}
                             name="location-sharp"
                             color="red"
                             size={24} />
-                        <Text style={styles.mediumText}>
+                        <Text style={text.textSmall}>
                             {item.address}
                         </Text>
                     </View>
-                    <Text style={[styles.mediumText, { marginLeft: 26 }]}>
+                    <Text style={[text.textSmall, { marginLeft: 26 }]}>
                         {item.paymentType}
                     </Text>
                 </View>
-                <View style={styles.rightSide}>
-                    <Text style={item.status === 'Готовим' || item.status === 'Везем' ? styles.statusActive : styles.status}>
+                <View style={div.OrderListRightSide}>
+                    <Text style={item.status === 'Готовим' || item.status === 'Везем' ? text.orderStatusActive : text.orderStatus}>
                         {item.status}
                     </Text>
                     <Text>
@@ -51,13 +63,13 @@ const OrderList = ({ item }) => {
             </View>
             {
                 item.comment ?
-                    <Text style={[{ marginBottom: 10 }, styles.mediumText]}>
+                    <Text style={[{ marginBottom: 10 }, text.textSmall]}>
                         Комментарий: {item.comment}
                     </Text>
                     : null
             }
             <Text
-                style={[styles.largeText, { marginBottom: 10 }]}>
+                style={[text.textLarge, { marginBottom: 10 }]}>
                 Стоимость заказа: {item.cost} ₽
             </Text>
             {
@@ -73,13 +85,13 @@ const OrderList = ({ item }) => {
             {
                 active === true ?
                     <MaterialIcons
-                        style={styles.arrowBtn}
+                        style={buttons.arrowButton}
                         name="arrow-drop-up"
                         color="#000"
                         size={24} />
                     :
                     <MaterialIcons
-                        style={styles.arrowBtn}
+                        style={buttons.arrowButton}
                         name="arrow-drop-down"
                         color="#000"
                         size={24} />
@@ -88,62 +100,8 @@ const OrderList = ({ item }) => {
     )
 }
 
-const styles = StyleSheet.create({
-    container: {
-        borderColor: '#ffc000',
-        borderRadius: 25,
-        borderWidth: 3,
-        marginBottom: 20,
-        marginHorizontal: 10,
-        padding: 15,
-    },
-    infoBlock: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 5,
-    },
-    leftSide: {
-        width: '60%',
-        marginRight: 10
-    },
-    rightSide: {
-        width: '40%',
-        alignItems: 'flex-end'
-    },
-    mediumText: {
-        fontSize: 16
-    },
-    largeText: {
-        fontSize: 22
-    },
-    status: {
-        color: 'brown',
-        borderColor: 'brown',
-        opacity: 0.3,
-        borderRadius: 25,
-        borderWidth: 1,
-        fontSize: 16,
-        padding: 5,
-    },
-    statusActive: {
-        color: '#357138',
-        borderColor: '#357138',
-        borderRadius: 25,
-        borderWidth: 1,
-        fontSize: 16,
-        padding: 5,
-    },
-    icon: {
-        marginTop: 5,
-        marginRight: 5
-    },
-    arrowBtn: {
-        position: 'absolute',
-        borderRadius: 50,
-        left: '50%',
-        bottom: -15,
-        backgroundColor: '#ffc000'
-    },
-});
+OrderList.propTypes = {
+    item: PropTypes.object
+  };
 
 export default OrderList

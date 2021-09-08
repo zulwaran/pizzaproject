@@ -1,20 +1,14 @@
 import React from 'react'
-import { Text, StyleSheet } from 'react-native'
+import { Text } from 'react-native'
+
+//Styles
+import { text } from '../../../assets/styles/text';
 
 const EmptyFlatList = () => {
     return (
-        <Text style={styles.text}>
+        <Text style={text.emptyList}>
             Заказов нет
         </Text>
     )
 }
-const styles = StyleSheet.create({
-    text: {
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-        textAlign: 'center',
-        fontSize: 22,
-    },
-});
 export default EmptyFlatList

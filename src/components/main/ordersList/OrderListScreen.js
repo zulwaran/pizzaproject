@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { StyleSheet, ScrollView, FlatList, View, Text, TouchableOpacity } from 'react-native'
+import { ScrollView, FlatList, View, Text, TouchableOpacity } from 'react-native'
 import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 
 //Firebase
 import firebase from 'firebase';
@@ -9,8 +10,13 @@ import firebase from 'firebase';
 import EmptyFlatList from '../../reusable/EmptyFlatList';
 import OrderList from './OrderList';
 
+//Styles
+import { text } from '../../../../assets/styles/text';
+import { buttons } from '../../../../assets/styles/buttons';
+import { container } from '../../../../assets/styles/container';
 
-const OrderListScreen = ({ navigation }) => {
+
+const OrderListScreen = () => {
     const [toggleOrderStatus, setToggleOrderStatus] = useState('actual')
     const DATA = useSelector(state => state.order.orderList);
 
@@ -25,18 +31,18 @@ const OrderListScreen = ({ navigation }) => {
 
     return (
         <ScrollView>
-            <View style={styles.container}>
+            <View style={container.OrderListContainer}>
                 <TouchableOpacity
                     onPress={() => setToggleOrderStatus('actual')}>
                     <Text
-                        style={toggleOrderStatus === 'actual' ? styles.menuActive : styles.menu
+                        style={toggleOrderStatus === 'actual' ? text.orderListMenuActive : text.orderListMenu
                         }>
                         Текущие заказы
                     </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={() => setToggleOrderStatus('history')}>
-                    <Text style={toggleOrderStatus === 'history' ? styles.menuActive : styles.menu
+                    <Text style={toggleOrderStatus === 'history' ? text.orderListMenuActive : text.orderListMenu
                     }>
                         История заказов
                     </Text>
@@ -59,39 +65,12 @@ const OrderListScreen = ({ navigation }) => {
                     />
             }
             <TouchableOpacity
-                style={styles.button}
+                style={buttons.confirm__button}
                 onPress={() => exit()}>
-                <Text style={styles.textButton}>Выйти из профиля</Text>
+                <Text style={text.exitButtonText}>Выйти из профиля</Text>
             </TouchableOpacity>
         </ScrollView>
     )
 }
-const styles = StyleSheet.create({
-    container: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        marginBottom: 20
-    },
-    menu: {
-        fontSize: 20,
-        padding: 10,
-        opacity: 0.3
-    },
-    menuActive: {
-        fontSize: 20,
-        borderBottomColor: '#ffc000',
-        padding: 10,
-        borderBottomWidth: 1,
-    },
-    button: {
-        backgroundColor: "#FFC000",
-        padding: 20,
-        borderRadius: 10,
-        marginVertical: 10,
-    },
-    textButton: {
-        textAlign: 'center',
-        fontSize: 16
-    },
-})
+
 export default OrderListScreen

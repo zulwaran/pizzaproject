@@ -1,6 +1,8 @@
 import React from 'react'
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux';
+
+//Reducers
 import { TOGGLE_DELIVERY_TYPE } from '../../../reducers/order';
 import { OPEN_MODAL } from '../../../reducers/modal';
 
@@ -8,6 +10,10 @@ import { OPEN_MODAL } from '../../../reducers/modal';
 import RadioButton from '../../reusable/RadioButton';
 import ModalPopUp from '../../reusable/modalWindow/ModalPopUp';
 
+//Styles
+import { text } from '../../../../assets/styles/text';
+import { inputs } from '../../../../assets/styles/inputs';
+import { buttons } from '../../../../assets/styles/buttons';
 
 const OrderConfirmSelectTime = () => {
     const dispatch = useDispatch();
@@ -30,34 +36,34 @@ const OrderConfirmSelectTime = () => {
     return (
         <View>
             <TouchableOpacity
-                style={styles.radioButton}
+                style={buttons.radioButton}
                 onPress={() => { toggleDeliveryType(type.now) }}>
                 <RadioButton type={type.now} radioType="delivery" />
-                <Text style={styles.paymentType}>
+                <Text style={text.paymentType}>
                     Как можно скорее
                 </Text>
             </TouchableOpacity>
             {
                 deliveryType === type.later ?
                     <TouchableOpacity
-                        style={styles.radioButton}>
+                        style={buttons.radioButton}>
                         <RadioButton type={type.later} radioType="delivery" />
                         <Text
                             onPress={() => toggleModal("date")}
-                            style={[styles.input, { width: '60%' }]}>
+                            style={[inputs.inptTime, { width: '60%' }]}>
                             {deliveryDay}
                         </Text>
                         <Text
                             onPress={() => toggleModal("time")}
-                            style={styles.input}>
+                            style={inputs.inptTime}>
                             {deliveryTime}
                         </Text>
                     </TouchableOpacity>
                     : <TouchableOpacity
-                        style={styles.radioButton}
+                        style={buttons.radioButton}
                         onPress={() => { toggleDeliveryType(type.later) }}>
                         <RadioButton type={type.later} radioType="delivery" />
-                        <Text style={styles.paymentType}>
+                        <Text style={text.paymentType}>
                             На точное время
                         </Text>
                     </TouchableOpacity>
@@ -66,32 +72,5 @@ const OrderConfirmSelectTime = () => {
         </View>
     )
 }
-const styles = StyleSheet.create({
-    input: {
-        color: "black",
-        fontSize: 18,
-        marginLeft: 10,
-        backgroundColor: "#fff",
-        borderRadius: 25,
-        borderWidth: 1,
-        borderColor: "#ddd",
-        borderStyle: "solid",
-        paddingVertical: 5,
-        paddingHorizontal: 10,
-        width: "30%",
-        textAlign: 'center'
-    },
-    radioButton: {
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-        marginBottom: 15,
-    },
-    paymentType: {
-        fontSize: 17,
-        marginLeft: 8,
-        color: 'black'
-    },
-});
 
 export default OrderConfirmSelectTime

@@ -1,12 +1,19 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image, TouchableOpacity, Dimensions } from 'react-native';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types'
 
 //Icons
 import AntDesign from 'react-native-vector-icons/AntDesign'
+
+//Reducer
 import { DELETE_FROM_CART } from '../../../reducers/cart'
 
-let deviceWidth = Dimensions.get('window').width
+//Styles
+import { text } from '../../../../assets/styles/text';
+import { container } from '../../../../assets/styles/container';
+import { images } from '../../../../assets/styles/images';
+import { div } from '../../../../assets/styles/div';
 
 const CartItem = ({ item, type }) => {
     const dispatch = useDispatch();
@@ -15,22 +22,22 @@ const CartItem = ({ item, type }) => {
     }
     return (
         <View
-            style={styles.container}>
+            style={container.cartItemContainer}>
             <View
-                style={styles.productInfo}>
+                style={div.productInfo}>
                 <Image
-                    style={styles.productInfoImage}
+                    style={images.productInfoImage}
                     source={{
                         uri: item.link,
                     }}
                 />
-                <View style={styles.productInfoRightHalf}>
+                <View style={div.productInfoRightHalf}>
                     <View
                         style={[{
                             flexDirection: 'row',
                             justifyContent: 'space-between'
                         }]}>
-                        <Text style={styles.title}>
+                        <Text style={[text.productTextTitle, { marginBottom: 5 }]}>
                             {item.title}
                         </Text>
                         {
@@ -45,11 +52,11 @@ const CartItem = ({ item, type }) => {
                                 </TouchableOpacity>
                         }
                     </View>
-                    <Text style={styles.decription}>
+                    <Text style={text.productTextDecription}>
                         {item.decription}
                     </Text>
                     <Text
-                        style={styles.priceTextLarge} >{item.price} ₽
+                        style={text.productPriceMedium} >{item.price} ₽
                     </Text>
                 </View>
             </View>
@@ -57,43 +64,10 @@ const CartItem = ({ item, type }) => {
     );
 }
 
-const styles = StyleSheet.create({
-    container: {
-        paddingVertical: 10,
-        borderBottomColor: 'rgba(157, 141, 143, 0.15)',
-        borderBottomWidth: 2,
-        backgroundColor: "#fff",
-    },
-    productInfo: {
-        flexDirection: 'row',
-    },
-    productInfoImage: {
-        width: '50%',
-        marginRight: 10,
-        height: deviceWidth / 2,
-        alignSelf: 'center',
-        maxWidth: 300,
-        maxHeight: 300,
-        resizeMode: 'contain'
-    },
-    productInfoRightHalf: {
-        width: '50%',
-    },
-    title: {
-        maxWidth: '75%',
-        fontWeight: '600',
-        fontSize: 22,
-        marginBottom: 5,
-    },
-    decription: {
-        fontWeight: '400',
-        fontSize: 16,
-        marginBottom: 5,
-    },
-    priceTextLarge: {
-        fontWeight: '600',
-        fontSize: 22,
-    },
-});
+CartItem.propTypes = {
+    item: PropTypes.object,
+    type: PropTypes.string,
+}
+
 
 export default CartItem

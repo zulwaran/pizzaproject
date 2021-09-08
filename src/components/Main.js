@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 //Firebase
@@ -81,7 +80,5 @@ const Main = () => {
         </Tab.Navigator>
     );
 }
-
-const styles = StyleSheet.create({});
 
 export default Main

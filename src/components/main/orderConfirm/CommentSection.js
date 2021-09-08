@@ -1,8 +1,19 @@
 import React from 'react'
-import { StyleSheet, View, TextInput, Text } from 'react-native'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import { View, TextInput, Text } from 'react-native'
 import { useDispatch } from 'react-redux';
+
+//Icons
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+
+//Reducers
 import { SET_COMMENT } from '../../../reducers/order';
+
+//Styles
+import { container } from '../../../../assets/styles/container';
+import { images } from '../../../../assets/styles/images';
+import { inputs } from '../../../../assets/styles/inputs';
+import { text } from '../../../../assets/styles/text';
+
 const CommentSection = () => {
     const dispatch = useDispatch();
     const setComment = (item) => {
@@ -10,60 +21,22 @@ const CommentSection = () => {
     }
     return (
         <View>
-            <View style={styles.subtitleContainer}>
+            <View style={container.subtitleContainer}>
                 <MaterialCommunityIcons
-                    style={styles.icon}
+                    style={images.icon}
                     name="microphone"
                     color="#ff9711"
                     size={30} />
-                <Text style={styles.confirmSubtitle}>Комментарий</Text>
+                <Text style={text.confirmSubtitle}>Комментарий</Text>
             </View>
             <TextInput
                 onChangeText={setComment}
-                style={styles.commentTextArea}
+                style={inputs.commentTextArea}
                 numberOfLines={4}
                 multiline
             />
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        marginHorizontal: 5,
-        flexDirection: 'column',
-    },
-    subtitleContainer: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        marginVertical: 20,
-    },
-    confirmSubtitle: {
-        fontSize: 28,
-        textAlign: "center",
-        alignSelf: "center",
-    },
-    input: {
-        fontSize: 18,
-        paddingHorizontal: 10,
-        backgroundColor: "#fff",
-        borderWidth: 1,
-        borderColor: "#ddd",
-        borderStyle: "solid",
-        borderRadius: 10,
-    },
-    icon: {
-        paddingTop: 5,
-        marginRight: 5,
-    },
-    commentTextArea: {
-        paddingHorizontal: 20,
-        backgroundColor: "#fff",
-        borderWidth: 1,
-        borderColor: "#ddd",
-        borderStyle: "solid",
-        borderRadius: 5,
-    },
-});
 
 export default CommentSection

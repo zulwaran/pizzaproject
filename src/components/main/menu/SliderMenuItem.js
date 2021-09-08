@@ -1,7 +1,16 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image } from 'react-native';
+import { View, Text, Image } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
+
+//Reducers
 import { TOGGLE_MENU } from '../../../reducers/menu'
+
+//Styles
+import { div } from '../../../../assets/styles/div';
+import { images } from '../../../../assets/styles/images';
+import { text } from '../../../../assets/styles/text';
+
 
 
 const SliderMenuItem = ({ item }) => {
@@ -13,14 +22,14 @@ const SliderMenuItem = ({ item }) => {
     }
 
     return (
-        <View style={styles.item}>
+        <View style={div.sliderItem}>
             <Image
-                style={styles.item__img}
+                style={images.sliderImg}
                 source={{
                     uri: item.link,
                 }}
             />
-            <Text style={item.type == activeType ? styles.item__textActive : styles.item__text}
+            <Text style={item.type == activeType ? text.sliderTextActive : text.sliderText}
                 onPress={() => { toggleItem({ item }) }}>
                 {item.title}
             </Text>
@@ -28,31 +37,8 @@ const SliderMenuItem = ({ item }) => {
     );
 }
 
-const styles = StyleSheet.create({
-    item: {
-        marginRight: 20,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    item__img: {
-        height: 80,
-        width: 80,
-        resizeMode: 'contain',
-        marginRight: 10,
-    },
-    item__text: {
-        color: '#000',
-        fontSize: 22,
-        fontWeight: '600',
-        alignSelf: 'center'
-    },
-    item__textActive: {
-        fontSize: 22,
-        fontWeight: '600',
-        color: '#FFC000'
-    }
-
-});
+SliderMenuItem.propTypes = {
+    item: PropTypes.object
+  };
 
 export default SliderMenuItem

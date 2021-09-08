@@ -1,16 +1,16 @@
 import React from 'react'
 import { FlatList, ScrollView } from 'react-native'
+import { useSelector } from 'react-redux'
 
 //Components
 import SliderMenuItem from './SliderMenuItem'
 import ProductListItem from './ProductListItem'
-import { useSelector } from 'react-redux'
+
 
 
 const MenuScreen = () => {
     const SLIDER_ITEM = useSelector(state => state.menu.sliderItems)
     const PRODUCT = useSelector(state => state.menu.productList);
-
 
     return (
         <ScrollView style={[{ backgroundColor: "#fff", width: '100%' }]}>

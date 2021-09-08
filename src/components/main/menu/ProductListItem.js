@@ -1,11 +1,23 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, Image, TouchableOpacity, Dimensions } from 'react-native';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
+
+//Icons
+import AntDesign from 'react-native-vector-icons/AntDesign'
+
+//Reducer & Functions
 import { ADD_TO_CART } from '../../../reducers/cart';
 import { AddItemToCart } from '../../../functions/Constructors';
-import AntDesign from 'react-native-vector-icons/AntDesign'
+
+//Components
 import CustomButton from '../../reusable/customButton'
-let deviceWidth = Dimensions.get('window').width
+
+//Styles
+import { text } from '../../../../assets/styles/text';
+import { div } from '../../../../assets/styles/div';
+import { images } from '../../../../assets/styles/images';
+import { container } from '../../../../assets/styles/container';
 
 
 const ProductListItem = ({ item }) => {
@@ -41,21 +53,21 @@ const ProductListItem = ({ item }) => {
 
     if (item.type === type) {
         return (
-            <View style={styles.container}>
-                <View style={styles.productInfo}>
+            <View style={container.productContainer}>
+                <View style={div.productInfo}>
                     <Image
-                        style={styles.productInfoImage}
+                        style={images.productInfoImage}
                         source={{
                             uri: item.link,
                         }}
                     />
-                    <View style={styles.productInfoRightHalf}>
+                    <View style={div.productInfoRightHalf}>
                         <View
                             style={[{
                                 flexDirection: 'row',
                                 justifyContent: 'space-between'
                             }]}>
-                            <Text style={styles.title}>
+                            <Text style={text.productTextTitle}>
                                 {item.title}
                             </Text>
                             {
@@ -71,7 +83,7 @@ const ProductListItem = ({ item }) => {
                                     : null
                             }
                         </View>
-                        <Text style={styles.decription}>
+                        <Text style={text.productTextDecription}>
                             {item.decription}
                         </Text>
                     </View>
@@ -84,73 +96,8 @@ const ProductListItem = ({ item }) => {
     }
 }
 
-const styles = StyleSheet.create({
-    container: {
-        marginBottom: 30,
-        marginRight: 10,
-        borderBottomColor: 'rgba(157, 141, 143, 0.15)',
-        borderBottomWidth: 2,
-        backgroundColor: "#fff",
-    },
-    productInfo: {
-        flexDirection: 'row',
-    },
-    productInfoImage: {
-        width: deviceWidth / 2,
-        height: deviceWidth / 2,
-        alignSelf: 'center',
-        maxWidth: 300,
-        maxHeight: 300,
-        resizeMode: 'contain'
-    },
-    productInfoRightHalf: {
-        width: deviceWidth / 2
-    },
-    title: {
-        maxWidth: '80%',
-        fontWeight: '600',
-        fontSize: 22,
-    },
-    decription: {
-        fontWeight: '400',
-        fontSize: 16,
-        marginBottom: 5
-    },
-    priceContainer: {
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-        marginBottom: 20,
-    },
-    priceTextMedium: {
-        alignSelf: 'center',
-        marginRight: 10
-    },
-    priceTextLarge: {
-        fontWeight: '600',
-        fontSize: 18
-    },
-    select__button: {
-        backgroundColor: "#fff",
-        borderWidth: 5,
-        borderColor: "#ffc000",
-        borderStyle: "solid",
-        borderRadius: 30,
-        padding: 10,
-    },
-    buttonCircleContainer: {
-        flexDirection: 'column',
-        alignItems: 'center'
-    },
-    buttonCircle: {
-        backgroundColor: "#fff",
-        borderRadius: 50,
-        borderWidth: 5,
-        borderColor: "#ffc000",
-        borderStyle: "solid",
-        alignItems: "center",
-        justifyContent: "center",
-        marginRight: 5,
-    },
-});
+ProductListItem.propTypes = {
+    item: PropTypes.object
+  };
 
 export default ProductListItem

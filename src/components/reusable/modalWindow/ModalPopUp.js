@@ -1,9 +1,18 @@
 import React from 'react'
-import { StyleSheet, Text, View, Modal, Pressable, FlatList } from 'react-native'
+import { Text, View, Modal, Pressable, FlatList } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
+
+//Components
 import ModalItems from './ModalItems'
+
+//Reducers & Functions
 import { fetchDate, fetchTime } from '../../../functions/DateFunctions'
 import { CLOSE_MODAL } from '../../../reducers/modal'
+
+//Styles
+import { buttons } from '../../../../assets/styles/buttons'
+import { div } from '../../../../assets/styles/div'
+import { text } from '../../../../assets/styles/text'
 
 const ModalPopUp = () => {
     const modalType = useSelector(state => state.modal.modalType)
@@ -20,8 +29,8 @@ const ModalPopUp = () => {
             transparent={true}
             visible={visibleModal}
         >
-            <View style={styles.centeredView}>
-                <View style={styles.modalView}>
+            <View style={div.centeredView}>
+                <View style={div.modalView}>
                     <FlatList
                         data={modalType === "date" ? fetchDate() : fetchTime(deliveryDay)}
                         showsVerticalScrollIndicator={false}
@@ -29,48 +38,15 @@ const ModalPopUp = () => {
                         renderItem={({ item }) => (<ModalItems item={item} />)}
                     />
                     <Pressable
-                        style={styles.button}
+                        style={buttons.closeModalButton}
                         onPress={() => closeModal()}
                     >
-                        <Text style={styles.buttonText}>Готово</Text>
+                        <Text style={text.textLarge}>Готово</Text>
                     </Pressable>
                 </View>
             </View>
         </Modal >
     )
 }
-
-const styles = StyleSheet.create({
-    centeredView: {
-        flex: 1,
-        justifyContent: "flex-end",
-    },
-    modalView: {
-        maxHeight: "50%",
-        backgroundColor: "white",
-        padding: 35,
-        alignItems: "center",
-        shadowColor: "#000",
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5
-    },
-    text: {
-        fontSize: 22,
-        marginTop: 10,
-    },
-    button: {
-        marginTop: 10,
-        backgroundColor: "#FFC000",
-        borderRadius: 25,
-        paddingVertical: 10,
-        width: "90%",
-        alignItems: 'center'
-    },
-    buttonText: {
-        fontSize: 22,
-        color: "black"
-    },
-})
 
 export default ModalPopUp

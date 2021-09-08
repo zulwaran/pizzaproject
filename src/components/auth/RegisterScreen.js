@@ -1,6 +1,14 @@
 import React, { useState } from 'react'
+import { View, TextInput, Text, TouchableOpacity } from 'react-native'
+
+//Firebase
 import { firebase, db } from '../../../firebase'
-import { StyleSheet, View, TextInput, Text, TouchableOpacity } from 'react-native'
+
+//Styles
+import { buttons } from '../../../assets/styles/buttons'
+import { inputs } from '../../../assets/styles/inputs'
+import { container } from '../../../assets/styles/container'
+import { text } from '../../../assets/styles/text'
 
 const RegisterScreen = ({ }) => {
 
@@ -48,64 +56,36 @@ const RegisterScreen = ({ }) => {
     }
 
     return (
-        <View style={styles.container}>
+        <View style={container.authContainer}>
             <TextInput
-                style={styles.input}
+                style={[inputs.input, { paddingVertical: 10 }]}
                 placeholder="Имя"
                 onChangeText={(name) => setName(name)} />
             <TextInput
-                style={styles.input}
+                style={[inputs.input, { paddingVertical: 10 }]}
                 placeholder="Электронная почта"
                 onChangeText={(email) => setEmail(email)} />
             <TextInput
-                style={styles.input}
+                style={[inputs.input, { paddingVertical: 10 }]}
                 placeholder="Телефон"
+                keyboardType='numeric'
+                maxLength={11}
                 onChangeText={(phone) => setPhone(phone)} />
             <TextInput
-                style={styles.input}
+                style={[inputs.input, { paddingVertical: 10 }]}
                 placeholder="Пароль"
                 secureTextEntry={true}
                 onChangeText={(password) => setPassword(password)} />
             <TouchableOpacity
-                style={styles.button}
+                style={buttons.authButton}
                 onPress={() => signUp()} >
-                <Text style={styles.buttonText}>
+                <Text style={[{ fontSize: 18 }]}>
                     Зарегистрироваться
                 </Text>
             </TouchableOpacity>
-            <Text style={[{ color: 'red', marginLeft: 10 }]}>{validationError}</Text>
+            <Text style={text.errorMessage}>{validationError}</Text>
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-    },
-    input: {
-        fontSize: 18,
-        padding: 10,
-        marginBottom: 10,
-        backgroundColor: "#fff",
-        borderWidth: 1,
-        borderColor: "#ddd",
-        borderStyle: "solid",
-        borderRadius: 10,
-    },
-    button: {
-        backgroundColor: "#ffc000",
-        borderWidth: 5,
-        borderColor: "#ffc000",
-        borderStyle: "solid",
-        borderRadius: 30,
-        padding: 10,
-        marginTop: 10,
-        alignItems: 'center',
-    },
-    buttonText: {
-        fontSize: 18
-    }
-});
 
 export default RegisterScreen

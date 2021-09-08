@@ -1,9 +1,15 @@
 import React from 'react'
-import { StyleSheet, FlatList, TouchableOpacity, Text, View } from 'react-native'
+import { FlatList, TouchableOpacity, Text, View } from 'react-native'
 import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types'
 
 //Components
 import CartItem from './CartItem';
+
+//Styles
+import { container } from '../../../../assets/styles/container';
+import { text } from '../../../../assets/styles/text';
+import { buttons } from '../../../../assets/styles/buttons';
 
 
 
@@ -12,7 +18,7 @@ const CartScreen = ({ navigation }) => {
     const DATA = useSelector(state => state.cart.userCart);
     if (DATA.length === 0) {
         return (
-            <View style={styles.text}>
+            <View style={text.cartTextEmpty}>
                 <Text>
                     Корзина пуста
                 </Text>
@@ -21,7 +27,7 @@ const CartScreen = ({ navigation }) => {
     }
     else if (DATA.length > 0) {
         return (
-            <View style={styles.container}>
+            <View style={container.cartContainer}>
                 <FlatList
                     data={DATA}
                     keyExtractor={(item, index) => index.toString()}
@@ -32,15 +38,15 @@ const CartScreen = ({ navigation }) => {
                 </TouchableOpacity>
                 <TouchableOpacity
                     disabled={totalOrderSum < 350 ? true : false}
-                    style={totalOrderSum < 350 ? [styles.card__button, { backgroundColor: '#767976' }] : styles.card__button}
+                    style={totalOrderSum < 350 ? [buttons.cart__button, { backgroundColor: '#767976' }] : buttons.cart__button}
                     onPress={() => navigation.navigate("OrderConfirm")}>
                     {
                         totalOrderSum < 350 ?
-                            <Text style={styles.card__buttonText, [{ fontSize: 18, textAlign: 'center' }]}>
+                            <Text style={text.cartTextbutton, [{ fontSize: 18, textAlign: 'center' }]}>
                                 Сумма заказа должна быть не менее 350 ₽
                             </Text>
                             :
-                            <Text style={styles.card__buttonText}>
+                            <Text style={text.cartTextbutton}>
                                 {totalOrderSum} ₽ Оформить заказ
                             </Text>
                     }
@@ -49,30 +55,8 @@ const CartScreen = ({ navigation }) => {
         )
     }
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        marginHorizontal: 5
-    },
-    text: {
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center"
-    },
-    card__button: {
-        alignItems: "center",
-        backgroundColor: "#FFC000",
-        borderRadius: 30,
-        padding: 10,
-        marginHorizontal: 20,
-        marginBottom: 30,
-    },
-    card__buttonText: {
-        fontWeight: "600",
-        fontSize: 22,
-    },
-});
+CartScreen.propTypes = {
+    navigation: PropTypes.object,
+}
 
 export default CartScreen

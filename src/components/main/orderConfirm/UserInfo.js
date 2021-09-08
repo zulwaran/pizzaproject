@@ -1,8 +1,18 @@
 import React from 'react'
-import { StyleSheet, View, Text, TextInput } from 'react-native'
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import { View, Text, TextInput } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux';
+
+//Icons
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+
+//Reducers
 import { SET_NAME, SET_PHONE } from '../../../reducers/user';
+
+//Styles
+import { container } from '../../../../assets/styles/container';
+import { images } from '../../../../assets/styles/images';
+import { inputs } from '../../../../assets/styles/inputs';
+import { text } from '../../../../assets/styles/text';
 
 const UserInfo = () => {
     const dispatch = useDispatch();
@@ -16,67 +26,32 @@ const UserInfo = () => {
     }
     return (
         <View>
-            <View style={styles.subtitleContainer}>
+            <View style={container.subtitleContainer}>
                 <MaterialCommunityIcons
-                    style={styles.icon}
+                    style={images.icon}
                     name="glasses"
                     size={30} />
-                <Text style={styles.confirmSubtitle}>
+                <Text style={text.confirmSubtitle}>
                     Ваши данные
                 </Text>
             </View>
-            <Text style={styles.inputLabel}>
+            <Text style={text.inputLabel}>
                 Имя*
             </Text>
             <TextInput
                 value={name}
-                style={styles.input}
+                style={inputs.input}
                 onChangeText={setName} />
-            <Text style={styles.inputLabel}>
+            <Text style={text.inputLabel}>
                 Телефон*
             </Text>
             <TextInput
                 value={phone}
                 keyboardType='numeric'
-                style={styles.input}
+                style={inputs.input}
                 onChangeText={setPhone}
             />
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        marginHorizontal: 5,
-        flexDirection: 'column',
-    },
-    subtitleContainer: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        marginVertical: 20,
-    },
-    confirmSubtitle: {
-        fontSize: 28,
-        textAlign: "center",
-        alignSelf: "center",
-    },
-    input: {
-        fontSize: 18,
-        paddingHorizontal: 10,
-        backgroundColor: "#fff",
-        borderWidth: 1,
-        borderColor: "#ddd",
-        borderStyle: "solid",
-        borderRadius: 10,
-    },
-    inputLabel: {
-        marginTop: 10,
-        fontSize: 18,
-    },
-    icon: {
-        paddingTop: 5,
-        marginRight: 5,
-    },
-});
-
 export default UserInfo

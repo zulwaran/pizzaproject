@@ -1,7 +1,13 @@
 import React from 'react'
-import { StyleSheet, View, Text, FlatList } from 'react-native'
+import { View, Text, FlatList } from 'react-native'
 import { useSelector } from 'react-redux';
+
+//Components
 import CartItem from '../cart/CartItem'
+
+//Styles
+import { container } from '../../../../assets/styles/container';
+import { text } from '../../../../assets/styles/text';
 
 const ProductSection = () => {
     const totalOrderSum = useSelector(state => state.cart.totalOrderSum);
@@ -9,8 +15,8 @@ const ProductSection = () => {
     return (
         DATA.length > 0 ?
             <View>
-                <View style={styles.subtitleContainer}>
-                    <Text style={styles.confirmSubtitle}>
+                <View style={container.subtitleContainer}>
+                    <Text style={text.confirmSubtitle}>
                         Убедитесь в правильности выбранных товаров
                     </Text>
                 </View>
@@ -19,30 +25,13 @@ const ProductSection = () => {
                     keyExtractor={(item, index) => item.id.toString()}
                     renderItem={({ item }) => (<CartItem item={item} />)}
                 />
-                <Text style={[styles.confirmSubtitle, { alignSelf: 'flex-start' }]}>
+                <Text style={[text.confirmSubtitle, { alignSelf: 'flex-start' }]}>
                     = К оплате: {totalOrderSum} Р
                 </Text>
             </View>
             : null
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        marginHorizontal: 5,
-        flexDirection: 'column',
-    },
-    subtitleContainer: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        marginVertical: 20,
-    },
-    confirmSubtitle: {
-        fontSize: 28,
-        textAlign: "center",
-        alignSelf: "center",
-    },
-});
 
 export default ProductSection
 

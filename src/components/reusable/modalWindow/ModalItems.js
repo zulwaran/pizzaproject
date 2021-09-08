@@ -1,7 +1,14 @@
 import React from 'react'
-import { StyleSheet, TouchableOpacity, Text } from 'react-native'
+import { TouchableOpacity, Text } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
+
+//Reducers
 import { SELECT_DELIVERY_DAY, SELECT_DELIVERY_TIME } from '../../../reducers/order'
+
+//Styles
+import { buttons } from '../../../../assets/styles/buttons'
+import { text } from '../../../../assets/styles/text'
+
 
 const ModalItems = (props) => {
     const deliveryDay = useSelector(state => state.order.deliveryDay)
@@ -22,26 +29,13 @@ const ModalItems = (props) => {
         <TouchableOpacity
             style={
                 props.item === deliveryDay || props.item === deliveryTime ?
-                    [styles.button, { backgroundColor: "#FFC000" }]
-                    : styles.button}
+                    [buttons.selectTimeButton, { backgroundColor: "#FFC000" }]
+                    : buttons.selectTimeButton}
             onPress={() => { getTime(props.item) }}>
-            <Text style={styles.text}>
+            <Text style={text.modalText}>
                 {props.item}
             </Text>
         </TouchableOpacity >
     )
 }
-const styles = StyleSheet.create({
-    button: {
-        borderColor: "#000",
-        borderWidth: 2,
-        borderRadius: 25,
-        marginBottom: 10,
-    },
-    text: {
-        fontSize: 18,
-        paddingVertical: 5,
-        paddingHorizontal: 30
-    },
-})
 export default ModalItems

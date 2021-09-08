@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import { StyleSheet, ScrollView, Text, TouchableOpacity } from 'react-native'
+import { ScrollView, Text, TouchableOpacity } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 
 //Firebase DB
 import { db, firebase } from '../../../../firebase'
 
-//Functions
+//Reducers & Functions
 import { deliveryDate } from '../../../functions/DateFunctions'
 import { Order } from '../../../functions/Constructors'
 import { ADD_NEW_ORDER } from '../../../reducers/order'
@@ -18,6 +18,11 @@ import UserInfo from './UserInfo'
 import CommentSection from './CommentSection'
 import PaymentTypeSection from './PaymentTypeSection'
 import ProductSection from './ProductSection'
+
+//Styles
+import { buttons } from '../../../../assets/styles/buttons'
+import { text } from '../../../../assets/styles/text'
+import { container } from '../../../../assets/styles/container'
 
 const OrderConfirm = ({ navigation }) => {
     const dispatch = useDispatch();
@@ -80,7 +85,7 @@ const OrderConfirm = ({ navigation }) => {
 
 
     return (
-        <ScrollView style={styles.container}>
+        <ScrollView style={container.confirmSectionContainer}>
             <AddressSection />
             <TimeSection />
             <UserInfo />
@@ -89,13 +94,13 @@ const OrderConfirm = ({ navigation }) => {
             <PaymentTypeSection />
             <TouchableOpacity
                 disabled={totalOrderSum < 350 ? true : false}
-                style={totalOrderSum < 350 ? [styles.card__button, { backgroundColor: '#767976' }] : styles.card__button}
+                style={totalOrderSum < 350 ? [buttons.confirm__button, { backgroundColor: '#767976' }] : buttons.confirm__button}
                 onPress={() => { createOrder({ DATA }) }}>
                 {
                     totalOrderSum < 350 ?
-                        <Text style={styles.card__buttonText, [{ fontSize: 18, textAlign: 'center' }]}>Сумма заказа должна быть не менее 350 Р</Text>
+                        <Text style={text.confirmOrderButtonText, [{ fontSize: 18, textAlign: 'center' }]}>Сумма заказа должна быть не менее 350 Р</Text>
                         :
-                        <Text style={styles.card__buttonText}>Оформить заказ →</Text>
+                        <Text style={text.confirmOrderButtonText}>Оформить заказ →</Text>
                 }
             </TouchableOpacity>
             {
@@ -106,23 +111,5 @@ const OrderConfirm = ({ navigation }) => {
         </ScrollView>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        marginHorizontal: 5,
-        flexDirection: 'column',
-    },
-    card__button: {
-        backgroundColor: "#FFC000",
-        padding: 20,
-        borderRadius: 10,
-        marginVertical: 10,
-    },
-    card__buttonText: {
-        fontWeight: "400",
-        fontSize: 28,
-        textAlign: "center",
-    },
-});
 
 export default OrderConfirm

@@ -1,8 +1,18 @@
 import React from 'react'
-import { StyleSheet, View, Text, TextInput, } from 'react-native'
-import Ionicons from 'react-native-vector-icons/Ionicons'
+import { View, Text, TextInput, } from 'react-native'
 import { useDispatch } from 'react-redux';
+
+//Icons
+import Ionicons from 'react-native-vector-icons/Ionicons'
+
+//Reducers
 import { SET_APARTMENT, SET_FLOOR, SET_HOME, SET_PORCH, SET_STREET } from '../../../reducers/order';
+
+//Styles
+import { container } from '../../../../assets/styles/container';
+import { images } from '../../../../assets/styles/images';
+import { inputs } from '../../../../assets/styles/inputs';
+import { text } from '../../../../assets/styles/text';
 
 const AddressSection = () => {
     const dispatch = useDispatch();
@@ -25,92 +35,58 @@ const AddressSection = () => {
 
     return (
         <View>
-            <View style={styles.subtitleContainer}>
+            <View style={container.subtitleContainer}>
                 <Ionicons
-                    style={styles.icon}
+                    style={images.icon}
                     name="location-sharp"
                     color="red"
                     size={26} />
-                <Text style={styles.confirmSubtitle}>
+                <Text style={text.confirmSubtitle}>
                     Куда
                 </Text>
             </View>
-            <Text style={styles.inputLabel}>
+            <Text style={text.inputLabel}>
                 Улица*
             </Text>
             <TextInput
-                style={styles.input}
+                style={inputs.input}
                 onChangeText={setStreet} />
             <Text
-                style={styles.inputLabel}>
+                style={text.inputLabel}>
                 Дом*
             </Text>
             <TextInput
-                style={styles.input}
+                style={inputs.input}
                 keyboardType='numeric'
                 onChangeText={setHome} />
             <Text
-                style={styles.inputLabel}>
+                style={text.inputLabel}>
                 Подъезд
             </Text>
             <TextInput
-                style={styles.input}
+                style={inputs.input}
                 keyboardType='numeric'
                 onChangeText={setPorch} />
 
             <Text
-                style={styles.inputLabel}>
+                style={text.inputLabel}>
                 Этаж
             </Text>
             <TextInput
-                style={styles.input}
+                style={inputs.input}
                 keyboardType='numeric'
                 onChangeText={setFloor} />
 
             <Text
-                style={styles.inputLabel}>
+                style={text.inputLabel}>
                 Квартира
             </Text>
             <TextInput
-                style={styles.input}
+                style={inputs.input}
                 keyboardType='numeric'
                 onChangeText={setApartment} />
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        marginHorizontal: 5,
-        flexDirection: 'column',
-    },
-    subtitleContainer: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        marginVertical: 20,
-    },
-    confirmSubtitle: {
-        fontSize: 28,
-        textAlign: "center",
-        alignSelf: "center",
-    },
-    input: {
-        fontSize: 18,
-        paddingHorizontal: 10,
-        backgroundColor: "#fff",
-        borderWidth: 1,
-        borderColor: "#ddd",
-        borderStyle: "solid",
-        borderRadius: 10,
-    },
-    inputLabel: {
-        marginTop: 10,
-        fontSize: 18,
-    },
-    icon: {
-        paddingTop: 5,
-        marginRight: 5,
-    },
-});
 
 export default AddressSection

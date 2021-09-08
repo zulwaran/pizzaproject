@@ -1,8 +1,16 @@
 import React from 'react'
-import { StyleSheet, View, TouchableOpacity, Text } from 'react-native'
+import { View, TouchableOpacity, Text } from 'react-native'
 import { useDispatch } from 'react-redux'
-import { TOGGLE_PAYMENT_TYPE } from '../../../reducers/order'
+//Components
 import RadioButton from '../../reusable/RadioButton'
+
+//Reducers
+import { TOGGLE_PAYMENT_TYPE } from '../../../reducers/order'
+
+//Styles
+import { text } from '../../../../assets/styles/text'
+import { container } from '../../../../assets/styles/container'
+import { buttons } from '../../../../assets/styles/buttons'
 
 const PaymentTypeSection = () => {
     const dispatch = useDispatch();
@@ -15,56 +23,29 @@ const PaymentTypeSection = () => {
     }
     return (
         <View>
-            <View style={styles.subtitleContainer}>
-                <Text style={styles.confirmSubtitle}>
+            <View style={container.subtitleContainer}>
+                <Text style={text.confirmSubtitle}>
                     Выберите вариант оплаты
                 </Text>
             </View>
             <TouchableOpacity
-                style={styles.radioButton}
+                style={buttons.radioButton}
                 onPress={() => { togglePaymentType(type.cash) }}>
                 <RadioButton type={type.cash} radioType="payment" />
-                <Text style={styles.paymentType}>
+                <Text style={text.paymentType}>
                     Наличными
                 </Text>
             </TouchableOpacity>
             <TouchableOpacity
-                style={styles.radioButton}
+                style={buttons.radioButton}
                 onPress={() => { togglePaymentType(type.card) }}>
                 <RadioButton
                     type={type.card} radioType="payment" />
-                <Text style={styles.paymentType}>
+                <Text style={text.paymentType}>
                     Картой при получении
                 </Text>
             </TouchableOpacity>
         </View>
     )
 }
-const styles = StyleSheet.create({
-    container: {
-        marginHorizontal: 5,
-        flexDirection: 'column',
-    },
-    subtitleContainer: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        marginVertical: 20,
-    },
-    confirmSubtitle: {
-        fontSize: 28,
-        textAlign: "center",
-        alignSelf: "center",
-    },
-    radioButton: {
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-        marginBottom: 15,
-    },
-    paymentType: {
-        fontSize: 17,
-        marginLeft: 8,
-    },
-
-});
 export default PaymentTypeSection

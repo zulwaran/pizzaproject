@@ -1,39 +1,27 @@
 import React from 'react';
-import { StyleSheet, Image, View } from 'react-native';
+import { Image, View } from 'react-native';
+
+//Styles
+import { container } from '../../assets/styles/container';
+import { images } from '../../assets/styles/images';
 
 const Header = () => {
     return (
-        <View style={styles.container}>
+        <View style={container.headerContainer}>
             <Image
                 source={{
                     uri: 'https://i.ibb.co/DM3xDtK/logo-pizza.png',
                 }}
-                style={styles.imgLogo}
+                style={images.headerLogo}
             />
             <Image
                 source={{
                     uri: 'https://i.ibb.co/mbB1rJg/logo-makelovepizza.png',
                 }}
-                style={styles.imgTitle}
+                style={images.headerTitle}
             />
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flexDirection: 'row',
-        height: '80%'
-    },
-    imgLogo: {
-        width: '20%',
-        marginRight: 30,
-        resizeMode: 'contain'
-    },
-    imgTitle: {
-        width: '70%',
-        resizeMode: 'contain'
-    }
-});
 
 export default Header

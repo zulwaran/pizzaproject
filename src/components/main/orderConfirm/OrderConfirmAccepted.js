@@ -1,6 +1,12 @@
 import React from 'react'
-import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native'
+import { View, Image, Text, TouchableOpacity } from 'react-native'
 import { useSelector } from 'react-redux';
+
+//Styles
+import { buttons } from '../../../../assets/styles/buttons';
+import { container } from '../../../../assets/styles/container';
+import { images } from '../../../../assets/styles/images';
+import { text } from '../../../../assets/styles/text';
 
 const OrderConfirmAccepted = ({ route, navigation }) => {
     const { orderId } = route.params;
@@ -9,75 +15,41 @@ const OrderConfirmAccepted = ({ route, navigation }) => {
     const deliveryTime = useSelector(state => state.order.deliveryTime)
 
     return (
-        <View style={styles.container}>
+        <View style={container.orderAcceptedContainer}>
             <Image
-                style={styles.image}
+                style={images.orderConfirmImage}
                 source={{
                     uri: 'https://pngimg.com/uploads/disco_ball/disco_ball_PNG2.png'
                 }}
             />
             <View style={[{ alignItems: 'center', }]}>
-                <Text style={styles.largeText}>
+                <Text style={text.orderConfirmLargeText}>
                     Ваш заказ принят!
                 </Text>
                 {
                     deliveryType === 'Ближайшее' ?
-                        <Text style={styles.mediumText}>
+                        <Text style={text.smallText}>
                             Мы доставим ваш заказ как можно скорее
                         </Text>
                         :
-                        <Text style={styles.mediumText}>
+                        <Text style={text.smallText}>
                             Мы доставим ваш заказ {deliveryDay} к {deliveryTime}
                         </Text>
                 }
-                <Text style={styles.mediumText}>
+                <Text style={text.smallText}>
                     Заказ № {orderId}
                 </Text>
             </View>
-            <TouchableOpacity style={styles.button}
+            <TouchableOpacity style={buttons.redirectingButton}
                 onPress={() => navigation.navigate("OrderListScreen")}>
                 <Text style={[{ fontSize: 16 }]}>
                     Проверить статус заказа
                 </Text>
             </TouchableOpacity>
-            <Text style={styles.bottomText}>
+            <Text style={text.orderConfirmBottomText}>
                 Если хотите изменить или отменить заказ, скорее звоните 999-999
             </Text>
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'space-around'
-    },
-    image: {
-        width: 150,
-        height: 150
-    },
-    largeText: {
-        color: 'green',
-        fontSize: 32,
-        marginBottom: 10
-    },
-    mediumText: {
-        fontSize: 16,
-        marginBottom: 10
-    },
-    bottomText: {
-        fontSize: 16,
-        textAlign: 'center',
-        paddingHorizontal: 20,
-    },
-    button: {
-        borderColor: '#ff9711',
-        borderWidth: 2,
-        borderStyle: "solid",
-        borderRadius: 50,
-        paddingHorizontal: 60,
-        paddingVertical: 10,
-    },
-})
 export default OrderConfirmAccepted

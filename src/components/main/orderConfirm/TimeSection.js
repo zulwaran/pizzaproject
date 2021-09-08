@@ -1,18 +1,27 @@
 import React from 'react'
-import { StyleSheet, View, Text } from 'react-native'
+import { View, Text } from 'react-native'
+
+//Icons
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+
+//Components
 import OrderConfirmSelectTime from './OrderConfirmSelectTime'
+
+//Styles
+import { container } from '../../../../assets/styles/container'
+import { images } from '../../../../assets/styles/images'
+import { text } from '../../../../assets/styles/text'
 
 const TimeSection = () => {
     return (
         <View>
-            <View style={styles.subtitleContainer}>
+            <View style={container.subtitleContainer}>
                 <MaterialCommunityIcons
-                    style={styles.icon}
+                    style={images.icon}
                     name="clock-time-four"
                     color="#11bd0d"
                     size={26} />
-                <Text style={styles.confirmSubtitle}>
+                <Text style={text.confirmSubtitle}>
                     Когда
                 </Text>
             </View>
@@ -20,26 +29,5 @@ const TimeSection = () => {
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        marginHorizontal: 5,
-        flexDirection: 'column',
-    },
-    subtitleContainer: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        marginVertical: 20,
-    },
-    confirmSubtitle: {
-        fontSize: 28,
-        textAlign: "center",
-        alignSelf: "center",
-    },
-    icon: {
-        paddingTop: 5,
-        marginRight: 5,
-    },
-});
 
 export default TimeSection

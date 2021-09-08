@@ -1,6 +1,14 @@
 import React, { useState } from 'react'
+import { View, Text, TextInput, TouchableOpacity } from 'react-native'
+
+//Firebase
 import { firebase } from '../../../firebase'
-import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native'
+
+//Styles
+import { buttons } from '../../../assets/styles/buttons'
+import { container } from '../../../assets/styles/container'
+import { inputs } from '../../../assets/styles/inputs'
+import { text } from '../../../assets/styles/text'
 
 const AuthScreen = ({ navigation }) => {
     const [email, setEmail] = useState('')
@@ -10,70 +18,35 @@ const AuthScreen = ({ navigation }) => {
     const signUp = () => {
         firebase.auth().signInWithEmailAndPassword(email, password)
             .then((result) => {
-                console.log(result)
             })
             .catch((error) => {
-                console.log(error)
                 setError('Неверный логин или пароль')
             })
     }
     return (
-        <View style={styles.container}>
+        <View style={container.authContainer}>
             <TextInput
-                style={styles.input}
+                style={[inputs.input, { paddingVertical: 10 }]}
                 placeholder="Электронная почта"
                 onChangeText={(email) => setEmail(email)} />
             <TextInput
-                style={styles.input}
+                style={[inputs.input, { paddingVertical: 10 }]}
                 placeholder="Пароль"
                 secureTextEntry={true}
                 onChangeText={(password) => setPassword(password)} />
             {
-                error ? <Text style={styles.errorMessage}>{error}</Text> : null
+                error ? <Text style={text.errorMessage}>{error}</Text> : null
             }
-            <TouchableOpacity style={styles.button} onPress={() => signUp()}>
-                <Text style={styles.buttonText}>Вход</Text>
+            <TouchableOpacity style={buttons.authButton} onPress={() => signUp()}>
+                <Text style={text.textSmall}>Вход</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Регистрация")}>
-                <Text style={styles.buttonText}>
+            <TouchableOpacity style={buttons.authButton} onPress={() => navigation.navigate("RegisterScreen")}>
+                <Text style={[{ fontSize: 18 }]}>
                     Регистрация
                 </Text>
             </TouchableOpacity>
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-    },
-    input: {
-        fontSize: 18,
-        padding: 10,
-        backgroundColor: "#fff",
-        borderWidth: 1,
-        borderColor: "#ddd",
-        borderStyle: "solid",
-        borderRadius: 10,
-    },
-    errorMessage: {
-        color: "red",
-        marginLeft: 10
-    },
-    button: {
-        backgroundColor: "#ffc000",
-        borderWidth: 5,
-        borderColor: "#ffc000",
-        borderStyle: "solid",
-        borderRadius: 30,
-        padding: 10,
-        marginTop: 10,
-        alignItems: 'center',
-    },
-    buttonText: {
-        fontSize: 18
-    }
-});
 
 export default AuthScreen
