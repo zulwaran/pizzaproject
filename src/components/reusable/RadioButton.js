@@ -1,6 +1,7 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types'
 
 
 export const RadioButton = ({ type, radioType }) => {
@@ -52,5 +53,10 @@ const styles = StyleSheet.create({
         borderColor: "rgb(255, 192, 0)",
     }
 })
+
+RadioButton.propTypes = {
+    type: PropTypes.string,
+    radioType: PropTypes.string,
+}
 
 export default RadioButton

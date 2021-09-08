@@ -14,7 +14,6 @@ import { text } from '../../../../assets/styles/text';
 
 
 const SliderMenuItem = ({ item }) => {
-
     const dispatch = useDispatch();
     const activeType = useSelector(state => state.menu.activeType);
     const toggleItem = (item) => {
@@ -38,7 +37,12 @@ const SliderMenuItem = ({ item }) => {
 }
 
 SliderMenuItem.propTypes = {
-    item: PropTypes.object
-  };
+    item: PropTypes.shape({
+        id: PropTypes.string,
+        link: PropTypes.string,
+        title: PropTypes.string,
+        type: PropTypes.string,
+    })
+};
 
 export default SliderMenuItem

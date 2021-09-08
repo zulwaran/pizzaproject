@@ -65,7 +65,12 @@ const CartItem = ({ item, type }) => {
 }
 
 CartItem.propTypes = {
-    item: PropTypes.object,
+    item: PropTypes.shape({
+        link: PropTypes.string,
+        title: PropTypes.string,
+        decription: PropTypes.string,
+        price: PropTypes.string,
+    }),
     type: PropTypes.string,
 }
 

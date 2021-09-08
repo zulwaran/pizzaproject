@@ -1,7 +1,6 @@
 import React from 'react'
 import { FlatList, TouchableOpacity, Text, View } from 'react-native'
 import { useSelector } from 'react-redux';
-import PropTypes from 'prop-types'
 
 //Components
 import CartItem from './CartItem';
@@ -54,9 +53,6 @@ const CartScreen = ({ navigation }) => {
             </View>
         )
     }
-}
-CartScreen.propTypes = {
-    navigation: PropTypes.object,
 }
 
 export default CartScreen

@@ -1,6 +1,7 @@
 import React from 'react'
 import { TouchableOpacity, Text } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
+import PropTypes from 'prop-types'
 
 //Reducers
 import { SELECT_DELIVERY_DAY, SELECT_DELIVERY_TIME } from '../../../reducers/order'
@@ -37,5 +38,10 @@ const ModalItems = (props) => {
             </Text>
         </TouchableOpacity >
     )
+}
+ModalItems.propTypes = {
+    props: PropTypes.shape({
+        item: PropTypes.string
+    })
 }
 export default ModalItems

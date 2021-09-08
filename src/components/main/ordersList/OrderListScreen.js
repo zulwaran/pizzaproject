@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { ScrollView, FlatList, View, Text, TouchableOpacity } from 'react-native'
 import { useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
 
 //Firebase
 import firebase from 'firebase';

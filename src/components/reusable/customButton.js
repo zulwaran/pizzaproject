@@ -1,5 +1,6 @@
 import React from 'react'
 import { Text, View, TouchableOpacity } from 'react-native'
+import PropTypes from 'prop-types'
 
 //Styles
 import { text } from '../../../assets/styles/text'
@@ -78,5 +79,22 @@ const CustomButton = (props) => {
         default:
             return null
     }
+}
+CustomButton.propTypes = {
+    props: PropTypes.shape({
+        active: PropTypes.string,
+        addItemToCart: PropTypes.func,
+        toggleActive:PropTypes.func,
+        item: PropTypes.shape({
+            decription:PropTypes.string,
+            id: PropTypes.string,
+            largePrice: PropTypes.string,
+            link: PropTypes.string,
+            mediumPrice: PropTypes.string,
+            smallPrice: PropTypes.string,
+            title:PropTypes.string,
+            type: PropTypes.string,
+        })
+    }),
 }
 export default CustomButton

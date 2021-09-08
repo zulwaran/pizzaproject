@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, Image, Text, TouchableOpacity } from 'react-native'
 import { useSelector } from 'react-redux';
+import PropTypes, { shape } from 'prop-types'
 
 //Styles
 import { buttons } from '../../../../assets/styles/buttons';
@@ -51,5 +52,13 @@ const OrderConfirmAccepted = ({ route, navigation }) => {
             </Text>
         </View>
     )
+}
+OrderConfirmAccepted.propTypes = {
+    route: PropTypes.shape({
+        params: PropTypes.shape({
+            deliveryDate: PropTypes.string,
+            orderId: PropTypes.number
+        })
+    })
 }
 export default OrderConfirmAccepted

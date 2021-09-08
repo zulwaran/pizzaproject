@@ -97,7 +97,16 @@ const ProductListItem = ({ item }) => {
 }
 
 ProductListItem.propTypes = {
-    item: PropTypes.object
-  };
+    item: PropTypes.shape({
+        id: PropTypes.string,
+        largePrice: PropTypes.string,
+        link: PropTypes.string,
+        mediumPrice: PropTypes.string,
+        smallPrice: PropTypes.string,
+        title: PropTypes.string,
+        type: PropTypes.string,
+        price: PropTypes.string,
+    }),
+};
 
 export default ProductListItem

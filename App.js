@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, ActivityIndicator } from 'react-native';
+import { View, ActivityIndicator } from 'react-native';
 
 //LogBox
 import { LogBox } from 'react-native';

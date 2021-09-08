@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Text, TouchableOpacity, View, FlatList } from 'react-native';
-import PropTypes from 'prop-types';
+import PropTypes, { number } from 'prop-types';
 
 //Components
 import CartItem from '../cart/CartItem'
@@ -101,7 +101,16 @@ const OrderList = ({ item }) => {
 }
 
 OrderList.propTypes = {
-    item: PropTypes.object
-  };
+    item: PropTypes.shape({
+        address: PropTypes.string,
+        comment: PropTypes.string,
+        cost: PropTypes.number,
+        deliveryDate: PropTypes.string,
+        id: PropTypes.number,
+        paymentType: PropTypes.string,
+        status: PropTypes.string,
+        items: PropTypes.array
+    })
+};
 
 export default OrderList
