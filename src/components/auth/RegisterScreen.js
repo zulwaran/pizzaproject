@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { View, TextInput, Text, TouchableOpacity } from 'react-native'
-
+import MaskInput from 'react-native-mask-input';
 //Firebase
 import { firebase, db } from '../../../firebase'
 
@@ -26,6 +26,10 @@ const RegisterScreen = ({ }) => {
         }
         if (!phone) {
             setValidationError("Телефон не может быть пустым")
+            return
+        }
+        if (phone.length < 10) {
+            setValidationError("Неправильный формат телефона")
             return
         }
         firebase.auth().createUserWithEmailAndPassword(email, password)
@@ -65,12 +69,20 @@ const RegisterScreen = ({ }) => {
                 style={[inputs.input, { paddingVertical: 10 }]}
                 placeholder="Электронная почта"
                 onChangeText={(email) => setEmail(email)} />
-            <TextInput
+            <MaskInput
+                value={phone}
                 style={[inputs.input, { paddingVertical: 10 }]}
                 placeholder="Телефон"
                 keyboardType='numeric'
-                maxLength={11}
-                onChangeText={(phone) => setPhone(phone)} />
+                maxLength={16}
+                onChangeText={(masked, unmasked) => {
+                    setPhone(unmasked);
+                }}
+                mask=
+                {[
+                    '+', '7', '(', /\d/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/
+                ]}
+            />
             <TextInput
                 style={[inputs.input, { paddingVertical: 10 }]}
                 placeholder="Пароль"
