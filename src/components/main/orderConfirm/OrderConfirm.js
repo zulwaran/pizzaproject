@@ -65,6 +65,10 @@ const OrderConfirm = ({ navigation }) => {
             setValidation('Не все обязательные поля были заполнены')
             return
         }
+        if (phone.length < 10) {
+            setValidation("Неправильный формат телефона")
+            return
+        }
 
         let address = street + "-" + home + " квартира " + apartment + " подъезд " + porch + " этаж " + floor
 

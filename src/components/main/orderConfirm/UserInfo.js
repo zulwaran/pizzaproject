@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, Text, TextInput } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux';
+import MaskInput from 'react-native-mask-input';
 
 //Icons
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -45,11 +46,18 @@ const UserInfo = () => {
             <Text style={text.inputLabel}>
                 Телефон*
             </Text>
-            <TextInput
+            <MaskInput
                 value={phone}
                 keyboardType='numeric'
                 style={inputs.input}
-                onChangeText={setPhone}
+                maxLength={16}
+                onChangeText={(masked, unmasked) => {
+                    setPhone(unmasked);
+                }}
+                mask=
+                {[
+                    '+', '7', '(', /\d/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/
+                ]}
             />
         </View>
     )
