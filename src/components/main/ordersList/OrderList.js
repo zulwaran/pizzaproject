@@ -18,9 +18,9 @@ import { images } from '../../../../assets/styles/images'
 import { buttons } from '../../../../assets/styles/buttons'
 
 const OrderList = ({ item }) => {
-  const [active, setActive] = useState(false)
+  const [isActive, setIsActive] = useState(false)
   return (
-    <TouchableOpacity onPress={() => setActive(!active)} style={container.OrderListItemContainer}>
+    <TouchableOpacity onPress={() => setIsActive(!isActive)} style={container.OrderListItemContainer}>
       <View
         style={[
           {
@@ -51,7 +51,7 @@ const OrderList = ({ item }) => {
       </View>
       {item.comment ? <Text style={[{ marginBottom: 10 }, text.textSmall]}>Комментарий: {item.comment}</Text> : null}
       <Text style={[text.textLarge, { marginBottom: 10 }]}>Стоимость заказа: {item.cost} ₽</Text>
-      {active === true ? (
+      {isActive === true ? (
         <FlatList
           style={[{ marginBottom: 10 }]}
           data={item.items}
@@ -60,7 +60,7 @@ const OrderList = ({ item }) => {
           renderItem={({ item }) => <CartItem item={item} type={'OrderList'} />}
         />
       ) : null}
-      {active === true ? (
+      {isActive === true ? (
         <MaterialIcons style={buttons.arrowButton} name="arrow-drop-up" color="#000" size={24} />
       ) : (
         <MaterialIcons style={buttons.arrowButton} name="arrow-drop-down" color="#000" size={24} />

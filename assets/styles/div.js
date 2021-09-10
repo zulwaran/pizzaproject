@@ -39,5 +39,25 @@ export const div = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5
+  },
+  radio: {
+    height: 18,
+    width: 18,
+    position: 'relative',
+    backgroundColor: '#fff',
+    borderRadius: 50,
+    borderColor: '#ddd',
+    borderWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  selectedRadio: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    borderRadius: 50,
+    backgroundColor: '#fff',
+    borderWidth: 6,
+    borderColor: 'rgb(255, 192, 0)'
   }
 })

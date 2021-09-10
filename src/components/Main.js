@@ -23,18 +23,14 @@ const Tab = createBottomTabNavigator()
 const Main = () => {
   const dispatch = useDispatch()
   const currentUser = firebase.auth().currentUser
-  const [fetch, setFetch] = useState(false)
 
   useEffect(() => {
-    if (!fetch) {
-      fetchUserInfo(dispatch, currentUser)
-      fetchOrders(dispatch, currentUser)
-      fetchSlider(dispatch)
-      fetchProduct(dispatch)
-      fetchCart(dispatch, currentUser)
-      setFetch(true)
-    }
-  })
+    fetchUserInfo(dispatch, currentUser)
+    fetchOrders(dispatch, currentUser)
+    fetchSlider(dispatch)
+    fetchProduct(dispatch)
+    fetchCart(dispatch, currentUser)
+  }, [])
 
   const itemsInCart = useSelector(state => state.cart.itemsInCart)
   return (

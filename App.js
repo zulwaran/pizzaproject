@@ -29,21 +29,21 @@ import OrderConfirm from './src/components/main/orderConfirm/OrderConfirm'
 import OrderConfirmAccepted from './src/components/main/orderConfirm/OrderConfirmAccepted'
 
 const App = () => {
-  const [loaded, setLoaded] = useState(false)
-  const [loggedIn, setloggedIn] = useState(false)
+  const [isLoaded, setIsLoaded] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
   useEffect(() => {
     firebase.auth().onAuthStateChanged(user => {
       if (!user) {
-        setloggedIn(false)
-        setLoaded(true)
+        setIsLoggedIn(false)
+        setIsLoaded(true)
       } else {
-        setloggedIn(true)
-        setLoaded(true)
+        setIsLoggedIn(true)
+        setIsLoaded(true)
       }
     })
   })
 
-  if (!loaded) {
+  if (!isLoaded) {
     return (
       <View style={{ flex: 1, justifyContent: 'center' }}>
         <ActivityIndicator size="large" />
@@ -51,7 +51,7 @@ const App = () => {
     )
   }
 
-  if (!loggedIn) {
+  if (!isLoggedIn) {
     return (
       <NavigationContainer>
         <Stack.Navigator
