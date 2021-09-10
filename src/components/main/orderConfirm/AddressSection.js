@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, Text, TextInput } from 'react-native'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 //Icons
 import Ionicons from 'react-native-vector-icons/Ionicons'
@@ -17,20 +17,26 @@ import { text } from '../../../../assets/styles/text'
 const AddressSection = () => {
   const dispatch = useDispatch()
 
-  const setStreet = item => {
-    dispatch({ type: SET_STREET, payload: item })
+  const [street, setStreet] = useState(useSelector(state => state.order.street))
+  const [home, setHome] = useState(useSelector(state => state.order.home))
+  const [apartment, setApartment] = useState(useSelector(state => state.order.apartment))
+  const [porch, setPorch] = useState(useSelector(state => state.order.porch))
+  const [floor, setFloor] = useState(useSelector(state => state.order.floor))
+
+  const writeStreet = () => {
+    dispatch({ type: SET_STREET, payload: street })
   }
-  const setHome = item => {
-    dispatch({ type: SET_HOME, payload: item })
+  const writeHome = () => {
+    dispatch({ type: SET_HOME, payload: home })
   }
-  const setApartment = item => {
-    dispatch({ type: SET_APARTMENT, payload: item })
+  const writeApartment = () => {
+    dispatch({ type: SET_APARTMENT, payload: apartment })
   }
-  const setPorch = item => {
-    dispatch({ type: SET_PORCH, payload: item })
+  const writePorch = () => {
+    dispatch({ type: SET_PORCH, payload: porch })
   }
-  const setFloor = item => {
-    dispatch({ type: SET_FLOOR, payload: item })
+  const writeFloor = () => {
+    dispatch({ type: SET_FLOOR, payload: floor })
   }
 
   return (
@@ -40,17 +46,33 @@ const AddressSection = () => {
         <Text style={text.confirmSubtitle}>Куда</Text>
       </View>
       <Text style={text.inputLabel}>Улица*</Text>
-      <TextInput style={inputs.input} onChangeText={setStreet} />
+      <TextInput value={street} style={inputs.input} onChangeText={setStreet} onBlur={writeStreet} />
       <Text style={text.inputLabel}>Дом*</Text>
-      <TextInput style={inputs.input} keyboardType="numeric" onChangeText={setHome} />
+      <TextInput value={home} style={inputs.input} keyboardType="numeric" onChangeText={setHome} onBlur={writeHome} />
       <Text style={text.inputLabel}>Подъезд</Text>
-      <TextInput style={inputs.input} keyboardType="numeric" onChangeText={setPorch} />
-
+      <TextInput
+        value={porch}
+        style={inputs.input}
+        keyboardType="numeric"
+        onChangeText={setPorch}
+        onBlur={writePorch}
+      />
       <Text style={text.inputLabel}>Этаж</Text>
-      <TextInput style={inputs.input} keyboardType="numeric" onChangeText={setFloor} />
-
+      <TextInput
+        value={floor}
+        style={inputs.input}
+        keyboardType="numeric"
+        onChangeText={setFloor}
+        onBlur={writeFloor}
+      />
       <Text style={text.inputLabel}>Квартира</Text>
-      <TextInput style={inputs.input} keyboardType="numeric" onChangeText={setApartment} />
+      <TextInput
+        value={apartment}
+        style={inputs.input}
+        keyboardType="numeric"
+        onChangeText={setApartment}
+        onBlur={writeApartment}
+      />
     </View>
   )
 }

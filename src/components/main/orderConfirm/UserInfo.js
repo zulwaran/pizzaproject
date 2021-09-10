@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, Text, TextInput } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import MaskInput from 'react-native-mask-input'
@@ -17,13 +17,13 @@ import { text } from '../../../../assets/styles/text'
 
 const UserInfo = () => {
   const dispatch = useDispatch()
-  const name = useSelector(state => state.user.name)
-  const phone = useSelector(state => state.user.phone)
-  const setName = item => {
-    dispatch({ type: SET_NAME, payload: item })
+  const [name, setName] = useState(useSelector(state => state.user.name))
+  const [phone, setPhone] = useState(useSelector(state => state.user.phone))
+  const writeName = () => {
+    dispatch({ type: SET_NAME, payload: name })
   }
-  const setPhone = item => {
-    dispatch({ type: SET_PHONE, payload: item })
+  const writePhone = () => {
+    dispatch({ type: SET_PHONE, payload: phone })
   }
   return (
     <View>
@@ -32,16 +32,15 @@ const UserInfo = () => {
         <Text style={text.confirmSubtitle}>Ваши данные</Text>
       </View>
       <Text style={text.inputLabel}>Имя*</Text>
-      <TextInput value={name} style={inputs.input} onChangeText={setName} />
+      <TextInput value={name} style={inputs.input} onChangeText={setName} onBlur={writeName} />
       <Text style={text.inputLabel}>Телефон*</Text>
       <MaskInput
         value={phone}
         keyboardType="numeric"
         style={inputs.input}
         maxLength={16}
-        onChangeText={(masked, unmasked) => {
-          setPhone(unmasked)
-        }}
+        onChangeText={(masked, unmasked) => setPhone(unmasked)}
+        onBlur={writePhone}
         mask={['+', '7', '(', /\d/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}
       />
     </View>

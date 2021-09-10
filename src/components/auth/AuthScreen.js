@@ -27,11 +27,13 @@ const AuthScreen = ({ navigation }) => {
   return (
     <View style={container.authContainer}>
       <TextInput
+        value={email}
         style={[inputs.input, { paddingVertical: 10 }]}
         placeholder="Электронная почта"
         onChangeText={email => setEmail(email)}
       />
       <TextInput
+        value={password}
         style={[inputs.input, { paddingVertical: 10 }]}
         placeholder="Пароль"
         secureTextEntry={true}

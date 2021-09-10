@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, TextInput, Text } from 'react-native'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 //Icons
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -15,9 +15,10 @@ import { inputs } from '../../../../assets/styles/inputs'
 import { text } from '../../../../assets/styles/text'
 
 const CommentSection = () => {
+  const [comment, setComment] = useState(useSelector(state => state.order.comment))
   const dispatch = useDispatch()
-  const setComment = item => {
-    dispatch({ type: SET_COMMENT, payload: item })
+  const writeComment = () => {
+    dispatch({ type: SET_COMMENT, payload: comment })
   }
   return (
     <View>
@@ -25,7 +26,14 @@ const CommentSection = () => {
         <MaterialCommunityIcons style={images.icon} name="microphone" color="#ff9711" size={30} />
         <Text style={text.confirmSubtitle}>Комментарий</Text>
       </View>
-      <TextInput onChangeText={setComment} style={inputs.commentTextArea} numberOfLines={4} multiline />
+      <TextInput
+        value={comment}
+        style={inputs.commentTextArea}
+        numberOfLines={4}
+        multiline
+        onChangeText={setComment}
+        onBlur={writeComment}
+      />
     </View>
   )
 }

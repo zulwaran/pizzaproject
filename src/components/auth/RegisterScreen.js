@@ -63,11 +63,13 @@ const RegisterScreen = ({}) => {
   return (
     <View style={container.authContainer}>
       <TextInput
+        value={name}
         style={[inputs.input, { paddingVertical: 10 }]}
         placeholder="Имя"
         onChangeText={name => setName(name)}
       />
       <TextInput
+        value={email}
         style={[inputs.input, { paddingVertical: 10 }]}
         placeholder="Электронная почта"
         onChangeText={email => setEmail(email)}
@@ -84,6 +86,7 @@ const RegisterScreen = ({}) => {
         mask={['+', '7', '(', /\d/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}
       />
       <TextInput
+        value={password}
         style={[inputs.input, { paddingVertical: 10 }]}
         placeholder="Пароль"
         secureTextEntry={true}

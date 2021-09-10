@@ -4,9 +4,6 @@ import { GET_ORDER_LIST } from '../reducers/order'
 import { FETCH_SLIDER_ITEMS, FETCH_PRODUCT_LIST } from '../reducers/menu'
 import { FETCH_CART } from '../reducers/cart'
 
-
-
-
 export const fetchUserInfo = async (dispatch, currentUser) => {
   const userRef = db.collection('users').doc(currentUser.uid)
   const doc = await userRef.get()

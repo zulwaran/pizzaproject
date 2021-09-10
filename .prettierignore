@@ -1,14 +1,11 @@
 # Ignore artifacts:
 build
 coverage
-*.json
-
-
-#GitIgnore
 node_modules/
-*.md
 .expo/
 npm-debug.*
+*.json
+*.md
 *.jks
 *.p8
 *.p12
