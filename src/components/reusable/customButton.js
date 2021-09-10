@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View, TouchableOpacity } from 'react-native'
+import { Text, View, TouchableOpacity, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
 
 //Styles
@@ -19,7 +19,8 @@ const CustomButton = (props) => {
                             <View style={[container.priceContainer, { alignItems: 'center' }]}>
                                 <View style={container.buttonCircleContainer}>
                                     <TouchableOpacity
-                                        style={[{ width: 50, height: 50 }, buttons.buttonCircle]}
+                                        // когда пишешь массив стилей, используй:
+                                        style={StyleSheet.flatten([{ width: 50, height: 50 }, buttons.buttonCircle])}
                                         onPress={() => { props.addItemToCart(props.item, "25 см") }}>
                                         <Text>25см</Text>
                                     </TouchableOpacity>

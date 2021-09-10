@@ -25,7 +25,8 @@ export const fetchDate = () => {
 }
 
 export const fetchTime = (deliveryDay) => {
-    let date = new Date();
+    // если ты не меняешь значение, лучше использовать const вместо let
+    const date = new Date();
     let minuts = ''
     let time = ''
     let timeArray = []

@@ -17,8 +17,13 @@ import { text } from '../../../../assets/styles/text';
 const AddressSection = () => {
     const dispatch = useDispatch();
 
+    // лучше создать файл с экшинами(это функции, которые будут возвращать объект с типом и payload)
+    const setStreetAction = (payload) => ({
+        type: SET_STREET,
+        payload,
+    });
     const setStreet = (item) => {
-        dispatch({ type: SET_STREET, payload: item })
+        dispatch(setStreetAction(item))
     }
     const setHome = (item) => {
         dispatch({ type: SET_HOME, payload: item })
@@ -50,6 +55,8 @@ const AddressSection = () => {
             </Text>
             <TextInput
                 style={inputs.input}
+                // не очень разумно вызывать диспатч на onChangeText, лучше делать это на onBlur
+                // инпуты должны быть контролируемые то есть иметь value, которое ты будешь хранить в seState
                 onChangeText={setStreet} />
             <Text
                 style={text.inputLabel}>

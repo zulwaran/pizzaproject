@@ -9,6 +9,7 @@ import ProductListItem from './ProductListItem'
 
 
 const MenuScreen = () => {
+    // непонятно зачем тут формат констант
     const SLIDER_ITEM = useSelector(state => state.menu.sliderItems)
     const PRODUCT = useSelector(state => state.menu.productList);
 

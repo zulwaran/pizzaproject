@@ -24,6 +24,7 @@ const Main = () => {
     const dispatch = useDispatch();
     const currentUser = firebase.auth().currentUser
     const [fetch, setFetch] = useState(false)
+    // булевы переменные лучше называть с префиксом is, например (isActive, isFetched)
 
     useEffect(() => {
         if (!fetch) {
@@ -34,8 +35,9 @@ const Main = () => {
             fetchCart(dispatch, currentUser)
             setFetch(true)
         }
-    })
-
+    },[])
+    // в useEffect нужно добавлять массив зависимостей, при изменении которых он будет вызывться,
+    // если нужно чтобы он сработал 1 раз массив должен быть пустой
 
     const itemsInCart = useSelector(state => state.cart.itemsInCart);
     return (

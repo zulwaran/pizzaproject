@@ -30,7 +30,7 @@ export const RadioButton = ({ type, radioType }) => {
             )
     }
 }
-
+// Стили лучше выносить в отдельный файл, цвета лучше вынести в файл "констант"
 const styles = StyleSheet.create({
     radio: {
         height: 18,
