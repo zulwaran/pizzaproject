@@ -17,7 +17,7 @@ const cart = (state = initialState, action) => {
     const user = firebase.auth().currentUser;
     switch (action.type) {
         case 'ADD_TO_CART':
-            axiosFirebase.post(`/cart/${state.cartId}/items/.json`)
+            axiosFirebase.post(`/cart/${state.cartId}/items/.json`, action.payload)
             return {
                 ...state,
                 userCart: [...state.userCart, action.payload],
