@@ -1,15 +1,10 @@
-import axios from 'axios';
 import { axiosFirebase } from '../../axiosConfig';
 import { db } from '../../firebase';
 
 export const fetchUserInfo = async (dispatch, currentUser) => {
-    axiosFirebase.get(`/users.json?print=pretty`).then(response => {
+    axiosFirebase.get(`/users/${currentUser.uid}/.json?print=pretty`).then(response => {
         const usersRef = response.data
-        for (let user in usersRef) {
-            if (currentUser.uid === user) {
-                dispatch({ type: "GET_USER_INFO", payload: usersRef[user] })
-            }
-        }
+        dispatch({ type: "GET_USER_INFO", payload: usersRef })
     })
 }
 
@@ -42,7 +37,7 @@ export const fetchProduct = (dispatch) => {
 }
 
 export const fetchCart = (dispatch, currentUser) => {
-    axiosFirebase.get(`/cart.json?print=pretty`).then(response => {
+    axiosFirebase.get(`/cart/.json?`).then(response => {
         const cartRef = response.data
         let cartID = []
         for (let elem in cartRef) {
