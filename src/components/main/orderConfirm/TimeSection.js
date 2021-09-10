@@ -13,21 +13,15 @@ import { images } from '../../../../assets/styles/images'
 import { text } from '../../../../assets/styles/text'
 
 const TimeSection = () => {
-    return (
-        <View>
-            <View style={container.subtitleContainer}>
-                <MaterialCommunityIcons
-                    style={images.icon}
-                    name="clock-time-four"
-                    color="#11bd0d"
-                    size={26} />
-                <Text style={text.confirmSubtitle}>
-                    Когда
-                </Text>
-            </View>
-            <OrderConfirmSelectTime />
-        </View>
-    )
+  return (
+    <View>
+      <View style={container.subtitleContainer}>
+        <MaterialCommunityIcons style={images.icon} name="clock-time-four" color="#11bd0d" size={26} />
+        <Text style={text.confirmSubtitle}>Когда</Text>
+      </View>
+      <OrderConfirmSelectTime />
+    </View>
+  )
 }
 
 export default TimeSection

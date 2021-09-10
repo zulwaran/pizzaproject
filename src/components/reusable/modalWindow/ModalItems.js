@@ -10,38 +10,39 @@ import { SELECT_DELIVERY_DAY, SELECT_DELIVERY_TIME } from '../../../reducers/ord
 import { buttons } from '../../../../assets/styles/buttons'
 import { text } from '../../../../assets/styles/text'
 
-
-const ModalItems = (props) => {
-    const deliveryDay = useSelector(state => state.order.deliveryDay)
-    const deliveryTime = useSelector(state => state.order.deliveryTime)
-    const modalType = useSelector(state => state.modal.modalType)
-    const dispatch = useDispatch();
-    const getTime = (value) => {
-        switch (modalType) {
-            case 'date':
-                dispatch({ type: SELECT_DELIVERY_DAY, payload: value })
-                break;
-            case 'time':
-                dispatch({ type: SELECT_DELIVERY_TIME, payload: value })
-                break;
-        }
+const ModalItems = props => {
+  const deliveryDay = useSelector(state => state.order.deliveryDay)
+  const deliveryTime = useSelector(state => state.order.deliveryTime)
+  const modalType = useSelector(state => state.modal.modalType)
+  const dispatch = useDispatch()
+  const getTime = value => {
+    switch (modalType) {
+      case 'date':
+        dispatch({ type: SELECT_DELIVERY_DAY, payload: value })
+        break
+      case 'time':
+        dispatch({ type: SELECT_DELIVERY_TIME, payload: value })
+        break
     }
-    return (
-        <TouchableOpacity
-            style={
-                props.item === deliveryDay || props.item === deliveryTime ?
-                    [buttons.selectTimeButton, { backgroundColor: "#FFC000" }]
-                    : buttons.selectTimeButton}
-            onPress={() => { getTime(props.item) }}>
-            <Text style={text.modalText}>
-                {props.item}
-            </Text>
-        </TouchableOpacity >
-    )
+  }
+  return (
+    <TouchableOpacity
+      style={
+        props.item === deliveryDay || props.item === deliveryTime
+          ? [buttons.selectTimeButton, { backgroundColor: '#FFC000' }]
+          : buttons.selectTimeButton
+      }
+      onPress={() => {
+        getTime(props.item)
+      }}
+    >
+      <Text style={text.modalText}>{props.item}</Text>
+    </TouchableOpacity>
+  )
 }
 ModalItems.propTypes = {
-    props: PropTypes.shape({
-        item: PropTypes.string
-    })
+  props: PropTypes.shape({
+    item: PropTypes.string
+  })
 }
 export default ModalItems

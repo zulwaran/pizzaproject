@@ -1,0 +1,21 @@
+# Ignore artifacts:
+build
+coverage
+*.json
+
+
+#GitIgnore
+node_modules/
+*.md
+.expo/
+npm-debug.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+web-build/
+
+# macOS
+.DS_Store

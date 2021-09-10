@@ -6,29 +6,27 @@ import { useSelector } from 'react-redux'
 import SliderMenuItem from './SliderMenuItem'
 import ProductListItem from './ProductListItem'
 
-
-
 const MenuScreen = () => {
-    const SLIDER_ITEM = useSelector(state => state.menu.sliderItems)
-    const PRODUCT = useSelector(state => state.menu.productList);
+  const SLIDER_ITEM = useSelector(state => state.menu.sliderItems)
+  const PRODUCT = useSelector(state => state.menu.productList)
 
-    return (
-        <ScrollView style={[{ backgroundColor: "#fff", width: '100%' }]}>
-            <FlatList
-                style={[{ marginBottom: 30 }]}
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                data={SLIDER_ITEM}
-                keyExtractor={(item) => item.id.toString()}
-                renderItem={({ item }) => (<SliderMenuItem item={item} />)}
-            />
-            <FlatList
-                data={PRODUCT}
-                keyExtractor={(item) => item.id.toString()}
-                renderItem={({ item }) => (<ProductListItem item={item} />)}
-            />
-        </ScrollView>
-    )
+  return (
+    <ScrollView style={[{ backgroundColor: '#fff', width: '100%' }]}>
+      <FlatList
+        style={[{ marginBottom: 30 }]}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        data={SLIDER_ITEM}
+        keyExtractor={item => item.id.toString()}
+        renderItem={({ item }) => <SliderMenuItem item={item} />}
+      />
+      <FlatList
+        data={PRODUCT}
+        keyExtractor={item => item.id.toString()}
+        renderItem={({ item }) => <ProductListItem item={item} />}
+      />
+    </ScrollView>
+  )
 }
 
 export default MenuScreen

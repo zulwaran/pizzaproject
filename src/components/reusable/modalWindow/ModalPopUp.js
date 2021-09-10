@@ -15,38 +15,31 @@ import { div } from '../../../../assets/styles/div'
 import { text } from '../../../../assets/styles/text'
 
 const ModalPopUp = () => {
-    const modalType = useSelector(state => state.modal.modalType)
-    const visibleModal = useSelector(state => state.modal.visibleModal)
-    const deliveryDay = useSelector(state => state.order.deliveryDay)
-    const closeModal = () => {
-        dispatch({ type: CLOSE_MODAL })
-    }
-    const dispatch = useDispatch();
+  const modalType = useSelector(state => state.modal.modalType)
+  const visibleModal = useSelector(state => state.modal.visibleModal)
+  const deliveryDay = useSelector(state => state.order.deliveryDay)
+  const closeModal = () => {
+    dispatch({ type: CLOSE_MODAL })
+  }
+  const dispatch = useDispatch()
 
-    return (
-        <Modal
-            animationType="slide"
-            transparent={true}
-            visible={visibleModal}
-        >
-            <View style={div.centeredView}>
-                <View style={div.modalView}>
-                    <FlatList
-                        data={modalType === "date" ? fetchDate() : fetchTime(deliveryDay)}
-                        showsVerticalScrollIndicator={false}
-                        keyExtractor={(item, index) => index.toString()}
-                        renderItem={({ item }) => (<ModalItems item={item} />)}
-                    />
-                    <Pressable
-                        style={buttons.closeModalButton}
-                        onPress={() => closeModal()}
-                    >
-                        <Text style={text.textLarge}>Готово</Text>
-                    </Pressable>
-                </View>
-            </View>
-        </Modal >
-    )
+  return (
+    <Modal animationType="slide" transparent={true} visible={visibleModal}>
+      <View style={div.centeredView}>
+        <View style={div.modalView}>
+          <FlatList
+            data={modalType === 'date' ? fetchDate() : fetchTime(deliveryDay)}
+            showsVerticalScrollIndicator={false}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item }) => <ModalItems item={item} />}
+          />
+          <Pressable style={buttons.closeModalButton} onPress={() => closeModal()}>
+            <Text style={text.textLarge}>Готово</Text>
+          </Pressable>
+        </View>
+      </View>
+    </Modal>
+  )
 }
 
 export default ModalPopUp
