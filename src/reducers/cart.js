@@ -13,7 +13,7 @@ export const CLEAR_CART = 'CLEAR_CART'
 const cart = (state = initialState, action) => {
   const user = firebase.auth().currentUser
   switch (action.type) {
-    case 'ADD_TO_CART':
+    case ADD_TO_CART:
       db.collection('cart')
         .where('uid', '==', user.uid)
         .get()
@@ -32,7 +32,7 @@ const cart = (state = initialState, action) => {
         itemsInCart: state.itemsInCart + 1,
         totalOrderSum: state.totalOrderSum + Number(action.payload.price)
       }
-    case 'DELETE_FROM_CART':
+    case DELETE_FROM_CART:
       db.collection('cart')
         .where('uid', '==', user.uid)
         .get()
@@ -64,7 +64,7 @@ const cart = (state = initialState, action) => {
         itemsInCart: state.itemsInCart,
         totalOrderSum: state.totalOrderSum
       }
-    case 'FETCH_CART':
+    case FETCH_CART:
       action.payload.items.forEach(elem => {
         state.totalOrderSum += Number(elem.price)
       })
@@ -80,7 +80,7 @@ const cart = (state = initialState, action) => {
         itemsInCart: state.itemsInCart,
         totalOrderSum: state.totalOrderSum
       }
-    case 'CLEAR_CART':
+    case CLEAR_CART:
       db.collection('cart')
         .where('uid', '==', user.uid)
         .get()

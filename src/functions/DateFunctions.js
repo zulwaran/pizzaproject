@@ -25,7 +25,7 @@ export const fetchDate = () => {
 }
 
 export const fetchTime = deliveryDay => {
-  let date = new Date()
+  const date = new Date()
   let minuts = ''
   let time = ''
   let timeArray = []

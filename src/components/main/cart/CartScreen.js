@@ -38,7 +38,7 @@ const CartScreen = ({ navigation }) => {
           onPress={() => navigation.navigate('OrderConfirm')}
         >
           {totalOrderSum < 350 ? (
-            <Text style={(text.cartTextbutton, [{ fontSize: 18, textAlign: 'center' }])}>
+            <Text style={[text.cartTextbutton, { fontSize: 18, textAlign: 'center' }]}>
               Сумма заказа должна быть не менее 350 ₽
             </Text>
           ) : (

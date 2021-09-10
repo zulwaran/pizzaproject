@@ -27,47 +27,47 @@ export const ADD_NEW_ORDER = 'ADD_NEW_ORDER'
 
 const order = (state = initialState, action) => {
   switch (action.type) {
-    case 'SET_STREET':
+    case SET_STREET:
       return {
         ...state,
         street: action.payload
       }
-    case 'SET_HOME':
+    case SET_HOME:
       return {
         ...state,
         home: action.payload
       }
-    case 'SET_APARTMENT':
+    case SET_APARTMENT:
       return {
         ...state,
         apartment: action.payload
       }
-    case 'SET_PORCH':
+    case SET_PORCH:
       return {
         ...state,
         porch: action.payload
       }
-    case 'SET_FLOOR':
+    case SET_FLOOR:
       return {
         ...state,
         floor: action.payload
       }
-    case 'SET_COMMENT':
+    case SET_COMMENT:
       return {
         ...state,
         comment: action.payload
       }
-    case 'TOGGLE_PAYMENT_TYPE':
+    case TOGGLE_PAYMENT_TYPE:
       return {
         ...state,
         paymentType: action.payload
       }
-    case 'TOGGLE_DELIVERY_TYPE':
+    case TOGGLE_DELIVERY_TYPE:
       return {
         ...state,
         deliveryType: action.payload
       }
-    case 'GET_ORDER_LIST':
+    case GET_ORDER_LIST:
       if (state.orderList === null) {
         state.orderList = []
       }
@@ -75,17 +75,17 @@ const order = (state = initialState, action) => {
         ...state,
         orderList: action.payload
       }
-    case 'ADD_NEW_ORDER':
+    case ADD_NEW_ORDER:
       return {
         ...state,
         orderList: [...state.orderList, action.payload]
       }
-    case 'SELECT_DELIVERY_DAY':
+    case SELECT_DELIVERY_DAY:
       return {
         ...state,
         deliveryDay: action.payload
       }
-    case 'SELECT_DELIVERY_TIME':
+    case SELECT_DELIVERY_TIME:
       return {
         ...state,
         deliveryTime: action.payload

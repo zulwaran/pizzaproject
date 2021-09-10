@@ -8,13 +8,13 @@ export const CLOSE_MODAL = 'CLOSE_MODAL'
 
 const modal = (state = initialState, action) => {
   switch (action.type) {
-    case 'OPEN_MODAL':
+    case OPEN_MODAL:
       return {
         ...state,
         modalType: action.payload,
         visibleModal: true
       }
-    case 'CLOSE_MODAL':
+    case CLOSE_MODAL:
       return {
         ...state,
         modalType: '',

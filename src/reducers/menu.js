@@ -10,17 +10,17 @@ export const FETCH_SLIDER_ITEMS = 'FETCH_SLIDER_ITEMS'
 
 const menu = (state = initialState, action) => {
   switch (action.type) {
-    case 'TOGGLE_MENU':
+    case TOGGLE_MENU:
       return {
         ...state,
         activeType: action.payload
       }
-    case 'FETCH_PRODUCT_LIST':
+    case FETCH_PRODUCT_LIST:
       return {
         ...state,
         productList: action.payload
       }
-    case 'FETCH_SLIDER_ITEMS':
+    case FETCH_SLIDER_ITEMS:
       return {
         ...state,
         sliderItems: action.payload
