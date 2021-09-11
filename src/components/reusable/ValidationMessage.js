@@ -5,6 +5,8 @@ import PropTypes from 'prop-types'
 const ValidationMessage = props => {
   switch (props.type) {
     case 'OrderConfirmError':
+    case 'Register':
+    case 'Auth':
       return (
         <View>
           {props.validation ? (

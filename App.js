@@ -21,8 +21,8 @@ import thunk from 'redux-thunk'
 const store = createStore(rootReducer, applyMiddleware(thunk))
 
 //Components
-import AuthScreen from './src/components/auth/AuthScreen'
-import RegisterScreen from './src/components/auth/RegisterScreen'
+import AuthContainer from './src/components/auth/AuthContainer'
+import RegisterContainer from './src/components/auth/RegisterContainer'
 import Main from './src/components/Main'
 import Header from './src/components/Header'
 import OrderConfirmContainer from './src/components/main/orderConfirm/OrderConfirmContainer'
@@ -55,7 +55,7 @@ const App = () => {
     return (
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="AuthScreen"
+          initialRouteName="AuthContainer"
           screenOptions={{
             headerStyle: {
               backgroundColor: '#ffc000'
@@ -64,15 +64,15 @@ const App = () => {
           }}
         >
           <Stack.Screen
-            name="AuthScreen"
-            component={AuthScreen}
+            name="AuthContainer"
+            component={AuthContainer}
             options={{
               headerTitle: () => <Header />
             }}
           />
           <Stack.Screen
-            name="RegisterScreen"
-            component={RegisterScreen}
+            name="RegisterContainer"
+            component={RegisterContainer}
             options={{
               title: 'Регистрация'
             }}

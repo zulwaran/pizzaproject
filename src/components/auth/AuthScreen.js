@@ -1,8 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { View, Text, TextInput, TouchableOpacity } from 'react-native'
-
-//Firebase
-import { firebase } from '../../../firebase'
+import PropTypes from 'prop-types'
 
 //Styles
 import { buttons } from '../../../assets/styles/buttons'
@@ -10,44 +8,44 @@ import { container } from '../../../assets/styles/container'
 import { inputs } from '../../../assets/styles/inputs'
 import { text } from '../../../assets/styles/text'
 
-const AuthScreen = ({ navigation }) => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
+//Components
+import ValidationMessage from '../reusable/ValidationMessage'
 
-  const signUp = () => {
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password)
-      .then(result => {})
-      .catch(error => {
-        setError('Неверный логин или пароль')
-      })
-  }
+const AuthScreen = props => {
   return (
     <View style={container.authContainer}>
       <TextInput
-        value={email}
+        value={props.email}
         style={[inputs.input, { paddingVertical: 10 }]}
         placeholder="Электронная почта"
-        onChangeText={email => setEmail(email)}
+        onChangeText={email => props.setEmail(email)}
       />
       <TextInput
-        value={password}
+        value={props.password}
         style={[inputs.input, { paddingVertical: 10 }]}
         placeholder="Пароль"
         secureTextEntry={true}
-        onChangeText={password => setPassword(password)}
+        onChangeText={password => props.setPassword(password)}
       />
-      {error ? <Text style={text.errorMessage}>{error}</Text> : null}
-      <TouchableOpacity style={buttons.authButton} onPress={() => signUp()}>
+      <ValidationMessage type={'Auth'} validation={props.error} />
+      <TouchableOpacity style={buttons.authButton} onPress={() => props.signUp()}>
         <Text style={text.textSmall}>Вход</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={buttons.authButton} onPress={() => navigation.navigate('RegisterScreen')}>
+      <TouchableOpacity style={buttons.authButton} onPress={() => props.navigation.navigate('RegisterContainer')}>
         <Text style={[{ fontSize: 18 }]}>Регистрация</Text>
       </TouchableOpacity>
     </View>
   )
+}
+
+AuthScreen.propTypes = {
+  navigation: PropTypes.object,
+  email: PropTypes.string,
+  password: PropTypes.string,
+  error: PropTypes.string,
+  setEmail: PropTypes.func,
+  setPassword: PropTypes.func,
+  signUp: PropTypes.func
 }
 
 export default AuthScreen
