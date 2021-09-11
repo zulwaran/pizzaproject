@@ -8,18 +8,20 @@ import EmptyFlatList from '../../reusable/EmptyFlatList'
 import CustomButton from '../../reusable/CustomButton'
 
 //Reducer
-import { DELETE_FROM_CART } from '../../../reducers/cart'
+import { deleteItemFromCartAction } from '../../../reducers/actions/cartActions'
 
 //Styles
 import { container } from '../../../../assets/styles/container'
+
 
 const CartScreenContainer = ({ navigation }) => {
   const dispatch = useDispatch()
   const totalOrderSum = useSelector(state => state.cart.totalOrderSum)
   const DATA = useSelector(state => state.cart.userCart)
   const deleteItemFromCart = item => {
-    dispatch({ type: DELETE_FROM_CART, payload: item })
+    dispatch(deleteItemFromCartAction(item))
   }
+
 
   if (DATA.length === 0) {
     return <EmptyFlatList type={'CartScreen'} />

@@ -7,9 +7,8 @@ import SliderMenuItem from './SliderMenuItem'
 import ProductListItem from './ProductListItem'
 
 //Reducer & Functions
-import { AddItemToCart } from '../../../functions/Constructors'
-import { TOGGLE_MENU } from '../../../reducers/menu'
-import { ADD_TO_CART } from '../../../reducers/cart'
+import { addItemToCartAction } from '../../../reducers/actions/cartActions'
+import { toggleMenuAction } from '../../../reducers/actions/menuActions'
 
 const MenuScreenContainer = () => {
   const dispatch = useDispatch()
@@ -17,28 +16,10 @@ const MenuScreenContainer = () => {
   const productType = useSelector(state => state.menu.activeType)
 
   const toggleItem = item => {
-    dispatch({ type: TOGGLE_MENU, payload: item.type })
+    dispatch(toggleMenuAction(item.type))
   }
   const addItemToCart = async (item, size) => {
-    let price = ''
-    let productSize = size
-    switch (size) {
-      case '25 см':
-        price = item.smallPrice
-        break
-      case '30 см':
-        price = item.mediumPrice
-        break
-      case '35 см':
-        price = item.largePrice
-        break
-      default:
-        price = item.price
-        productSize = ''
-        break
-    }
-    let newItem = new AddItemToCart(item.title, productSize, item.decription, item.link, price)
-    dispatch({ type: ADD_TO_CART, payload: newItem })
+    dispatch(addItemToCartAction(item, size))
   }
 
   return (

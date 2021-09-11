@@ -1,13 +1,13 @@
 import { db } from '../../firebase'
-import { GET_USER_INFO } from '../reducers/user'
-import { GET_ORDER_LIST } from '../reducers/order'
-import { FETCH_SLIDER_ITEMS, FETCH_PRODUCT_LIST } from '../reducers/menu'
-import { FETCH_CART } from '../reducers/cart'
+import { fetchCartAction } from '../reducers/actions/cartActions'
+import { fetchProductListAction, fetchSliederItemsAction } from '../reducers/actions/menuActions'
+import { getUserInfoAction } from '../reducers/actions/userActions'
+import { getOrderListAction } from '../reducers/actions/orderActions'
 
 export const fetchUserInfo = async (dispatch, currentUser) => {
   const userRef = db.collection('users').doc(currentUser.uid)
   const doc = await userRef.get()
-  dispatch({ type: GET_USER_INFO, payload: doc.data() })
+  dispatch(getUserInfoAction(doc.data()))
 }
 
 export const fetchOrders = (dispatch, currentUser) => {
@@ -19,7 +19,7 @@ export const fetchOrders = (dispatch, currentUser) => {
       querySnapshot.forEach(doc => {
         orderList = [...orderList, doc.data()]
       })
-      dispatch({ type: GET_ORDER_LIST, payload: orderList })
+      dispatch(getOrderListAction(orderList))
     })
 }
 export const fetchSlider = dispatch => {
@@ -30,7 +30,7 @@ export const fetchSlider = dispatch => {
       querySnapshot.forEach(doc => {
         sliderList = [...sliderList, doc.data()]
       })
-      dispatch({ type: FETCH_SLIDER_ITEMS, payload: sliderList })
+      dispatch(fetchSliederItemsAction(sliderList))
     })
 }
 export const fetchProduct = dispatch => {
@@ -41,7 +41,7 @@ export const fetchProduct = dispatch => {
       querySnapshot.forEach(doc => {
         productList = [...productList, doc.data()]
       })
-      dispatch({ type: FETCH_PRODUCT_LIST, payload: productList })
+      dispatch(fetchProductListAction(productList))
     })
 }
 
@@ -55,7 +55,7 @@ export const fetchCart = (dispatch, currentUser) => {
         cartList = doc.data()
       })
       if (cartList.items) {
-        dispatch({ type: FETCH_CART, payload: cartList })
+        dispatch(fetchCartAction(cartList))
       }
     })
 }

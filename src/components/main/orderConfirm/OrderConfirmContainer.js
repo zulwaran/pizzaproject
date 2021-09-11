@@ -8,19 +8,9 @@ import { db, firebase } from '../../../../firebase'
 //Reducers & Functions
 import { deliveryDate } from '../../../functions/DateFunctions'
 import { Order } from '../../../functions/Constructors'
-import {
-  ADD_NEW_ORDER,
-  SET_APARTMENT,
-  SET_COMMENT,
-  SET_FLOOR,
-  SET_HOME,
-  SET_PORCH,
-  SET_STREET,
-  TOGGLE_PAYMENT_TYPE,
-  TOGGLE_DELIVERY_TYPE
-} from '../../../reducers/order'
-import { CLEAR_CART, DELETE_FROM_CART } from '../../../reducers/cart'
-import { OPEN_MODAL } from '../../../reducers/modal'
+import { openModalAction } from '../../../reducers/actions/modalActions'
+import { cartClearAction, deleteItemFromCartAction } from '../../../reducers/actions/cartActions'
+import { addNewOrderAction, setApartmentAction, setCommentAction, setFloorAction, setHomeAction, setPorchAction, setStreetAction, toggleDeliveryTypeAction, togglePaymentTypeAction } from '../../../reducers/actions/orderActions'
 
 //Components
 import AddressSection from './AddressSection'
@@ -29,11 +19,13 @@ import UserInfo from './UserInfo'
 import CommentSection from './CommentSection'
 import PaymentTypeSection from './PaymentTypeSection'
 import ProductSection from './ProductSection'
+import CustomButton from '../../reusable/CustomButton'
+import ValidationMessage from '../../reusable/ValidationMessage'
 
 //Styles
 import { container } from '../../../../assets/styles/container'
-import CustomButton from '../../reusable/CustomButton'
-import ValidationMessage from '../../reusable/ValidationMessage'
+
+
 
 const OrderConfirmContainer = ({ navigation }) => {
   const dispatch = useDispatch()
@@ -50,19 +42,19 @@ const OrderConfirmContainer = ({ navigation }) => {
   const [porch, setPorch] = useState(useSelector(state => state.order.porch))
   const [floor, setFloor] = useState(useSelector(state => state.order.floor))
   const setStateStreet = () => {
-    dispatch({ type: SET_STREET, payload: street })
+    dispatch(setStreetAction(street))
   }
   const setStateHome = () => {
-    dispatch({ type: SET_HOME, payload: home })
+    dispatch(setHomeAction(home))
   }
   const setStateApartment = () => {
-    dispatch({ type: SET_APARTMENT, payload: apartment })
+    dispatch(setApartmentAction(apartment))
   }
   const setStatePorch = () => {
-    dispatch({ type: SET_PORCH, payload: porch })
+    dispatch(setPorchAction(porch))
   }
   const setStateFloor = () => {
-    dispatch({ type: SET_FLOOR, payload: floor })
+    dispatch(setFloorAction(floor))
   }
 
   //User Info
@@ -72,13 +64,13 @@ const OrderConfirmContainer = ({ navigation }) => {
   //Comment
   const [comment, setComment] = useState(useSelector(state => state.order.comment))
   const setStateComment = () => {
-    dispatch({ type: SET_COMMENT, payload: comment })
+    dispatch(setCommentAction(comment))
   }
 
   //Payment Type
   const paymentType = useSelector(state => state.order.paymentType)
   const togglePaymentType = item => {
-    dispatch({ type: TOGGLE_PAYMENT_TYPE, payload: item })
+    dispatch(togglePaymentTypeAction(item))
   }
 
   //Time
@@ -86,7 +78,7 @@ const OrderConfirmContainer = ({ navigation }) => {
   const deliveryDay = useSelector(state => state.order.deliveryDay)
   const deliveryTime = useSelector(state => state.order.deliveryTime)
   const toggleDeliveryType = item => {
-    dispatch({ type: TOGGLE_DELIVERY_TYPE, payload: item })
+    dispatch(toggleDeliveryTypeAction(item))
   }
 
   const createOrder = () => {
@@ -120,16 +112,16 @@ const OrderConfirmContainer = ({ navigation }) => {
   }
 
   const deleteItemFromCart = item => {
-    dispatch({ type: DELETE_FROM_CART, payload: item })
+    dispatch(deleteItemFromCartAction(item))
   }
   const addNewOrder = item => {
-    dispatch({ type: ADD_NEW_ORDER, payload: item })
+    dispatch(addNewOrderAction(item))
   }
   const clearCart = () => {
-    dispatch({ type: CLEAR_CART })
+    dispatch(cartClearAction())
   }
   const toggleModal = type => {
-    dispatch({ type: OPEN_MODAL, payload: type })
+    dispatch(openModalAction(type))
   }
 
   return (

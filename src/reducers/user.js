@@ -17,16 +17,6 @@ const user = (state = initialState, action) => {
         name: action.payload.name,
         phone: action.payload.phone
       }
-    case SET_NAME:
-      return {
-        ...state,
-        name: action.payload
-      }
-    case SET_PHONE:
-      return {
-        ...state,
-        phone: action.payload
-      }
     default:
       return state
   }

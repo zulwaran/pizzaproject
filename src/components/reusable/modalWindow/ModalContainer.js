@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { CLOSE_MODAL } from '../../../reducers/modal'
-import { SELECT_DELIVERY_DAY, SELECT_DELIVERY_TIME } from '../../../reducers/order'
+import { closeModalAction } from '../../../reducers/actions/modalActions'
+import { selectDeliveryDayAction, selectDeliveryTimeAction } from '../../../reducers/actions/orderActions'
 import ModalPopUp from './ModalPopUp'
 
 const ModalContainer = () => {
@@ -14,16 +14,16 @@ const ModalContainer = () => {
   const selectDateValue = value => {
     switch (modalType) {
       case 'date':
-        dispatch({ type: SELECT_DELIVERY_DAY, payload: value })
+        dispatch(selectDeliveryDayAction(value))
         break
       case 'time':
-        dispatch({ type: SELECT_DELIVERY_TIME, payload: value })
+        dispatch(selectDeliveryTimeAction(value))
         break
     }
   }
 
   const closeModal = () => {
-    dispatch({ type: CLOSE_MODAL })
+    dispatch(closeModalAction())
   }
 
   return (
