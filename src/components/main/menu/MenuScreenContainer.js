@@ -11,7 +11,7 @@ import { AddItemToCart } from '../../../functions/Constructors'
 import { TOGGLE_MENU } from '../../../reducers/menu'
 import { ADD_TO_CART } from '../../../reducers/cart'
 
-const MenuScreen = () => {
+const MenuScreenContainer = () => {
   const dispatch = useDispatch()
   const activeType = useSelector(state => state.menu.activeType)
   const productType = useSelector(state => state.menu.activeType)
@@ -62,4 +62,4 @@ const MenuScreen = () => {
   )
 }
 
-export default MenuScreen
+export default MenuScreenContainer

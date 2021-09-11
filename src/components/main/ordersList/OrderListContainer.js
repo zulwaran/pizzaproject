@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { ScrollView, FlatList, View, Text, TouchableOpacity } from 'react-native'
+import { ScrollView, FlatList } from 'react-native'
 import { useSelector } from 'react-redux'
 
 //Firebase
@@ -8,17 +8,14 @@ import firebase from 'firebase'
 //Components
 import EmptyFlatList from '../../reusable/EmptyFlatList'
 import OrderList from './OrderList'
+import OrderListHead from './OrderListHead'
+import CustomButton from '../../reusable/customButton'
 
-//Styles
-import { text } from '../../../../assets/styles/text'
-import { buttons } from '../../../../assets/styles/buttons'
-import { container } from '../../../../assets/styles/container'
-
-const OrderListScreen = () => {
+const OrderListContainer = () => {
   const [toggleOrderStatus, setToggleOrderStatus] = useState('actual')
   const DATA = useSelector(state => state.order.orderList)
 
-  const exit = () => {
+  const logOut = () => {
     firebase
       .auth()
       .signOut()
@@ -32,18 +29,7 @@ const OrderListScreen = () => {
 
   return (
     <ScrollView>
-      <View style={container.OrderListContainer}>
-        <TouchableOpacity onPress={() => setToggleOrderStatus('actual')}>
-          <Text style={toggleOrderStatus === 'actual' ? text.orderListMenuActive : text.orderListMenu}>
-            Текущие заказы
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setToggleOrderStatus('history')}>
-          <Text style={toggleOrderStatus === 'history' ? text.orderListMenuActive : text.orderListMenu}>
-            История заказов
-          </Text>
-        </TouchableOpacity>
-      </View>
+      <OrderListHead toggleOrderStatus={toggleOrderStatus} setToggleOrderStatus={setToggleOrderStatus} />
       {toggleOrderStatus === 'actual' ? (
         <FlatList
           data={DATA.filter(elem => {
@@ -51,7 +37,7 @@ const OrderListScreen = () => {
           })}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => <OrderList item={item} />}
-          ListEmptyComponent={<EmptyFlatList />}
+          ListEmptyComponent={<EmptyFlatList type={'OrderListScreen'} />}
         />
       ) : (
         <FlatList
@@ -60,14 +46,12 @@ const OrderListScreen = () => {
           })}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => <OrderList item={item} />}
-          ListEmptyComponent={<EmptyFlatList />}
+          ListEmptyComponent={<EmptyFlatList type={'OrderListScreen'} />}
         />
       )}
-      <TouchableOpacity style={buttons.confirm__button} onPress={() => exit()}>
-        <Text style={text.exitButtonText}>Выйти из профиля</Text>
-      </TouchableOpacity>
+      <CustomButton type={'LogOutButton'} logOut={logOut} />
     </ScrollView>
   )
 }
 
-export default OrderListScreen
+export default OrderListContainer

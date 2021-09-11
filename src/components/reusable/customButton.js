@@ -90,6 +90,12 @@ const CustomButton = props => {
           )}
         </TouchableOpacity>
       )
+    case 'LogOutButton':
+      return (
+        <TouchableOpacity style={buttons.confirm__button} onPress={() => props.logOut()}>
+          <Text style={text.exitButtonText}>Выйти из профиля</Text>
+        </TouchableOpacity>
+      )
     default:
       return null
   }

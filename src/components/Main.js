@@ -14,8 +14,8 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import { fetchUserInfo, fetchOrders, fetchSlider, fetchProduct, fetchCart } from '../functions/FetchData'
 
 //Components
-import OrderListScreen from './main/ordersList/OrderListScreen'
-import MenuScreen from './main/menu/MenuScreen'
+import OrderListContainer from './main/ordersList/OrderListContainer'
+import MenuScreenContainer from './main/menu/MenuScreenContainer'
 import CartScreenContainer from './main/cart/CartScreenContainer'
 
 const Tab = createBottomTabNavigator()
@@ -34,10 +34,10 @@ const Main = () => {
 
   const itemsInCart = useSelector(state => state.cart.itemsInCart)
   return (
-    <Tab.Navigator initialRouteName="MenuScreen">
+    <Tab.Navigator initialRouteName="MenuScreenContainer">
       <Tab.Screen
-        name="OrderListScreen"
-        component={OrderListScreen}
+        name="OrderListContainer"
+        component={OrderListContainer}
         options={{
           tabBarLabel: 'Список заказов',
           headerShown: false,
@@ -45,8 +45,8 @@ const Main = () => {
         }}
       />
       <Tab.Screen
-        name="MenuScreen"
-        component={MenuScreen}
+        name="MenuScreenContainer"
+        component={MenuScreenContainer}
         options={{
           tabBarLabel: 'Меню',
           headerShown: false,

@@ -12,8 +12,10 @@ const EmptyFlatList = props => {
           <Text>Корзина пуста</Text>
         </View>
       )
-    default:
+    case 'OrderListScreen':
       return <Text style={text.emptyList}>Заказов нет</Text>
+    default:
+      return null
   }
 }
 export default EmptyFlatList

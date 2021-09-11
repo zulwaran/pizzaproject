@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Text, TouchableOpacity, View, FlatList } from 'react-native'
-import PropTypes, { number } from 'prop-types'
+import PropTypes from 'prop-types'
 
 //Components
 import CartItem from '../cart/CartItem'

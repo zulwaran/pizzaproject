@@ -34,7 +34,7 @@ const OrderConfirmAccepted = ({ route, navigation }) => {
         )}
         <Text style={text.smallText}>Заказ № {orderId}</Text>
       </View>
-      <TouchableOpacity style={buttons.redirectingButton} onPress={() => navigation.navigate('OrderListScreen')}>
+      <TouchableOpacity style={buttons.redirectingButton} onPress={() => navigation.navigate('OrderListContainer')}>
         <Text style={[{ fontSize: 16 }]}>Проверить статус заказа</Text>
       </TouchableOpacity>
       <Text style={text.orderConfirmBottomText}>Если хотите изменить или отменить заказ, скорее звоните 999-999</Text>
