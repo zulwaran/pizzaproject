@@ -14,7 +14,7 @@ const CustomButton = props => {
     case 'monster':
       return (
         <View>
-          {props.active === 'selected' ? (
+          {props.isActive === true ? (
             <View style={[container.priceContainer, { alignItems: 'center' }]}>
               <View style={container.buttonCircleContainer}>
                 <TouchableOpacity
@@ -55,7 +55,7 @@ const CustomButton = props => {
               <Text style={text.productPriceSmall}>
                 от <Text style={text.productPriceMedium}>{props.item.smallPrice}</Text> ₽
               </Text>
-              <TouchableOpacity style={buttons.select__button} onPress={() => props.toggleActive('selected')}>
+              <TouchableOpacity style={buttons.select__button} onPress={() => props.setIsActive(true)}>
                 <Text>Выбрать</Text>
               </TouchableOpacity>
             </View>
@@ -97,7 +97,7 @@ const CustomButton = props => {
 CustomButton.propTypes = {
   navigation: PropTypes.object,
   totalOrderSum: PropTypes.number,
-  active: PropTypes.string,
+  isActive: PropTypes.bool,
   addItemToCart: PropTypes.func,
   toggleActive: PropTypes.func,
   item: PropTypes.shape({
