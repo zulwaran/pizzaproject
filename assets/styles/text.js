@@ -22,11 +22,6 @@ export const text = StyleSheet.create({
   cartTextbutton: {
     fontSize: FONT_SIZE_LARGE
   },
-  cartTextEmpty: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
   productPriceMedium: {
     fontSize: FONT_SIZE_MEDIUM
   },

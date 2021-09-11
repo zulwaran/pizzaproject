@@ -41,12 +41,12 @@ const cart = (state = initialState, action) => {
             db.collection('cart')
               .doc(doc.id)
               .update({
-                items: firebaseApp.firestore.FieldValue.arrayRemove(Object.assign({}, action.payload.item))
+                items: firebaseApp.firestore.FieldValue.arrayRemove(Object.assign({}, action.payload))
               })
           })
         })
 
-      const id = action.payload.item.id
+      const id = action.payload.id
       state.userCart = state.userCart.filter(item => {
         return item.id !== id
       })
@@ -56,7 +56,7 @@ const cart = (state = initialState, action) => {
         state.itemsInCart = null
       }
 
-      state.totalOrderSum = state.totalOrderSum - Number(action.payload.item.price)
+      state.totalOrderSum = state.totalOrderSum - Number(action.payload.price)
 
       return {
         ...state,

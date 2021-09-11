@@ -16,7 +16,7 @@ import { fetchUserInfo, fetchOrders, fetchSlider, fetchProduct, fetchCart } from
 //Components
 import OrderListScreen from './main/ordersList/OrderListScreen'
 import MenuScreen from './main/menu/MenuScreen'
-import CartScreen from './main/cart/CartScreen'
+import CartScreenContainer from './main/cart/CartScreenContainer'
 
 const Tab = createBottomTabNavigator()
 
@@ -54,8 +54,8 @@ const Main = () => {
         }}
       />
       <Tab.Screen
-        name="CartScreen"
-        component={CartScreen}
+        name="CartScreenContainer"
+        component={CartScreenContainer}
         options={{
           tabBarLabel: 'Корзина',
           headerShown: false,

@@ -1,13 +1,9 @@
 import React from 'react'
 import { View, Text, Image, TouchableOpacity } from 'react-native'
-import { useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
 
 //Icons
 import AntDesign from 'react-native-vector-icons/AntDesign'
-
-//Reducer
-import { DELETE_FROM_CART } from '../../../reducers/cart'
 
 //Styles
 import { text } from '../../../../assets/styles/text'
@@ -15,18 +11,14 @@ import { container } from '../../../../assets/styles/container'
 import { images } from '../../../../assets/styles/images'
 import { div } from '../../../../assets/styles/div'
 
-const CartItem = ({ item, type }) => {
-  const dispatch = useDispatch()
-  const DeleteItemFromCart = item => {
-    dispatch({ type: DELETE_FROM_CART, payload: item })
-  }
+const CartItem = props => {
   return (
     <View style={container.cartItemContainer}>
       <View style={div.productInfo}>
         <Image
           style={images.productInfoImage}
           source={{
-            uri: item.link
+            uri: props.item.link
           }}
         />
         <View style={div.productInfoRightHalf}>
@@ -38,20 +30,20 @@ const CartItem = ({ item, type }) => {
               }
             ]}
           >
-            <Text style={[text.productTextTitle, { marginBottom: 5 }]}>{item.title}</Text>
-            {type === 'OrderList' ? null : (
+            <Text style={[text.productTextTitle, { marginBottom: 5 }]}>{props.item.title}</Text>
+            {props.type === 'OrderList' ? null : (
               <TouchableOpacity
                 style={[{ paddingRight: 20 }]}
                 onPress={() => {
-                  DeleteItemFromCart({ item })
+                  props.deleteItemFromCart(props.item)
                 }}
               >
                 <AntDesign name="closecircleo" color="red" size={26} />
               </TouchableOpacity>
             )}
           </View>
-          <Text style={text.productTextDecription}>{item.decription}</Text>
-          <Text style={text.productPriceMedium}>{item.price} ₽</Text>
+          <Text style={text.productTextDecription}>{props.item.decription}</Text>
+          <Text style={text.productPriceMedium}>{props.item.price} ₽</Text>
         </View>
       </View>
     </View>
@@ -65,7 +57,8 @@ CartItem.propTypes = {
     decription: PropTypes.string,
     price: PropTypes.string
   }),
-  type: PropTypes.string
+  type: PropTypes.string,
+  deleteItemFromCart: PropTypes.func
 }
 
 export default CartItem

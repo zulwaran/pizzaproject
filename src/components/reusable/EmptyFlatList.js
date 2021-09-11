@@ -1,10 +1,19 @@
 import React from 'react'
-import { Text } from 'react-native'
+import { Text, View } from 'react-native'
 
 //Styles
-import { text } from '../../../assets/styles/text'
+import { div } from '../../../assets/styles/div'
 
-const EmptyFlatList = () => {
-  return <Text style={text.emptyList}>Заказов нет</Text>
+const EmptyFlatList = props => {
+  switch (props.type) {
+    case 'CartScreen':
+      return (
+        <View style={div.cartEmpty}>
+          <Text>Корзина пуста</Text>
+        </View>
+      )
+    default:
+      return <Text style={text.emptyList}>Заказов нет</Text>
+  }
 }
 export default EmptyFlatList

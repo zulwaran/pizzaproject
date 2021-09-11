@@ -79,7 +79,13 @@ const ProductListItem = ({ item }) => {
             <Text style={text.productTextDecription}>{item.decription}</Text>
           </View>
         </View>
-        <CustomButton item={item} toggleActive={toggleActive} active={active} addItemToCart={addItemToCart} />
+        <CustomButton
+          type={item.type}
+          item={item}
+          toggleActive={toggleActive}
+          active={active}
+          addItemToCart={addItemToCart}
+        />
       </View>
     )
   } else {

@@ -59,5 +59,10 @@ export const div = StyleSheet.create({
     backgroundColor: '#fff',
     borderWidth: 6,
     borderColor: 'rgb(255, 192, 0)'
+  },
+  cartEmpty: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 })

@@ -8,7 +8,7 @@ import { buttons } from '../../../assets/styles/buttons'
 import { container } from '../../../assets/styles/container'
 
 const CustomButton = props => {
-  switch (props.item.type) {
+  switch (props.type) {
     case 'pizza':
     case 'trip':
     case 'monster':
@@ -72,25 +72,43 @@ const CustomButton = props => {
           </TouchableOpacity>
         </View>
       )
+    case 'CartButton':
+      return (
+        <TouchableOpacity
+          disabled={props.totalOrderSum < 350 ? true : false}
+          style={
+            props.totalOrderSum < 350 ? [buttons.cart__button, { backgroundColor: '#767976' }] : buttons.cart__button
+          }
+          onPress={() => props.navigation.navigate('OrderConfirm')}
+        >
+          {props.totalOrderSum < 350 ? (
+            <Text style={[text.cartTextbutton, { fontSize: 18, textAlign: 'center' }]}>
+              Сумма заказа должна быть не менее 350 ₽
+            </Text>
+          ) : (
+            <Text style={text.cartTextbutton}>{props.totalOrderSum} ₽ Оформить заказ</Text>
+          )}
+        </TouchableOpacity>
+      )
     default:
       return null
   }
 }
 CustomButton.propTypes = {
-  props: PropTypes.shape({
-    active: PropTypes.string,
-    addItemToCart: PropTypes.func,
-    toggleActive: PropTypes.func,
-    item: PropTypes.shape({
-      decription: PropTypes.string,
-      id: PropTypes.string,
-      largePrice: PropTypes.string,
-      link: PropTypes.string,
-      mediumPrice: PropTypes.string,
-      smallPrice: PropTypes.string,
-      title: PropTypes.string,
-      type: PropTypes.string
-    })
+  navigation: PropTypes.object,
+  totalOrderSum: PropTypes.number,
+  active: PropTypes.string,
+  addItemToCart: PropTypes.func,
+  toggleActive: PropTypes.func,
+  item: PropTypes.shape({
+    decription: PropTypes.string,
+    id: PropTypes.string,
+    largePrice: PropTypes.string,
+    link: PropTypes.string,
+    mediumPrice: PropTypes.string,
+    smallPrice: PropTypes.string,
+    title: PropTypes.string,
+    type: PropTypes.string
   })
 }
 export default CustomButton
