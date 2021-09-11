@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 //Components
 import CartItem from './CartItem'
 import EmptyFlatList from '../../reusable/EmptyFlatList'
-import CustomButton from '../../reusable/customButton'
+import CustomButton from '../../reusable/CustomButton'
 
 //Reducer
 import { DELETE_FROM_CART } from '../../../reducers/cart'

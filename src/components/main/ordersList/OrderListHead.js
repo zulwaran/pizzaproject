@@ -1,6 +1,8 @@
 import React from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
+import PropTypes from 'prop-types'
 
+//Styles
 import { text } from '../../../../assets/styles/text'
 import { container } from '../../../../assets/styles/container'
 
@@ -19,6 +21,11 @@ const OrderListHead = props => {
       </TouchableOpacity>
     </View>
   )
+}
+
+OrderListHead.propTypes = {
+  toggleOrderStatus: PropTypes.string,
+  setToggleOrderStatus: PropTypes.func
 }
 
 export default OrderListHead

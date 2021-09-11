@@ -1,25 +1,19 @@
 import React from 'react'
 import { View, TouchableOpacity, Text } from 'react-native'
-import { useDispatch } from 'react-redux'
+import PropTypes from 'prop-types'
+
 //Components
 import RadioButton from '../../reusable/RadioButton'
-
-//Reducers
-import { TOGGLE_PAYMENT_TYPE } from '../../../reducers/order'
 
 //Styles
 import { text } from '../../../../assets/styles/text'
 import { container } from '../../../../assets/styles/container'
 import { buttons } from '../../../../assets/styles/buttons'
 
-const PaymentTypeSection = () => {
-  const dispatch = useDispatch()
+const PaymentTypeSection = props => {
   const type = {
     cash: 'Наличными',
     card: 'Картой'
-  }
-  const togglePaymentType = item => {
-    dispatch({ type: TOGGLE_PAYMENT_TYPE, payload: item })
   }
   return (
     <View>
@@ -29,22 +23,26 @@ const PaymentTypeSection = () => {
       <TouchableOpacity
         style={buttons.radioButton}
         onPress={() => {
-          togglePaymentType(type.cash)
+          props.togglePaymentType(type.cash)
         }}
       >
-        <RadioButton type={type.cash} radioType="payment" />
+        <RadioButton type={type.cash} radioType="payment" paymentType={props.paymentType} />
         <Text style={text.paymentType}>Наличными</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={buttons.radioButton}
         onPress={() => {
-          togglePaymentType(type.card)
+          props.togglePaymentType(type.card)
         }}
       >
-        <RadioButton type={type.card} radioType="payment" />
+        <RadioButton type={type.card} radioType="payment" paymentType={props.paymentType} />
         <Text style={text.paymentType}>Картой при получении</Text>
       </TouchableOpacity>
     </View>
   )
+}
+PaymentTypeSection.propTypes = {
+  paymentType: PropTypes.string,
+  togglePaymentType: PropTypes.func
 }
 export default PaymentTypeSection

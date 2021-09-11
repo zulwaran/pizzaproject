@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 
 //Components
-import CustomButton from '../../reusable/customButton'
+import CustomButton from '../../reusable/CustomButton'
 
 //Styles
 import { text } from '../../../../assets/styles/text'

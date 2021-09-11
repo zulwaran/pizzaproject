@@ -3,6 +3,7 @@ import { Text, View } from 'react-native'
 
 //Styles
 import { div } from '../../../assets/styles/div'
+import { text } from '../../../assets/styles/text'
 
 const EmptyFlatList = props => {
   switch (props.type) {

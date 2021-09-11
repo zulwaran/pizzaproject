@@ -1,12 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { View, TextInput, Text } from 'react-native'
-import { useDispatch, useSelector } from 'react-redux'
+import PropTypes from 'prop-types'
 
 //Icons
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-
-//Reducers
-import { SET_COMMENT } from '../../../reducers/order'
 
 //Styles
 import { container } from '../../../../assets/styles/container'
@@ -14,12 +11,7 @@ import { images } from '../../../../assets/styles/images'
 import { inputs } from '../../../../assets/styles/inputs'
 import { text } from '../../../../assets/styles/text'
 
-const CommentSection = () => {
-  const [comment, setComment] = useState(useSelector(state => state.order.comment))
-  const dispatch = useDispatch()
-  const writeComment = () => {
-    dispatch({ type: SET_COMMENT, payload: comment })
-  }
+const CommentSection = props => {
   return (
     <View>
       <View style={container.subtitleContainer}>
@@ -27,15 +19,21 @@ const CommentSection = () => {
         <Text style={text.confirmSubtitle}>Комментарий</Text>
       </View>
       <TextInput
-        value={comment}
+        value={props.comment}
         style={inputs.commentTextArea}
         numberOfLines={4}
         multiline
-        onChangeText={setComment}
-        onBlur={writeComment}
+        onChangeText={props.setComment}
+        onBlur={props.setStateComment}
       />
     </View>
   )
+}
+
+CommentSection.propTypes = {
+  comment: PropTypes.string,
+  setComment: PropTypes.func,
+  setStateComment: PropTypes.func
 }
 
 export default CommentSection

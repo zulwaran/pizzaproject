@@ -25,7 +25,7 @@ import AuthScreen from './src/components/auth/AuthScreen'
 import RegisterScreen from './src/components/auth/RegisterScreen'
 import Main from './src/components/Main'
 import Header from './src/components/Header'
-import OrderConfirm from './src/components/main/orderConfirm/OrderConfirm'
+import OrderConfirmContainer from './src/components/main/orderConfirm/OrderConfirmContainer'
 import OrderConfirmAccepted from './src/components/main/orderConfirm/OrderConfirmAccepted'
 
 const App = () => {
@@ -101,11 +101,11 @@ const App = () => {
               }}
             />
             <Stack.Screen
-              name="OrderConfirm"
+              name="OrderConfirmContainer"
               options={{
                 title: 'Оформление заказа'
               }}
-              component={OrderConfirm}
+              component={OrderConfirmContainer}
             />
             <Stack.Screen
               name="OrderConfirmAccepted"

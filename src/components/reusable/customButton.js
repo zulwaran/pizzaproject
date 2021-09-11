@@ -79,7 +79,7 @@ const CustomButton = props => {
           style={
             props.totalOrderSum < 350 ? [buttons.cart__button, { backgroundColor: '#767976' }] : buttons.cart__button
           }
-          onPress={() => props.navigation.navigate('OrderConfirm')}
+          onPress={() => props.navigation.navigate('OrderConfirmContainer')}
         >
           {props.totalOrderSum < 350 ? (
             <Text style={[text.cartTextbutton, { fontSize: 18, textAlign: 'center' }]}>
@@ -87,6 +87,28 @@ const CustomButton = props => {
             </Text>
           ) : (
             <Text style={text.cartTextbutton}>{props.totalOrderSum} ₽ Оформить заказ</Text>
+          )}
+        </TouchableOpacity>
+      )
+    case 'CreateOrderButton':
+      return (
+        <TouchableOpacity
+          disabled={props.totalOrderSum < 350 ? true : false}
+          style={
+            props.totalOrderSum < 350
+              ? [buttons.confirm__button, { backgroundColor: '#767976' }]
+              : buttons.confirm__button
+          }
+          onPress={() => {
+            props.createOrder(props.productList)
+          }}
+        >
+          {props.totalOrderSum < 350 ? (
+            <Text style={(text.confirmOrderButtonText, [{ fontSize: 18, textAlign: 'center' }])}>
+              Сумма заказа должна быть не менее 350 Р
+            </Text>
+          ) : (
+            <Text style={text.confirmOrderButtonText}>Оформить заказ →</Text>
           )}
         </TouchableOpacity>
       )

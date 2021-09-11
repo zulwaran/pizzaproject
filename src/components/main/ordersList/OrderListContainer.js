@@ -9,7 +9,7 @@ import firebase from 'firebase'
 import EmptyFlatList from '../../reusable/EmptyFlatList'
 import OrderList from './OrderList'
 import OrderListHead from './OrderListHead'
-import CustomButton from '../../reusable/customButton'
+import CustomButton from '../../reusable/CustomButton'
 
 const OrderListContainer = () => {
   const [toggleOrderStatus, setToggleOrderStatus] = useState('actual')

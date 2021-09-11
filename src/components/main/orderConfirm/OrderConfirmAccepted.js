@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Image, Text, TouchableOpacity } from 'react-native'
 import { useSelector } from 'react-redux'
-import PropTypes, { shape } from 'prop-types'
+import PropTypes from 'prop-types'
 
 //Styles
 import { buttons } from '../../../../assets/styles/buttons'
