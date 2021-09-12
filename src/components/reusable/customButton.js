@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View, TouchableOpacity } from 'react-native'
+import { Text, View, TouchableOpacity, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
 
 //Styles
@@ -15,10 +15,10 @@ const CustomButton = props => {
       return (
         <View>
           {props.isActive === true ? (
-            <View style={[container.priceContainer, { alignItems: 'center' }]}>
+            <View style={StyleSheet.flatten([container.priceContainer, { alignItems: 'center' }])}>
               <View style={container.buttonCircleContainer}>
                 <TouchableOpacity
-                  style={[{ width: 50, height: 50 }, buttons.buttonCircle]}
+                  style={StyleSheet.flatten([{ width: 50, height: 50 }, buttons.buttonCircle])}
                   onPress={() => {
                     props.addItemToCart(props.item, '25 см')
                   }}
@@ -29,7 +29,7 @@ const CustomButton = props => {
               </View>
               <View style={container.buttonCircleContainer}>
                 <TouchableOpacity
-                  style={[{ width: 60, height: 60 }, buttons.buttonCircle]}
+                  style={StyleSheet.flatten([{ width: 60, height: 60 }, buttons.buttonCircle])}
                   onPress={() => {
                     props.addItemToCart(props.item, '30 см')
                   }}
@@ -40,7 +40,7 @@ const CustomButton = props => {
               </View>
               <View style={container.buttonCircleContainer}>
                 <TouchableOpacity
-                  style={[{ width: 70, height: 70 }, buttons.buttonCircle]}
+                  style={StyleSheet.flatten([{ width: 70, height: 70 }, buttons.buttonCircle])}
                   onPress={() => {
                     props.addItemToCart(props.item, '35 см')
                   }}
@@ -66,7 +66,9 @@ const CustomButton = props => {
     case 'snacks':
       return (
         <View style={container.priceContainer}>
-          <Text style={[text.productPriceMedium, { alignSelf: 'center', marginRight: 15 }]}>{props.item.price} ₽</Text>
+          <Text style={StyleSheet.flatten([text.productPriceMedium, { alignSelf: 'center', marginRight: 15 }])}>
+            {props.item.price} ₽
+          </Text>
           <TouchableOpacity style={buttons.select__button} onPress={() => props.addItemToCart(props.item)}>
             <Text>Добавить</Text>
           </TouchableOpacity>
@@ -77,12 +79,14 @@ const CustomButton = props => {
         <TouchableOpacity
           disabled={props.totalOrderSum < 350 ? true : false}
           style={
-            props.totalOrderSum < 350 ? [buttons.cart__button, { backgroundColor: '#767976' }] : buttons.cart__button
+            props.totalOrderSum < 350
+              ? StyleSheet.flatten([buttons.cart__button, { backgroundColor: '#767976' }])
+              : buttons.cart__button
           }
           onPress={() => props.navigation.navigate('OrderConfirmContainer')}
         >
           {props.totalOrderSum < 350 ? (
-            <Text style={[text.cartTextbutton, { fontSize: 18, textAlign: 'center' }]}>
+            <Text style={StyleSheet.flatten([text.cartTextbutton, { fontSize: 18, textAlign: 'center' }])}>
               Сумма заказа должна быть не менее 350 ₽
             </Text>
           ) : (
@@ -96,7 +100,7 @@ const CustomButton = props => {
           disabled={props.totalOrderSum < 350 ? true : false}
           style={
             props.totalOrderSum < 350
-              ? [buttons.confirm__button, { backgroundColor: '#767976' }]
+              ? StyleSheet.flatten([buttons.confirm__button, { backgroundColor: '#767976' }])
               : buttons.confirm__button
           }
           onPress={() => {
@@ -104,7 +108,7 @@ const CustomButton = props => {
           }}
         >
           {props.totalOrderSum < 350 ? (
-            <Text style={(text.confirmOrderButtonText, [{ fontSize: 18, textAlign: 'center' }])}>
+            <Text style={StyleSheet.flatten([text.confirmOrderButtonText, { fontSize: 18, textAlign: 'center' }])}>
               Сумма заказа должна быть не менее 350 Р
             </Text>
           ) : (

@@ -8,9 +8,19 @@ import { db, firebase } from '../../../../firebase'
 //Reducers & Functions
 import { deliveryDate } from '../../../functions/DateFunctions'
 import { Order } from '../../../functions/Constructors'
-import { openModalAction } from '../../../reducers/actions/modalActions'
-import { cartClearAction, deleteItemFromCartAction } from '../../../reducers/actions/cartActions'
-import { addNewOrderAction, setApartmentAction, setCommentAction, setFloorAction, setHomeAction, setPorchAction, setStreetAction, toggleDeliveryTypeAction, togglePaymentTypeAction } from '../../../reducers/actions/orderActions'
+import { openModalAction } from '../../../actions/modalActions'
+import { cartClearAction, deleteItemFromCartAction } from '../../../actions/cartActions'
+import {
+  addNewOrderAction,
+  setApartmentAction,
+  setCommentAction,
+  setFloorAction,
+  setHomeAction,
+  setPorchAction,
+  setStreetAction,
+  toggleDeliveryTypeAction,
+  togglePaymentTypeAction
+} from '../../../actions/orderActions'
 
 //Components
 import AddressSection from './AddressSection'
@@ -24,8 +34,6 @@ import ValidationMessage from '../../reusable/ValidationMessage'
 
 //Styles
 import { container } from '../../../../assets/styles/container'
-
-
 
 const OrderConfirmContainer = ({ navigation }) => {
   const dispatch = useDispatch()

@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
 //Components
 import RadioButton from '../../reusable/RadioButton'
@@ -29,7 +29,10 @@ const OrderConfirmSelectTime = props => {
       {props.deliveryType === type.later ? (
         <TouchableOpacity style={buttons.radioButton}>
           <RadioButton type={type.later} radioType="delivery" deliveryType={props.deliveryType} />
-          <Text onPress={() => props.toggleModal('date')} style={[inputs.inptTime, { width: '60%' }]}>
+          <Text
+            onPress={() => props.toggleModal('date')}
+            style={StyleSheet.flatten([inputs.inptTime, { width: '60%' }])}
+          >
             {props.deliveryDay}
           </Text>
           <Text onPress={() => props.toggleModal('time')} style={inputs.inptTime}>

@@ -29,12 +29,10 @@ const ProductListItem = props => {
           />
           <View style={div.productInfoRightHalf}>
             <View
-              style={[
-                {
-                  flexDirection: 'row',
-                  justifyContent: 'space-between'
-                }
-              ]}
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between'
+              }}
             >
               <Text style={text.productTextTitle}>{props.item.title}</Text>
               {isActive === true ? (

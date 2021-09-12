@@ -8,11 +8,10 @@ import EmptyFlatList from '../../reusable/EmptyFlatList'
 import CustomButton from '../../reusable/CustomButton'
 
 //Reducer
-import { deleteItemFromCartAction } from '../../../reducers/actions/cartActions'
+import { deleteItemFromCartAction } from '../../../actions/cartActions'
 
 //Styles
 import { container } from '../../../../assets/styles/container'
-
 
 const CartScreenContainer = ({ navigation }) => {
   const dispatch = useDispatch()
@@ -21,7 +20,6 @@ const CartScreenContainer = ({ navigation }) => {
   const deleteItemFromCart = item => {
     dispatch(deleteItemFromCartAction(item))
   }
-
 
   if (DATA.length === 0) {
     return <EmptyFlatList type={'CartScreen'} />

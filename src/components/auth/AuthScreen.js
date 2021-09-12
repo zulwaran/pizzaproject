@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
 
 //Styles
@@ -16,13 +16,13 @@ const AuthScreen = props => {
     <View style={container.authContainer}>
       <TextInput
         value={props.email}
-        style={[inputs.input, { paddingVertical: 10 }]}
+        style={StyleSheet.flatten([inputs.input, { paddingVertical: 10 }])}
         placeholder="Электронная почта"
         onChangeText={email => props.setEmail(email)}
       />
       <TextInput
         value={props.password}
-        style={[inputs.input, { paddingVertical: 10 }]}
+        style={StyleSheet.flatten([inputs.input, { paddingVertical: 10 }])}
         placeholder="Пароль"
         secureTextEntry={true}
         onChangeText={password => props.setPassword(password)}

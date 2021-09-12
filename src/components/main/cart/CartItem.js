@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, Image, TouchableOpacity } from 'react-native'
+import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
 
 //Icons
@@ -22,15 +22,8 @@ const CartItem = props => {
           }}
         />
         <View style={div.productInfoRightHalf}>
-          <View
-            style={[
-              {
-                flexDirection: 'row',
-                justifyContent: 'space-between'
-              }
-            ]}
-          >
-            <Text style={[text.productTextTitle, { marginBottom: 5 }]}>{props.item.title}</Text>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+            <Text style={StyleSheet.flatten([text.productTextTitle, { marginBottom: 5 }])}>{props.item.title}</Text>
             {props.type === 'OrderList' ? null : (
               <TouchableOpacity
                 style={[{ paddingRight: 20 }]}

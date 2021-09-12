@@ -7,8 +7,9 @@ import SliderMenuItem from './SliderMenuItem'
 import ProductListItem from './ProductListItem'
 
 //Reducer & Functions
-import { addItemToCartAction } from '../../../reducers/actions/cartActions'
-import { toggleMenuAction } from '../../../reducers/actions/menuActions'
+import { AddItemToCart } from '../../../functions/Constructors'
+import { addItemToCartAction } from '../../../actions/cartActions'
+import { toggleMenuAction } from '../../../actions/menuActions'
 
 const MenuScreenContainer = () => {
   const dispatch = useDispatch()
@@ -19,11 +20,29 @@ const MenuScreenContainer = () => {
     dispatch(toggleMenuAction(item.type))
   }
   const addItemToCart = async (item, size) => {
-    dispatch(addItemToCartAction(item, size))
+    let price = ''
+    let productSize = size
+    switch (size) {
+      case '25 см':
+        price = item.smallPrice
+        break
+      case '30 см':
+        price = item.mediumPrice
+        break
+      case '35 см':
+        price = item.largePrice
+        break
+      default:
+        price = item.price
+        productSize = ''
+        break
+    }
+    let newItem = new AddItemToCart(item.title, productSize, item.decription, item.link, price)
+    dispatch(addItemToCartAction(newItem))
   }
 
   return (
-    <ScrollView style={[{ backgroundColor: '#fff', width: '100%' }]}>
+    <ScrollView style={{ backgroundColor: '#fff', width: '100%' }}>
       <FlatList
         style={[{ marginBottom: 30 }]}
         horizontal

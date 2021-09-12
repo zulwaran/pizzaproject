@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, TextInput, Text, TouchableOpacity } from 'react-native'
+import { View, TextInput, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
 import MaskInput from 'react-native-mask-input'
 
@@ -14,19 +14,19 @@ const RegisterScreen = props => {
     <View style={container.authContainer}>
       <TextInput
         value={props.name}
-        style={[inputs.input, { paddingVertical: 10 }]}
+        style={StyleSheet.flatten([inputs.input, { paddingVertical: 10 }])}
         placeholder="Имя"
         onChangeText={name => props.setName(name)}
       />
       <TextInput
         value={props.email}
-        style={[inputs.input, { paddingVertical: 10 }]}
+        style={StyleSheet.flatten([inputs.input, { paddingVertical: 10 }])}
         placeholder="Электронная почта"
         onChangeText={email => props.setEmail(email)}
       />
       <MaskInput
         value={props.phone}
-        style={[inputs.input, { paddingVertical: 10 }]}
+        style={StyleSheet.flatten([inputs.input, { paddingVertical: 10 }])}
         placeholder="Телефон"
         keyboardType="numeric"
         maxLength={16}
@@ -37,7 +37,7 @@ const RegisterScreen = props => {
       />
       <TextInput
         value={props.password}
-        style={[inputs.input, { paddingVertical: 10 }]}
+        style={StyleSheet.flatten([inputs.input, { paddingVertical: 10 }])}
         placeholder="Пароль"
         secureTextEntry={true}
         onChangeText={password => props.setPassword(password)}

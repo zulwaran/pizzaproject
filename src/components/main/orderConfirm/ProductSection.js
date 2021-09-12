@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, FlatList } from 'react-native'
+import { View, Text, FlatList, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
 
 //Components
@@ -20,7 +20,9 @@ const ProductSection = props => {
         keyExtractor={(item, index) => item.id.toString()}
         renderItem={({ item }) => <CartItem item={item} deleteItemFromCart={props.deleteItemFromCart} />}
       />
-      <Text style={[text.confirmSubtitle, { alignSelf: 'flex-start' }]}>= К оплате: {props.totalOrderSum} Р</Text>
+      <Text style={StyleSheet.flatten([text.confirmSubtitle, { alignSelf: 'flex-start' }])}>
+        = К оплате: {props.totalOrderSum} Р
+      </Text>
     </View>
   ) : null
 }

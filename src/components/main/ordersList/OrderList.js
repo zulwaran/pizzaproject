@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Text, TouchableOpacity, View, FlatList } from 'react-native'
+import { Text, TouchableOpacity, View, FlatList, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
 
 //Components
@@ -21,14 +21,7 @@ const OrderList = ({ item }) => {
   const [isActive, setIsActive] = useState(false)
   return (
     <TouchableOpacity onPress={() => setIsActive(!isActive)} style={container.OrderListItemContainer}>
-      <View
-        style={[
-          {
-            flexDirection: 'row',
-            marginBottom: 20
-          }
-        ]}
-      >
+      <View style={{ flexDirection: 'row', marginBottom: 20 }}>
         <View style={div.OrderListLeftSide}>
           <View style={div.OrderListInfoBlock}>
             <MaterialCommunityIcons style={images.icon} name="clock-time-four" color="#11bd0d" size={24} />
@@ -50,7 +43,7 @@ const OrderList = ({ item }) => {
         </View>
       </View>
       {item.comment ? <Text style={[{ marginBottom: 10 }, text.textSmall]}>Комментарий: {item.comment}</Text> : null}
-      <Text style={[text.textLarge, { marginBottom: 10 }]}>Стоимость заказа: {item.cost} ₽</Text>
+      <Text style={StyleSheet.flatten([text.textLarge, { marginBottom: 10 }])}>Стоимость заказа: {item.cost} ₽</Text>
       {isActive === true ? (
         <FlatList
           style={[{ marginBottom: 10 }]}

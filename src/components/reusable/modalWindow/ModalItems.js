@@ -1,5 +1,5 @@
 import React from 'react'
-import { TouchableOpacity, Text } from 'react-native'
+import { TouchableOpacity, Text, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
 
 //Styles
@@ -11,7 +11,7 @@ const ModalItems = props => {
     <TouchableOpacity
       style={
         props.item === props.deliveryDay || props.item === props.deliveryTime
-          ? [buttons.selectTimeButton, { backgroundColor: '#FFC000' }]
+          ? StyleSheet.flatten([buttons.selectTimeButton, { backgroundColor: '#FFC000' }])
           : buttons.selectTimeButton
       }
       onPress={() => {

@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
 
 const ValidationMessage = props => {
@@ -10,7 +10,9 @@ const ValidationMessage = props => {
       return (
         <View>
           {props.validation ? (
-            <Text style={[{ color: 'red', fontSize: 16, marginBottom: 30 }]}>{props.validation}</Text>
+            <Text style={StyleSheet.flatten([{ color: 'red', fontSize: 16, marginBottom: 30 }])}>
+              {props.validation}
+            </Text>
           ) : null}
         </View>
       )

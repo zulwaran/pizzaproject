@@ -1,8 +1,8 @@
 import { db } from '../../firebase'
-import { fetchCartAction } from '../reducers/actions/cartActions'
-import { fetchProductListAction, fetchSliederItemsAction } from '../reducers/actions/menuActions'
-import { getUserInfoAction } from '../reducers/actions/userActions'
-import { getOrderListAction } from '../reducers/actions/orderActions'
+import { fetchCartAction } from '../actions/cartActions'
+import { fetchProductListAction, fetchSliederItemsAction } from '../actions/menuActions'
+import { getUserInfoAction } from '../actions/userActions'
+import { getOrderListAction } from '../actions/orderActions'
 
 export const fetchUserInfo = async (dispatch, currentUser) => {
   const userRef = db.collection('users').doc(currentUser.uid)
