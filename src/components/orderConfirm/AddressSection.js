@@ -6,53 +6,50 @@ import PropTypes from 'prop-types'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
 //Styles
-import { container } from '../../../../assets/styles/container'
-import { images } from '../../../../assets/styles/images'
-import { inputs } from '../../../../assets/styles/inputs'
-import { text } from '../../../../assets/styles/text'
+import { OrderConfirmStyles } from './OrderConfirmStyles'
 
 const AddressSection = props => {
   return (
     <View>
-      <View style={container.subtitleContainer}>
-        <Ionicons style={images.icon} name="location-sharp" color="red" size={26} />
-        <Text style={text.confirmSubtitle}>Куда</Text>
+      <View style={OrderConfirmStyles.subtitleContainer}>
+        <Ionicons style={OrderConfirmStyles.icon} name="location-sharp" color="red" size={26} />
+        <Text style={OrderConfirmStyles.confirmSubtitle}>Куда</Text>
       </View>
-      <Text style={text.inputLabel}>Улица*</Text>
+      <Text style={OrderConfirmStyles.inputLabel}>Улица*</Text>
       <TextInput
         value={props.street}
-        style={inputs.input}
+        style={OrderConfirmStyles.input}
         onChangeText={props.setStreet}
         onBlur={props.setStateStreet}
       />
-      <Text style={text.inputLabel}>Дом*</Text>
+      <Text style={OrderConfirmStyles.inputLabel}>Дом*</Text>
       <TextInput
         value={props.home}
-        style={inputs.input}
+        style={OrderConfirmStyles.input}
         keyboardType="numeric"
         onChangeText={props.setHome}
         onBlur={props.setStateHome}
       />
-      <Text style={text.inputLabel}>Подъезд</Text>
+      <Text style={OrderConfirmStyles.inputLabel}>Подъезд</Text>
       <TextInput
         value={props.porch}
-        style={inputs.input}
+        style={OrderConfirmStyles.input}
         keyboardType="numeric"
         onChangeText={props.setPorch}
         onBlur={props.setStatePorch}
       />
-      <Text style={text.inputLabel}>Этаж</Text>
+      <Text style={OrderConfirmStyles.inputLabel}>Этаж</Text>
       <TextInput
         value={props.floor}
-        style={inputs.input}
+        style={OrderConfirmStyles.input}
         keyboardType="numeric"
         onChangeText={props.setFloor}
         onBlur={props.setStateFloor}
       />
-      <Text style={text.inputLabel}>Квартира</Text>
+      <Text style={OrderConfirmStyles.inputLabel}>Квартира</Text>
       <TextInput
         value={props.apartment}
-        style={inputs.input}
+        style={OrderConfirmStyles.input}
         keyboardType="numeric"
         onChangeText={props.setApartment}
         onBlur={props.setStateApartment}

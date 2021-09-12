@@ -11,6 +11,9 @@ import { AddItemToCart } from '../../../functions/Constructors'
 import { addItemToCartAction } from '../../../actions/cartActions'
 import { toggleMenuAction } from '../../../actions/menuActions'
 
+//Styles
+import { WHITE_COLOR } from '../../../../assets/styles/common.style'
+
 const MenuScreenContainer = () => {
   const dispatch = useDispatch()
   const activeType = useSelector(state => state.menu.activeType)
@@ -42,7 +45,7 @@ const MenuScreenContainer = () => {
   }
 
   return (
-    <ScrollView style={{ backgroundColor: '#fff', width: '100%' }}>
+    <ScrollView style={{ backgroundColor: WHITE_COLOR, width: '100%' }}>
       <FlatList
         style={[{ marginBottom: 30 }]}
         horizontal

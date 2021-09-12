@@ -9,16 +9,14 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import OrderConfirmSelectTime from './OrderConfirmSelectTime'
 
 //Styles
-import { container } from '../../../../assets/styles/container'
-import { images } from '../../../../assets/styles/images'
-import { text } from '../../../../assets/styles/text'
+import { OrderConfirmStyles } from './OrderConfirmStyles'
 
 const TimeSection = props => {
   return (
     <View>
-      <View style={container.subtitleContainer}>
-        <MaterialCommunityIcons style={images.icon} name="clock-time-four" color="#11bd0d" size={26} />
-        <Text style={text.confirmSubtitle}>Когда</Text>
+      <View style={OrderConfirmStyles.subtitleContainer}>
+        <MaterialCommunityIcons style={OrderConfirmStyles.icon} name="clock-time-four" color="#11bd0d" size={26} />
+        <Text style={OrderConfirmStyles.confirmSubtitle}>Когда</Text>
       </View>
       <OrderConfirmSelectTime
         deliveryType={props.deliveryType}

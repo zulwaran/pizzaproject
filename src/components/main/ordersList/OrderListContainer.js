@@ -6,10 +6,10 @@ import { useSelector } from 'react-redux'
 import firebase from 'firebase'
 
 //Components
-import EmptyFlatList from '../../reusable/EmptyFlatList'
+import EmptyFlatList from '../../reusable/EmptyFlatList/EmptyFlatList'
 import OrderList from './OrderList'
 import OrderListHead from './OrderListHead'
-import CustomButton from '../../reusable/CustomButton'
+import CustomButton from '../../reusable/CustomButton/CustomButton'
 
 const OrderListContainer = () => {
   const [toggleOrderStatus, setToggleOrderStatus] = useState('actual')

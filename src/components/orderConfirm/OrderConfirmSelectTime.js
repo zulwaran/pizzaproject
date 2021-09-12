@@ -1,14 +1,13 @@
 import React from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
+
 //Components
-import RadioButton from '../../reusable/RadioButton'
+import ModalContainer from '../reusable/modalWindow/ModalContainer'
+import RadioButton from '../reusable/RadioButton/RadioButton'
 
 //Styles
-import { text } from '../../../../assets/styles/text'
-import { inputs } from '../../../../assets/styles/inputs'
-import { buttons } from '../../../../assets/styles/buttons'
-import ModalContainer from '../../reusable/modalWindow/ModalContainer'
+import { OrderConfirmStyles } from './OrderConfirmStyles'
 
 const OrderConfirmSelectTime = props => {
   const type = {
@@ -18,36 +17,36 @@ const OrderConfirmSelectTime = props => {
   return (
     <View>
       <TouchableOpacity
-        style={buttons.radioButton}
+        style={OrderConfirmStyles.radioButton}
         onPress={() => {
           props.toggleDeliveryType(type.now)
         }}
       >
         <RadioButton type={type.now} radioType="delivery" />
-        <Text style={text.paymentType}>Как можно скорее</Text>
+        <Text style={OrderConfirmStyles.paymentType}>Как можно скорее</Text>
       </TouchableOpacity>
       {props.deliveryType === type.later ? (
-        <TouchableOpacity style={buttons.radioButton}>
+        <TouchableOpacity style={OrderConfirmStyles.radioButton}>
           <RadioButton type={type.later} radioType="delivery" deliveryType={props.deliveryType} />
           <Text
             onPress={() => props.toggleModal('date')}
-            style={StyleSheet.flatten([inputs.inptTime, { width: '60%' }])}
+            style={StyleSheet.flatten([OrderConfirmStyles.inptTime, { width: '60%' }])}
           >
             {props.deliveryDay}
           </Text>
-          <Text onPress={() => props.toggleModal('time')} style={inputs.inptTime}>
+          <Text onPress={() => props.toggleModal('time')} style={OrderConfirmStyles.inptTime}>
             {props.deliveryTime}
           </Text>
         </TouchableOpacity>
       ) : (
         <TouchableOpacity
-          style={buttons.radioButton}
+          style={OrderConfirmStyles.radioButton}
           onPress={() => {
             props.toggleDeliveryType(type.later)
           }}
         >
           <RadioButton type={type.later} radioType="delivery" />
-          <Text style={text.paymentType}>На точное время</Text>
+          <Text style={OrderConfirmStyles.paymentType}>На точное время</Text>
         </TouchableOpacity>
       )}
       <ModalContainer />

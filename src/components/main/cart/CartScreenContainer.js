@@ -4,14 +4,14 @@ import { useDispatch, useSelector } from 'react-redux'
 
 //Components
 import CartItem from './CartItem'
-import EmptyFlatList from '../../reusable/EmptyFlatList'
-import CustomButton from '../../reusable/CustomButton'
+import EmptyFlatList from '../../reusable/EmptyFlatList/EmptyFlatList'
+import CustomButton from '../../reusable/CustomButton/CustomButton'
 
 //Reducer
 import { deleteItemFromCartAction } from '../../../actions/cartActions'
 
 //Styles
-import { container } from '../../../../assets/styles/container'
+import { CartScreenStyles } from './CartScreenStyles'
 
 const CartScreenContainer = ({ navigation }) => {
   const dispatch = useDispatch()
@@ -25,7 +25,7 @@ const CartScreenContainer = ({ navigation }) => {
     return <EmptyFlatList type={'CartScreen'} />
   } else if (DATA.length > 0) {
     return (
-      <View style={container.cartContainer}>
+      <View style={CartScreenStyles.cartContainer}>
         <FlatList
           data={DATA}
           keyExtractor={(item, index) => index.toString()}

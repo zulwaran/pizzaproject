@@ -1,6 +1,9 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text } from 'react-native'
 import PropTypes from 'prop-types'
+
+//Styles
+import { ValidationMessageStyles } from './ValidationMessageStyles'
 
 const ValidationMessage = props => {
   switch (props.type) {
@@ -9,11 +12,7 @@ const ValidationMessage = props => {
     case 'Auth':
       return (
         <View>
-          {props.validation ? (
-            <Text style={StyleSheet.flatten([{ color: 'red', fontSize: 16, marginBottom: 30 }])}>
-              {props.validation}
-            </Text>
-          ) : null}
+          {props.validation ? <Text style={ValidationMessageStyles.errorMessage}>{props.validation}</Text> : null}
         </View>
       )
     default:

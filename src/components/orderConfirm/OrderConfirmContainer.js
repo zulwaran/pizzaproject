@@ -3,13 +3,13 @@ import { ScrollView } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 
 //Firebase DB
-import { db, firebase } from '../../../../firebase'
+import { db, firebase } from '../../../firebase'
 
 //Reducers & Functions
-import { deliveryDate } from '../../../functions/DateFunctions'
-import { Order } from '../../../functions/Constructors'
-import { openModalAction } from '../../../actions/modalActions'
-import { cartClearAction, deleteItemFromCartAction } from '../../../actions/cartActions'
+import { deliveryDate } from '../../functions/DateFunctions'
+import { Order } from '../../functions/Constructors'
+import { openModalAction } from '../../actions/modalActions'
+import { cartClearAction, deleteItemFromCartAction } from '../../actions/cartActions'
 import {
   addNewOrderAction,
   setApartmentAction,
@@ -20,7 +20,7 @@ import {
   setStreetAction,
   toggleDeliveryTypeAction,
   togglePaymentTypeAction
-} from '../../../actions/orderActions'
+} from '../../actions/orderActions'
 
 //Components
 import AddressSection from './AddressSection'
@@ -29,11 +29,8 @@ import UserInfo from './UserInfo'
 import CommentSection from './CommentSection'
 import PaymentTypeSection from './PaymentTypeSection'
 import ProductSection from './ProductSection'
-import CustomButton from '../../reusable/CustomButton'
-import ValidationMessage from '../../reusable/ValidationMessage'
-
-//Styles
-import { container } from '../../../../assets/styles/container'
+import CustomButton from '../reusable/CustomButton/CustomButton'
+import ValidationMessage from '../reusable/ValidationMessage/ValidationMessage'
 
 const OrderConfirmContainer = ({ navigation }) => {
   const dispatch = useDispatch()
@@ -133,7 +130,7 @@ const OrderConfirmContainer = ({ navigation }) => {
   }
 
   return (
-    <ScrollView style={container.confirmSectionContainer}>
+    <ScrollView>
       <AddressSection
         street={street}
         home={home}

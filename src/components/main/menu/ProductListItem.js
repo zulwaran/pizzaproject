@@ -6,42 +6,39 @@ import PropTypes from 'prop-types'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 
 //Components
-import CustomButton from '../../reusable/CustomButton'
+import CustomButton from '../../reusable/CustomButton/CustomButton'
 
 //Styles
-import { text } from '../../../../assets/styles/text'
-import { div } from '../../../../assets/styles/div'
-import { images } from '../../../../assets/styles/images'
-import { container } from '../../../../assets/styles/container'
+import { MenuScreenStyles } from './MenuScreenStyles'
 
 const ProductListItem = props => {
   const [isActive, setIsActive] = useState(false)
 
   if (props.item.type === props.productType) {
     return (
-      <View style={container.productContainer}>
-        <View style={div.productInfo}>
+      <View style={MenuScreenStyles.productContainer}>
+        <View style={MenuScreenStyles.productInfo}>
           <Image
-            style={images.productInfoImage}
+            style={MenuScreenStyles.productInfoImage}
             source={{
               uri: props.item.link
             }}
           />
-          <View style={div.productInfoRightHalf}>
+          <View style={MenuScreenStyles.productInfoRightHalf}>
             <View
               style={{
                 flexDirection: 'row',
                 justifyContent: 'space-between'
               }}
             >
-              <Text style={text.productTextTitle}>{props.item.title}</Text>
+              <Text style={MenuScreenStyles.productTextTitle}>{props.item.title}</Text>
               {isActive === true ? (
                 <TouchableOpacity style={[{ paddingRight: 20 }]} onPress={() => setIsActive(false)}>
                   <AntDesign name="closecircleo" color="red" size={26} />
                 </TouchableOpacity>
               ) : null}
             </View>
-            <Text style={text.productTextDecription}>{props.item.decription}</Text>
+            <Text style={MenuScreenStyles.productTextDecription}>{props.item.decription}</Text>
           </View>
         </View>
         <CustomButton

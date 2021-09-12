@@ -6,24 +6,23 @@ import PropTypes from 'prop-types'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 
 //Styles
-import { text } from '../../../../assets/styles/text'
-import { container } from '../../../../assets/styles/container'
-import { images } from '../../../../assets/styles/images'
-import { div } from '../../../../assets/styles/div'
+import { CartScreenStyles } from './CartScreenStyles'
 
 const CartItem = props => {
   return (
-    <View style={container.cartItemContainer}>
-      <View style={div.productInfo}>
+    <View>
+      <View style={CartScreenStyles.productInfo}>
         <Image
-          style={images.productInfoImage}
+          style={CartScreenStyles.productInfoImage}
           source={{
             uri: props.item.link
           }}
         />
-        <View style={div.productInfoRightHalf}>
+        <View style={CartScreenStyles.productInfoRightHalf}>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            <Text style={StyleSheet.flatten([text.productTextTitle, { marginBottom: 5 }])}>{props.item.title}</Text>
+            <Text style={StyleSheet.flatten([CartScreenStyles.productTextTitle, { marginBottom: 5 }])}>
+              {props.item.title}
+            </Text>
             {props.type === 'OrderList' ? null : (
               <TouchableOpacity
                 style={[{ paddingRight: 20 }]}
@@ -35,8 +34,8 @@ const CartItem = props => {
               </TouchableOpacity>
             )}
           </View>
-          <Text style={text.productTextDecription}>{props.item.decription}</Text>
-          <Text style={text.productPriceMedium}>{props.item.price} ₽</Text>
+          <Text style={CartScreenStyles.productTextDecription}>{props.item.decription}</Text>
+          <Text style={CartScreenStyles.productPriceMedium}>{props.item.price} ₽</Text>
         </View>
       </View>
     </View>

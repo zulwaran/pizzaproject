@@ -4,10 +4,7 @@ import { useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 
 //Styles
-import { buttons } from '../../../../assets/styles/buttons'
-import { container } from '../../../../assets/styles/container'
-import { images } from '../../../../assets/styles/images'
-import { text } from '../../../../assets/styles/text'
+import { OrderConfirmStyles } from './OrderConfirmStyles'
 
 const OrderConfirmAccepted = ({ route, navigation }) => {
   const { orderId } = route.params
@@ -16,28 +13,33 @@ const OrderConfirmAccepted = ({ route, navigation }) => {
   const deliveryTime = useSelector(state => state.order.deliveryTime)
 
   return (
-    <View style={container.orderAcceptedContainer}>
+    <View style={OrderConfirmStyles.orderAcceptedContainer}>
       <Image
-        style={images.orderConfirmImage}
+        style={OrderConfirmStyles.orderConfirmImage}
         source={{
           uri: 'https://pngimg.com/uploads/disco_ball/disco_ball_PNG2.png'
         }}
       />
       <View style={[{ alignItems: 'center' }]}>
-        <Text style={text.orderConfirmLargeText}>Ваш заказ принят!</Text>
+        <Text style={OrderConfirmStyles.orderConfirmLargeText}>Ваш заказ принят!</Text>
         {deliveryType === 'Ближайшее' ? (
-          <Text style={text.smallText}>Мы доставим ваш заказ как можно скорее</Text>
+          <Text style={OrderConfirmStyles.smallText}>Мы доставим ваш заказ как можно скорее</Text>
         ) : (
-          <Text style={text.smallText}>
+          <Text style={OrderConfirmStyles.smallText}>
             Мы доставим ваш заказ {deliveryDay} к {deliveryTime}
           </Text>
         )}
-        <Text style={text.smallText}>Заказ № {orderId}</Text>
+        <Text style={OrderConfirmStyles.smallText}>Заказ № {orderId}</Text>
       </View>
-      <TouchableOpacity style={buttons.redirectingButton} onPress={() => navigation.navigate('OrderListContainer')}>
+      <TouchableOpacity
+        style={OrderConfirmStyles.redirectingButton}
+        onPress={() => navigation.navigate('OrderListContainer')}
+      >
         <Text style={[{ fontSize: 16 }]}>Проверить статус заказа</Text>
       </TouchableOpacity>
-      <Text style={text.orderConfirmBottomText}>Если хотите изменить или отменить заказ, скорее звоните 999-999</Text>
+      <Text style={OrderConfirmStyles.orderConfirmBottomText}>
+        Если хотите изменить или отменить заказ, скорее звоните 999-999
+      </Text>
     </View>
   )
 }

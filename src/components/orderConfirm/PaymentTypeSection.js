@@ -3,12 +3,10 @@ import { View, TouchableOpacity, Text } from 'react-native'
 import PropTypes from 'prop-types'
 
 //Components
-import RadioButton from '../../reusable/RadioButton'
+import RadioButton from '../reusable/RadioButton/RadioButton'
 
 //Styles
-import { text } from '../../../../assets/styles/text'
-import { container } from '../../../../assets/styles/container'
-import { buttons } from '../../../../assets/styles/buttons'
+import { OrderConfirmStyles } from './OrderConfirmStyles'
 
 const PaymentTypeSection = props => {
   const type = {
@@ -17,26 +15,26 @@ const PaymentTypeSection = props => {
   }
   return (
     <View>
-      <View style={container.subtitleContainer}>
-        <Text style={text.confirmSubtitle}>Выберите вариант оплаты</Text>
+      <View style={OrderConfirmStyles.subtitleContainer}>
+        <Text style={OrderConfirmStyles.confirmSubtitle}>Выберите вариант оплаты</Text>
       </View>
       <TouchableOpacity
-        style={buttons.radioButton}
+        style={OrderConfirmStyles.radioButton}
         onPress={() => {
           props.togglePaymentType(type.cash)
         }}
       >
         <RadioButton type={type.cash} radioType="payment" paymentType={props.paymentType} />
-        <Text style={text.paymentType}>Наличными</Text>
+        <Text style={OrderConfirmStyles.paymentType}>Наличными</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        style={buttons.radioButton}
+        style={OrderConfirmStyles.radioButton}
         onPress={() => {
           props.togglePaymentType(type.card)
         }}
       >
         <RadioButton type={type.card} radioType="payment" paymentType={props.paymentType} />
-        <Text style={text.paymentType}>Картой при получении</Text>
+        <Text style={OrderConfirmStyles.paymentType}>Картой при получении</Text>
       </TouchableOpacity>
     </View>
   )

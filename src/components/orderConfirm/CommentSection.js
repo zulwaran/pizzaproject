@@ -6,21 +6,18 @@ import PropTypes from 'prop-types'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
 //Styles
-import { container } from '../../../../assets/styles/container'
-import { images } from '../../../../assets/styles/images'
-import { inputs } from '../../../../assets/styles/inputs'
-import { text } from '../../../../assets/styles/text'
+import { OrderConfirmStyles } from './OrderConfirmStyles'
 
 const CommentSection = props => {
   return (
     <View>
-      <View style={container.subtitleContainer}>
-        <MaterialCommunityIcons style={images.icon} name="microphone" color="#ff9711" size={30} />
-        <Text style={text.confirmSubtitle}>Комментарий</Text>
+      <View style={OrderConfirmStyles.subtitleContainer}>
+        <MaterialCommunityIcons style={OrderConfirmStyles.icon} name="microphone" color="#ff9711" size={30} />
+        <Text style={OrderConfirmStyles.confirmSubtitle}>Комментарий</Text>
       </View>
       <TextInput
         value={props.comment}
-        style={inputs.commentTextArea}
+        style={OrderConfirmStyles.commentTextArea}
         numberOfLines={4}
         multiline
         onChangeText={props.setComment}

@@ -8,15 +8,13 @@ import ModalItems from './ModalItems'
 import { fetchDate, fetchTime } from '../../../functions/DateFunctions'
 
 //Styles
-import { buttons } from '../../../../assets/styles/buttons'
-import { div } from '../../../../assets/styles/div'
-import { text } from '../../../../assets/styles/text'
+import { ModalStyles } from './ModalStyles'
 
 const ModalPopUp = props => {
   return (
     <Modal animationType="slide" transparent={true} visible={props.visibleModal}>
-      <View style={div.centeredView}>
-        <View style={div.modalView}>
+      <View style={ModalStyles.centeredView}>
+        <View style={ModalStyles.modalView}>
           <FlatList
             data={props.modalType === 'date' ? fetchDate() : fetchTime(props.deliveryDay)}
             showsVerticalScrollIndicator={false}
@@ -31,8 +29,8 @@ const ModalPopUp = props => {
               />
             )}
           />
-          <Pressable style={buttons.closeModalButton} onPress={() => props.closeModal()}>
-            <Text style={text.textLarge}>Готово</Text>
+          <Pressable style={ModalStyles.closeModalButton} onPress={() => props.closeModal()}>
+            <Text style={ModalStyles.textLarge}>Готово</Text>
           </Pressable>
         </View>
       </View>

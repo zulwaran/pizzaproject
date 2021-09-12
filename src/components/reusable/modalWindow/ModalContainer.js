@@ -1,8 +1,12 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { closeModalAction } from '../../../actions/modalActions'
-import { selectDeliveryDayAction, selectDeliveryTimeAction } from '../../../actions/orderActions'
+
+//Components
 import ModalPopUp from './ModalPopUp'
+
+//Actions
+import { selectDeliveryDayAction, selectDeliveryTimeAction } from '../../../actions/orderActions'
+import { closeModalAction } from '../../../actions/modalActions'
 
 const ModalContainer = () => {
   const dispatch = useDispatch()

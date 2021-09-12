@@ -3,9 +3,8 @@ import { Text, View, TouchableOpacity, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
 
 //Styles
-import { text } from '../../../assets/styles/text'
-import { buttons } from '../../../assets/styles/buttons'
-import { container } from '../../../assets/styles/container'
+import { CustomButtonStyles } from './CustomButtonStyles'
+import { WHITE_GRAY_COLOR } from '../../../../assets/styles/common.style'
 
 const CustomButton = props => {
   switch (props.type) {
@@ -15,47 +14,47 @@ const CustomButton = props => {
       return (
         <View>
           {props.isActive === true ? (
-            <View style={StyleSheet.flatten([container.priceContainer, { alignItems: 'center' }])}>
-              <View style={container.buttonCircleContainer}>
+            <View style={StyleSheet.flatten([CustomButtonStyles.priceContainer, { alignItems: 'center' }])}>
+              <View style={CustomButtonStyles.buttonCircleContainer}>
                 <TouchableOpacity
-                  style={StyleSheet.flatten([{ width: 50, height: 50 }, buttons.buttonCircle])}
+                  style={StyleSheet.flatten([{ width: 50, height: 50 }, CustomButtonStyles.buttonCircle])}
                   onPress={() => {
                     props.addItemToCart(props.item, '25 см')
                   }}
                 >
                   <Text>25см</Text>
                 </TouchableOpacity>
-                <Text style={text.productPriceSmall}>{props.item.smallPrice} ₽</Text>
+                <Text style={CustomButtonStyles.productPriceSmall}>{props.item.smallPrice} ₽</Text>
               </View>
-              <View style={container.buttonCircleContainer}>
+              <View style={CustomButtonStyles.buttonCircleContainer}>
                 <TouchableOpacity
-                  style={StyleSheet.flatten([{ width: 60, height: 60 }, buttons.buttonCircle])}
+                  style={StyleSheet.flatten([{ width: 60, height: 60 }, CustomButtonStyles.buttonCircle])}
                   onPress={() => {
                     props.addItemToCart(props.item, '30 см')
                   }}
                 >
                   <Text>30см</Text>
                 </TouchableOpacity>
-                <Text style={text.productPriceSmall}>{props.item.mediumPrice} ₽</Text>
+                <Text style={CustomButtonStyles.productPriceSmall}>{props.item.mediumPrice} ₽</Text>
               </View>
-              <View style={container.buttonCircleContainer}>
+              <View style={CustomButtonStyles.buttonCircleContainer}>
                 <TouchableOpacity
-                  style={StyleSheet.flatten([{ width: 70, height: 70 }, buttons.buttonCircle])}
+                  style={StyleSheet.flatten([{ width: 70, height: 70 }, CustomButtonStyles.buttonCircle])}
                   onPress={() => {
                     props.addItemToCart(props.item, '35 см')
                   }}
                 >
                   <Text>35см</Text>
                 </TouchableOpacity>
-                <Text style={text.productPriceSmall}>{props.item.largePrice} ₽</Text>
+                <Text style={CustomButtonStyles.productPriceSmall}>{props.item.largePrice} ₽</Text>
               </View>
             </View>
           ) : (
-            <View style={container.priceContainer}>
-              <Text style={text.productPriceSmall}>
-                от <Text style={text.productPriceMedium}>{props.item.smallPrice}</Text> ₽
+            <View style={CustomButtonStyles.priceContainer}>
+              <Text style={CustomButtonStyles.productPriceSmall}>
+                от <Text style={CustomButtonStyles.productPriceMedium}>{props.item.smallPrice}</Text> ₽
               </Text>
-              <TouchableOpacity style={buttons.select__button} onPress={() => props.setIsActive(true)}>
+              <TouchableOpacity style={CustomButtonStyles.selectButton} onPress={() => props.setIsActive(true)}>
                 <Text>Выбрать</Text>
               </TouchableOpacity>
             </View>
@@ -65,11 +64,16 @@ const CustomButton = props => {
     case 'pasta':
     case 'snacks':
       return (
-        <View style={container.priceContainer}>
-          <Text style={StyleSheet.flatten([text.productPriceMedium, { alignSelf: 'center', marginRight: 15 }])}>
+        <View style={CustomButtonStyles.priceContainer}>
+          <Text
+            style={StyleSheet.flatten([
+              CustomButtonStyles.productPriceMedium,
+              { alignSelf: 'center', marginRight: 15 }
+            ])}
+          >
             {props.item.price} ₽
           </Text>
-          <TouchableOpacity style={buttons.select__button} onPress={() => props.addItemToCart(props.item)}>
+          <TouchableOpacity style={CustomButtonStyles.selectButton} onPress={() => props.addItemToCart(props.item)}>
             <Text>Добавить</Text>
           </TouchableOpacity>
         </View>
@@ -80,17 +84,19 @@ const CustomButton = props => {
           disabled={props.totalOrderSum < 350 ? true : false}
           style={
             props.totalOrderSum < 350
-              ? StyleSheet.flatten([buttons.cart__button, { backgroundColor: '#767976' }])
-              : buttons.cart__button
+              ? StyleSheet.flatten([CustomButtonStyles.cartButton, { backgroundColor: WHITE_GRAY_COLOR }])
+              : CustomButtonStyles.cartButton
           }
           onPress={() => props.navigation.navigate('OrderConfirmContainer')}
         >
           {props.totalOrderSum < 350 ? (
-            <Text style={StyleSheet.flatten([text.cartTextbutton, { fontSize: 18, textAlign: 'center' }])}>
+            <Text
+              style={StyleSheet.flatten([CustomButtonStyles.cartTextButton, { fontSize: 18, textAlign: 'center' }])}
+            >
               Сумма заказа должна быть не менее 350 ₽
             </Text>
           ) : (
-            <Text style={text.cartTextbutton}>{props.totalOrderSum} ₽ Оформить заказ</Text>
+            <Text style={CustomButtonStyles.cartTextButton}>{props.totalOrderSum} ₽ Оформить заказ</Text>
           )}
         </TouchableOpacity>
       )
@@ -100,26 +106,31 @@ const CustomButton = props => {
           disabled={props.totalOrderSum < 350 ? true : false}
           style={
             props.totalOrderSum < 350
-              ? StyleSheet.flatten([buttons.confirm__button, { backgroundColor: '#767976' }])
-              : buttons.confirm__button
+              ? StyleSheet.flatten([CustomButtonStyles.confirmButton, { backgroundColor: WHITE_GRAY_COLOR }])
+              : CustomButtonStyles.confirmButton
           }
           onPress={() => {
             props.createOrder(props.productList)
           }}
         >
           {props.totalOrderSum < 350 ? (
-            <Text style={StyleSheet.flatten([text.confirmOrderButtonText, { fontSize: 18, textAlign: 'center' }])}>
+            <Text
+              style={StyleSheet.flatten([
+                CustomButtonStyles.confirmOrderButtonText,
+                { fontSize: 18, textAlign: 'center' }
+              ])}
+            >
               Сумма заказа должна быть не менее 350 Р
             </Text>
           ) : (
-            <Text style={text.confirmOrderButtonText}>Оформить заказ →</Text>
+            <Text style={CustomButtonStyles.confirmOrderButtonText}>Оформить заказ →</Text>
           )}
         </TouchableOpacity>
       )
     case 'LogOutButton':
       return (
-        <TouchableOpacity style={buttons.confirm__button} onPress={() => props.logOut()}>
-          <Text style={text.exitButtonText}>Выйти из профиля</Text>
+        <TouchableOpacity style={CustomButtonStyles.confirmButton} onPress={() => props.logOut()}>
+          <Text style={CustomButtonStyles.exitButtonText}>Выйти из профиля</Text>
         </TouchableOpacity>
       )
     default:

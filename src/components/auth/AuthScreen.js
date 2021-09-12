@@ -3,35 +3,32 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-nativ
 import PropTypes from 'prop-types'
 
 //Styles
-import { buttons } from '../../../assets/styles/buttons'
-import { container } from '../../../assets/styles/container'
-import { inputs } from '../../../assets/styles/inputs'
-import { text } from '../../../assets/styles/text'
+import { AuthStyles } from './AuthStyles'
 
 //Components
-import ValidationMessage from '../reusable/ValidationMessage'
+import ValidationMessage from '../reusable/ValidationMessage/ValidationMessage'
 
 const AuthScreen = props => {
   return (
-    <View style={container.authContainer}>
+    <View style={AuthStyles.authContainer}>
       <TextInput
         value={props.email}
-        style={StyleSheet.flatten([inputs.input, { paddingVertical: 10 }])}
+        style={StyleSheet.flatten([AuthStyles.input, { paddingVertical: 10 }])}
         placeholder="Электронная почта"
         onChangeText={email => props.setEmail(email)}
       />
       <TextInput
         value={props.password}
-        style={StyleSheet.flatten([inputs.input, { paddingVertical: 10 }])}
+        style={StyleSheet.flatten([AuthStyles.input, { paddingVertical: 10 }])}
         placeholder="Пароль"
         secureTextEntry={true}
         onChangeText={password => props.setPassword(password)}
       />
       <ValidationMessage type={'Auth'} validation={props.error} />
-      <TouchableOpacity style={buttons.authButton} onPress={() => props.signUp()}>
-        <Text style={text.textSmall}>Вход</Text>
+      <TouchableOpacity style={AuthStyles.authButton} onPress={() => props.signUp()}>
+        <Text style={AuthStyles.textSmall}>Вход</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={buttons.authButton} onPress={() => props.navigation.navigate('RegisterContainer')}>
+      <TouchableOpacity style={AuthStyles.authButton} onPress={() => props.navigation.navigate('RegisterContainer')}>
         <Text style={[{ fontSize: 18 }]}>Регистрация</Text>
       </TouchableOpacity>
     </View>

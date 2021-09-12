@@ -25,8 +25,11 @@ import AuthContainer from './src/components/auth/AuthContainer'
 import RegisterContainer from './src/components/auth/RegisterContainer'
 import Main from './src/components/Main'
 import Header from './src/components/Header'
-import OrderConfirmContainer from './src/components/main/orderConfirm/OrderConfirmContainer'
-import OrderConfirmAccepted from './src/components/main/orderConfirm/OrderConfirmAccepted'
+import OrderConfirmContainer from './src/components/orderConfirm/OrderConfirmContainer'
+import OrderConfirmAccepted from './src/components/orderConfirm/OrderConfirmAccepted'
+
+//Styles
+import { BLACK_COLOR, PRIMARY_COLOR } from './assets/styles/common.style'
 
 const App = () => {
   const [isLoaded, setIsLoaded] = useState(false)
@@ -58,9 +61,9 @@ const App = () => {
           initialRouteName="AuthContainer"
           screenOptions={{
             headerStyle: {
-              backgroundColor: '#ffc000'
+              backgroundColor: PRIMARY_COLOR
             },
-            headerTintColor: '#000'
+            headerTintColor: BLACK_COLOR
           }}
         >
           <Stack.Screen
@@ -88,9 +91,9 @@ const App = () => {
             initialRouteName="Main"
             screenOptions={{
               headerStyle: {
-                backgroundColor: '#ffc000'
+                backgroundColor: PRIMARY_COLOR
               },
-              headerTintColor: '#000'
+              headerTintColor: BLACK_COLOR
             }}
           >
             <Stack.Screen
